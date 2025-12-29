@@ -25,13 +25,13 @@
 # Hugo converts "Know The Better" -> "know-the-better"
 [[main]]
   name = "Know the Better"
-  url = "/tags/know-the-better/"
+  pageRef = "/tags/know-the-better/"
   weight = 30
 
 # FIX 2: Assuming MindSecSet is also a tag or category
 [[main]]
   name = "MindSecSet"
-  url = "/tags/mindsecset/"
+  pageRef = "/tags/mindsecset/"
   weight = 40
 
 [[main]]
