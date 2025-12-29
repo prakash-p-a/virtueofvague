@@ -10,6 +10,8 @@ baseURL = "https://virtueofvague.com/"
 disablePathToLower = true
 languageCode = "en-us"
 title = "Virtue Of Vague"
+canonifyURLs = true
+relativeURLs = false
 
 [article]
   showHero= true 
