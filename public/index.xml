@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virtue Of Vague</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Virtue Of Vague</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>prakashpayyanagoudar@gmail.com (Virtue of Vague)</managingEditor>
+    <webMaster>prakashpayyanagoudar@gmail.com (Virtue of Vague)</webMaster>
+    <copyright>© 2025 Virtue of Vague</copyright>
+    <lastBuildDate>Thu, 25 Dec 2025 12:30:30 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>The happiness of Heart</title>
+      <link>http://localhost:1313/posts/the-happiness-of-heart/</link>
+      <pubDate>Thu, 25 Dec 2025 12:30:30 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/the-happiness-of-heart/</guid>
+      <description>Happiness.
+For decades, we’ve chased it like something lost, something to discover out there in the world.
+But true happiness isn’t found. It’s built. And it can only be built by us especially from within.
+We can’t force it by constantly thinking about it. Instead, we stay happy by choosing a lifestyle of happiness: That is quietly eliminating toxic thoughts that create toxic realities.
+When we let go of negativity, space opens for peace.
+</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/the-happiness-of-heart/featured.png" />
+    </item>
+    
+    <item>
+      <title>Hello, :)</title>
+      <link>http://localhost:1313/posts/welcome_to_knowthebetter/</link>
+      <pubDate>Wed, 24 Dec 2025 16:09:49 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/welcome_to_knowthebetter/</guid>
+      <description>Welcome to Know The Better</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_knowthebetter/featured.png" />
+    </item>
+    
+    <item>
+      <title>Hope in the Hopelessness</title>
+      <link>http://localhost:1313/posts/hope-in-the-hope-less-ness/</link>
+      <pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/hope-in-the-hope-less-ness/</guid>
+      <description>Hope is that quiet force giving us a reason to live,
+to laugh,
+to love,
+to stay happy, even when everything feels heavy.
+For a beggar, hope is the key to facing another day.
+For a patient, it’s the strength to hold on for tomorrow.
+One of my favorite stories about hope:
+All the villagers gathered to pray for rain after a long drought. Everyone came empty-handed… except one boy who brought an umbrella.
+</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/hope-in-the-hope-less-ness/featured.png" />
+    </item>
+    
+    <item>
+      <title>Powerful Positivity</title>
+      <link>http://localhost:1313/posts/powerful-positivity/</link>
+      <pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/powerful-positivity/</guid>
+      <description>Most of the time,
+“The problem is not a problem, it is how we see the problem that is the problem.”
+The solution always lies within us. A positive mind, a soul with positive vibes, can transform any challenge.
+Remember:
+“A positive mind has a solution for every problem, but a negative mind has a problem with every solution.”
+A single positive thought creates a positive frequency.
+It builds an aura of calm and possibility, leading to a truly positive mind.
+</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/powerful-positivity/featured.png" />
+    </item>
+    
+    <item>
+      <title>Hello, :)</title>
+      <link>http://localhost:1313/posts/welcome_to_mindsecset/</link>
+      <pubDate>Tue, 23 Dec 2025 20:50:14 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/welcome_to_mindsecset/</guid>
+      <description>Welcome to MindSecSet!!</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_mindsecset/featured.png" />
+    </item>
+    
+    <item>
+      <title>About Virtue of Vague</title>
+      <link>http://localhost:1313/posts/about/</link>
+      <pubDate>Sat, 20 Dec 2025 20:50:15 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/about/</guid>
+      <description>Hi, I’m Prakash Ayyanagoudar.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

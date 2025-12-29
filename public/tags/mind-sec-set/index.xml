@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mind Sec Set!! on Virtue Of Vague</title>
+    <link>//localhost:1313/tags/mind-sec-set/</link>
+    <description>Recent content in Mind Sec Set!! on Virtue Of Vague</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>prakashpayyanagoudar@gmail.com (Prakash Ayyanagoudar)</managingEditor>
+    <webMaster>prakashpayyanagoudar@gmail.com (Prakash Ayyanagoudar)</webMaster>
+    <copyright>&amp;Copy: 2025 </copyright>
+    <lastBuildDate>Tue, 23 Dec 2025 20:50:14 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/mind-sec-set/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hello, :)</title>
+      <link>//localhost:1313/posts/welcome_to_mindsecset/</link>
+      <pubDate>Tue, 23 Dec 2025 20:50:14 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Prakash Ayyanagoudar)</author>
+      <guid>//localhost:1313/posts/welcome_to_mindsecset/</guid>
+      <description>Welcome to MindSecSet!!</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="//localhost:1313/posts/welcome_to_mindsecset/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,11 @@
+/* Force the hero image inside articles to be fully visible (not cropped) */
+/* We use !important to override the theme's default settings */
+
+.article-header img, 
+.hero-image-container img {
+    object-fit: contain !important;
+    /* Optional settings below to make it look neater */
+    width: auto !important;  /* Ensures it doesn't stretch horizontally */
+    max-height: 70vh;        /* Limits height so tall images don't fill the whole screen */
+    margin: 0 auto;          /* Centers the image horizontally */
+}

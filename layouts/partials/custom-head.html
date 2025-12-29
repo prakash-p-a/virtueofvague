@@ -1,0 +1,83 @@
+<style>
+#stars-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #000;
+}
+body {
+    background: transparent !important;
+}
+</style>
+
+<canvas id="stars-canvas"></canvas>
+
+<script>
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+const numStars = 400; // more for density like Grok
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+function createStar() {
+    return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 1.2 + 0.3, // tiny dots
+        speedX: Math.random() * 0.3 - 0.15, // slow horizontal drift
+        speedY: Math.random() * 0.2 - 0.1,  // subtle vertical
+        opacity: Math.random() * 0.6 + 0.4,
+        twinkleSpeed: Math.random() * 0.02 + 0.01
+    };
+}
+
+function initStars() {
+    stars = [];
+    for (let i = 0; i < numStars; i++) {
+        stars.push(createStar());
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // no trails — clean each frame
+
+    stars.forEach(star => {
+        // twinkle
+        star.opacity += star.twinkleSpeed;
+        if (star.opacity > 1 || star.opacity < 0.4) star.twinkleSpeed *= -1;
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+
+        // slow drift
+        star.x += star.speedX;
+        star.y += star.speedY;
+
+        // wrap around edges
+        if (star.x < 0) star.x = canvas.width;
+        if (star.x > canvas.width) star.x = 0;
+        if (star.y < 0) star.y = canvas.height;
+        if (star.y > canvas.height) star.y = 0;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+resizeCanvas();
+initStars();
+animate();
+
+window.addEventListener('resize', () => {
+    resizeCanvas();
+    initStars();
+});
+</script>
