@@ -3,10 +3,10 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish" # UNCOMMENT THIS LINE
-baseURL = "https://virtueofvague.com/"
+# baseURL = "https://virtueofvague.com/"
 defaultContentLanguage = "en"
 
-baseURL = "https://virtueofvague.com/"
+# baseURL = "https://virtueofvague.com/"
 disablePathToLower = true
 languageCode = "en-us"
 title = "Virtue Of Vague"
