@@ -1,83 +1,135 @@
 <style>
-#stars-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: #000;
-}
-body {
-    background: transparent !important;
-}
+    /* --- STARS BACKGROUND CSS --- */
+    #stars-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: #000;
+    }
+
+    body {
+        background: transparent !important;
+    }
+
+    /* --- CUSTOM CURSOR CSS --- */
+    /* Hide the real cursor */
+    html, body, a, button {
+        cursor: none !important;
+    }
+
+    #custom-cursor {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        mix-blend-mode: difference; /* This makes it look cool over stars */
+        transition: transform 0.2s ease-out;
+    }
+
+    /* Cursor grows when hovering over links/buttons */
+    .cursor-hover {
+        transform: scale(4);
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: 0.5px solid rgba(255, 255, 255, 0.5);
+    }
 </style>
 
 <canvas id="stars-canvas"></canvas>
+<div id="custom-cursor"></div>
 
 <script>
-const canvas = document.getElementById('stars-canvas');
-const ctx = canvas.getContext('2d');
-let stars = [];
-const numStars = 400; // more for density like Grok
+    /* --- STARS LOGIC --- */
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 400;
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-function createStar() {
-    return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 1.2 + 0.3, // tiny dots
-        speedX: Math.random() * 0.3 - 0.15, // slow horizontal drift
-        speedY: Math.random() * 0.2 - 0.1,  // subtle vertical
-        opacity: Math.random() * 0.6 + 0.4,
-        twinkleSpeed: Math.random() * 0.02 + 0.01
-    };
-}
-
-function initStars() {
-    stars = [];
-    for (let i = 0; i < numStars; i++) {
-        stars.push(createStar());
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-}
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // no trails — clean each frame
+    function createStar() {
+        return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 1.2 + 0.3,
+            speedX: Math.random() * 0.3 - 0.15,
+            speedY: Math.random() * 0.2 - 0.1,
+            opacity: Math.random() * 0.6 + 0.4,
+            twinkleSpeed: Math.random() * 0.02 + 0.01
+        };
+    }
 
-    stars.forEach(star => {
-        // twinkle
-        star.opacity += star.twinkleSpeed;
-        if (star.opacity > 1 || star.opacity < 0.4) star.twinkleSpeed *= -1;
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push(createStar());
+        }
+    }
 
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        ctx.fill();
+    /* --- CURSOR LOGIC --- */
+    const cursor = document.getElementById('custom-cursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
 
-        // slow drift
-        star.x += star.speedX;
-        star.y += star.speedY;
-
-        // wrap around edges
-        if (star.x < 0) star.x = canvas.width;
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y < 0) star.y = canvas.height;
-        if (star.y > canvas.height) star.y = 0;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
     });
 
-    requestAnimationFrame(animate);
-}
+    /* --- COMBINED ANIMATION LOOP --- */
+    function animate() {
+        // 1. Draw Stars
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+            star.opacity += star.twinkleSpeed;
+            if (star.opacity > 1 || star.opacity < 0.4) star.twinkleSpeed *= -1;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fill();
+            star.x += star.speedX;
+            star.y += star.speedY;
+            if (star.x < 0) star.x = canvas.width;
+            if (star.x > canvas.width) star.x = 0;
+            if (star.y < 0) star.y = canvas.height;
+            if (star.y > canvas.height) star.y = 0;
+        });
 
-resizeCanvas();
-initStars();
-animate();
+        // 2. Move Cursor (Smooth Lerp)
+        let distX = mouseX - cursorX;
+        let distY = mouseY - cursorY;
+        cursorX = cursorX + (distX * 0.15);
+        cursorY = cursorY + (distY * 0.15);
+        cursor.style.left = cursorX - (cursor.offsetWidth / 2) + 'px';
+        cursor.style.top = cursorY - (cursor.offsetHeight / 2) + 'px';
 
-window.addEventListener('resize', () => {
+        requestAnimationFrame(animate);
+    }
+
+    // Hover effects for links
+    function initHover() {
+        const links = document.querySelectorAll('a, button, .cursor-pointer');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+            link.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+        });
+    }
+
     resizeCanvas();
     initStars();
-});
+    animate();
+    initHover();
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initStars();
+    });
 </script>
