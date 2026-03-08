@@ -55,7 +55,6 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [homepage]
   layout = "background"
-  layoutBackgroundBlur = true
   showRecent = true
   showRecentItems = 10
   cardView = true  # adds small thumbnails in list
