@@ -14,29 +14,36 @@
         background: transparent !important;
     }
 
-    /* --- CUSTOM CURSOR CSS --- */
-    /* Hide the real cursor */
+    /* --- CUSTOM COMET CURSOR CSS --- */
     html, body, a, button {
-        cursor: none !important;
+        cursor: none !important; /* Hide real cursor */
     }
 
     #custom-cursor {
         position: fixed;
-        width: 10px;
-        height: 10px;
-        background: rgba(255, 255, 255, 0.9);
+        width: 8px;
+        height: 8px;
+        background: #fff;
         border-radius: 50%;
         pointer-events: none;
         z-index: 99999;
-        mix-blend-mode: difference; /* This makes it look cool over stars */
-        transition: transform 0.2s ease-out;
+        box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.9); /* Comet Head Glow */
     }
 
-    /* Cursor grows when hovering over links/buttons */
+    /* Style for the fading tail particles */
+    .comet-particle {
+        position: fixed;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99998;
+        filter: blur(1px);
+    }
+
+    /* Grow effect on hover */
     .cursor-hover {
-        transform: scale(4);
-        background: rgba(255, 255, 255, 0.2) !important;
-        border: 0.5px solid rgba(255, 255, 255, 0.5);
+        transform: scale(3);
+        background: rgba(255, 255, 255, 0.3) !important;
     }
 </style>
 
@@ -44,12 +51,18 @@
 <div id="custom-cursor"></div>
 
 <script>
-    /* --- STARS LOGIC --- */
+    /* --- SHARED VARIABLES --- */
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
+    const cursor = document.getElementById('custom-cursor');
+    
     let stars = [];
     const numStars = 400;
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
 
+    /* --- STARS LOGIC --- */
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -74,17 +87,47 @@
         }
     }
 
-    /* --- CURSOR LOGIC --- */
-    const cursor = document.getElementById('custom-cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+    /* --- COMET TAIL LOGIC --- */
+    function createTailParticle(x, y) {
+        const particle = document.createElement('div');
+        particle.className = 'comet-particle';
+        
+        // Randomize trail particle size slightly
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        document.body.appendChild(particle);
 
+        // Animate the "fading away"
+        let opacity = 0.6;
+        let scale = 1;
+        
+        const fadeEffect = setInterval(() => {
+            opacity -= 0.05;
+            scale -= 0.05;
+            particle.style.opacity = opacity;
+            particle.style.transform = `scale(${scale})`;
+            
+            if (opacity <= 0) {
+                clearInterval(fadeEffect);
+                particle.remove();
+            }
+        }, 30); // Speed of the fade
+    }
+
+    /* --- INPUT TRACKING --- */
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        // Create a particle at the current mouse position
+        createTailParticle(e.clientX, e.clientY);
     });
 
-    /* --- COMBINED ANIMATION LOOP --- */
+    /* --- ANIMATION LOOP --- */
     function animate() {
         // 1. Draw Stars
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -96,40 +139,4 @@
             ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
             ctx.fill();
             star.x += star.speedX;
-            star.y += star.speedY;
-            if (star.x < 0) star.x = canvas.width;
-            if (star.x > canvas.width) star.x = 0;
-            if (star.y < 0) star.y = canvas.height;
-            if (star.y > canvas.height) star.y = 0;
-        });
-
-        // 2. Move Cursor (Smooth Lerp)
-        let distX = mouseX - cursorX;
-        let distY = mouseY - cursorY;
-        cursorX = cursorX + (distX * 0.15);
-        cursorY = cursorY + (distY * 0.15);
-        cursor.style.left = cursorX - (cursor.offsetWidth / 2) + 'px';
-        cursor.style.top = cursorY - (cursor.offsetHeight / 2) + 'px';
-
-        requestAnimationFrame(animate);
-    }
-
-    // Hover effects for links
-    function initHover() {
-        const links = document.querySelectorAll('a, button, .cursor-pointer');
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-            link.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-        });
-    }
-
-    resizeCanvas();
-    initStars();
-    animate();
-    initHover();
-
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initStars();
-    });
-</script>
+            star
