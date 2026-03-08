@@ -237,7 +237,9 @@
 
   
   
-    <style>
+    <link rel="icon" type="image/png" href="https://virtueofvague.com/favicon.png?v=5">
+
+<style>
      
     #stars-canvas {
         position: fixed;
@@ -248,34 +250,35 @@
         z-index: -1;
         background: #000;
     }
-
-    body {
-        background: transparent !important;
-    }
+    body { background: transparent !important; }
 
      
-     
-    html, body, a, button {
-        cursor: none !important;
-    }
+    html, body, a, button { cursor: none !important; }
 
     #custom-cursor {
         position: fixed;
-        width: 10px;
-        height: 10px;
-        background: rgba(255, 255, 255, 0.9);
+        width: 8px;
+        height: 8px;
+        background: #fff;
         border-radius: 50%;
         pointer-events: none;
         z-index: 99999;
-        mix-blend-mode: difference;  
-        transition: transform 0.2s ease-out;
+        box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.9);
     }
 
-     
+    .comet-particle {
+        position: fixed;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99998;
+        filter: blur(1px);
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    }
+
     .cursor-hover {
-        transform: scale(4);
-        background: rgba(255, 255, 255, 0.2) !important;
-        border: 0.5px solid rgba(255, 255, 255, 0.5);
+        transform: scale(3);
+        background: rgba(255, 255, 255, 0.3) !important;
     }
 </style>
 
@@ -283,94 +286,85 @@
 <div id="custom-cursor"></div>
 
 <script>
-     
+(function() {
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
+    const cursor = document.getElementById('custom-cursor');
+    
     let stars = [];
-    const numStars = 400;
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
 
-    function resizeCanvas() {
+    function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
-    function createStar() {
-        return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 1.2 + 0.3,
-            speedX: Math.random() * 0.3 - 0.15,
-            speedY: Math.random() * 0.2 - 0.1,
-            opacity: Math.random() * 0.6 + 0.4,
-            twinkleSpeed: Math.random() * 0.02 + 0.01
-        };
-    }
-
-    function initStars() {
+    function init() {
         stars = [];
-        for (let i = 0; i < numStars; i++) {
-            stars.push(createStar());
+        for (let i = 0; i < 400; i++) {
+            stars.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 1.2 + 0.3,
+                speedX: Math.random() * 0.3 - 0.15,
+                speedY: Math.random() * 0.2 - 0.1,
+                opacity: Math.random() * 0.6 + 0.4,
+                twinkle: Math.random() * 0.02 + 0.01
+            });
         }
     }
 
-     
-    const cursor = document.getElementById('custom-cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+    function createParticle(x, y) {
+        const p = document.createElement('div');
+        p.className = 'comet-particle';
+        const size = Math.random() * 4 + 2;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        document.body.appendChild(p);
+        
+        setTimeout(() => {
+            p.style.opacity = '0';
+            p.style.transform = 'scale(0.1)';
+        }, 10);
+        setTimeout(() => p.remove(), 400);
+    }
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        createParticle(e.clientX, e.clientY);
     });
 
-     
-    function animate() {
-        
+    function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(star => {
-            star.opacity += star.twinkleSpeed;
-            if (star.opacity > 1 || star.opacity < 0.4) star.twinkleSpeed *= -1;
+        stars.forEach(s => {
+            s.opacity += s.twinkle;
+            if (s.opacity > 1 || s.opacity < 0.4) s.twinkle *= -1;
             ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
             ctx.fill();
-            star.x += star.speedX;
-            star.y += star.speedY;
-            if (star.x < 0) star.x = canvas.width;
-            if (star.x > canvas.width) star.x = 0;
-            if (star.y < 0) star.y = canvas.height;
-            if (star.y > canvas.height) star.y = 0;
+            s.x += s.speedX; s.y += s.speedY;
+            if (s.x < 0) s.x = canvas.width; if (s.x > canvas.width) s.x = 0;
+            if (s.y < 0) s.y = canvas.height; if (s.y > canvas.height) s.y = 0;
         });
 
+        cursorX += (mouseX - cursorX) * 0.2;
+        cursorY += (mouseY - cursorY) * 0.2;
+        cursor.style.left = (cursorX - 4) + 'px';
+        cursor.style.top = (cursorY - 4) + 'px';
         
-        let distX = mouseX - cursorX;
-        let distY = mouseY - cursorY;
-        cursorX = cursorX + (distX * 0.15);
-        cursorY = cursorY + (distY * 0.15);
-        cursor.style.left = cursorX - (cursor.offsetWidth / 2) + 'px';
-        cursor.style.top = cursorY - (cursor.offsetHeight / 2) + 'px';
-
-        requestAnimationFrame(animate);
+        requestAnimationFrame(loop);
     }
 
-    
-    function initHover() {
-        const links = document.querySelectorAll('a, button, .cursor-pointer');
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-            link.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-        });
-    }
-
-    resizeCanvas();
-    initStars();
-    animate();
-    initHover();
-
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initStars();
-    });
+    resize();
+    init();
+    loop();
+    window.addEventListener('resize', () => { resize(); init(); });
+})();
 </script>
   
 
@@ -1014,6 +1008,46 @@
 
   
   
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/categories/Know-The-Better/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Know the Better
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/tags/KnowTheBetter/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    KnowTheBetter
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
 
   
   
@@ -1162,6 +1196,46 @@
   
 
   
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/categories/Know-The-Better/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Know the Better
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/tags/KnowTheBetter/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    KnowTheBetter
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
   
 
   
@@ -1316,6 +1390,46 @@
 
   
   
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/categories/Know-The-Better/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Know the Better
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/tags/KnowTheBetter/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    KnowTheBetter
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
 
   
   
@@ -1464,6 +1578,46 @@
   
 
   
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/categories/Know-The-Better/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Know the Better
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="https://virtueofvague.com/tags/KnowTheBetter/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    KnowTheBetter
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
   
 
   
