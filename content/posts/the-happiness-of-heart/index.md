@@ -1,9 +1,6 @@
 +++
-categories = ["Know The Better"]
 date = 2025-12-25T12:30:30Z
-description = ""
 draft = false
-image = "__GHOST_URL__/content/images/2025/12/ChatGPT-Image-Dec-25--2025--03_18_59-PM.png"
 slug = "the-happiness-of-heart"
 tags = ["KnowTheBetter"]
 title = "The happiness of Heart"
@@ -32,4 +29,4 @@ A small shift in perspective can change everything.
 
 What toxic thought will you release today?
 
-- Prakash Ayyanagoudar
+- Virtue of Vague

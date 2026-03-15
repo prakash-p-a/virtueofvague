@@ -8,8 +8,6 @@ draft= false
 
 slug= "hope-in-the-hope-less-ness"
 
-categories= ["Know The Better"]
-
 tags= ["KnowTheBetter"]
 
 showHero = true
@@ -34,11 +32,10 @@ For a patient, it's the strength to hold on for tomorrow.
 
 
 
-One of my favorite stories about hope:
+One of my most loved short story about hope:
 
-All the villagers gathered to pray for rain after a long drought. Everyone came empty-handed... except one boy who brought an umbrella.
-
-
+All the villagers gathered to pray for rain after a long drought. 
+Everyone came empty-handed... except one boy who brought an UMBRELLA.
 
 That's hope.
 
@@ -46,15 +43,10 @@ That's hope.
 
 In this chaotic world, we long for normal days as past and those simple smiles, ordinary routines, a life like before.
 
-
-
 Yet it's this very hope that keeps us moving forward.
-
-
 
 In hopelessness, hope is the light we carry inside.
 
 
-
-— Prakash Ayyanagoudar
+— Virtue of Vague
 

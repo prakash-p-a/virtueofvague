@@ -22,10 +22,10 @@
   weight = 20
 
 # FIX 1: Use 'url' instead of 'pageRef' for specific tags
-# Hugo converts "Know The Better" -> "know-the-better"
+# Hugo converts "KnowTheBetter" -> "know-the-better"
 [[main]]
-  name = "Know the Better"
-  pageRef = "/tags/know-the-better/"
+  name = "KnowTheBetter"
+  pageRef = "/tags/knowthebetter/"
   weight = 30
 
 # FIX 2: Assuming MindSecSet is also a tag or category

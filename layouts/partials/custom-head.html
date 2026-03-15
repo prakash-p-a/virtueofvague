@@ -1,12 +1,31 @@
 <link rel="icon" type="image/png" href="/icon.png?v=9">
 
+<!-- Load Libre Baskerville font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
+    /* Theme variables – adapt based on <html> class 'dark' or not */
+    :root {
+        --bg-color: #000;
+        --star-color: #fff;
+        --cursor-gradient: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 70%);
+        --debris-color: #fff;
+    }
+    html:not(.dark) {
+        --bg-color: #f5f5f5;
+        --star-color: #000;
+        --cursor-gradient: radial-gradient(circle, #000 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%);
+        --debris-color: #000;
+    }
+
     #stars-canvas {
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
         z-index: -1;
-        background: #000;
+        background: var(--bg-color); /* changes with theme */
     }
     body { background: transparent !important; }
 
@@ -17,22 +36,35 @@
         position: fixed;
         width: 14px;
         height: 14px;
-        /* Triple layer gradient for that "piercing" shine */
-        background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 70%);
+        background: var(--cursor-gradient); /* changes with theme */
         border-radius: 50%;
         pointer-events: none;
         z-index: 99999;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 15px 2px rgba(255,255,255,0.5);
+    }
+    /* adjust shadow for light mode – optional */
+    html:not(.dark) #custom-cursor {
+        box-shadow: 0 0 15px 2px rgba(0,0,0,0.3);
     }
 
     .comet-debris {
         position: fixed;
-        background: #fff;
+        background: var(--debris-color); /* changes with theme */
         border-radius: 50%;
         pointer-events: none;
         z-index: 99998;
         filter: blur(0.3px);
+        will-change: transform, opacity;
+    }
+
+    /* Site title font */
+    /* Force font on site title – ultra-specific selectors for Blowfish */
+    /* Force site title font - based on inspected element */
+    h1.mb-2.text-4xl.font-extrabold.text-neutral-800 {
+        font-family: 'Libre Baskerville', 'Times New Roman', serif !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.02em !important;
     }
 </style>
 
@@ -47,6 +79,22 @@
     
     let stars = [];
     let lastX = 0, lastY = 0;
+    let currentStarColor = '#ffffff'; // default
+
+    // Function to get the current theme color for stars
+    function updateStarColor() {
+        const isDark = document.documentElement.classList.contains('dark');
+        currentStarColor = isDark ? '#ffffff' : '#000000';
+    }
+    // Initial call
+    updateStarColor();
+
+    // Watch for theme changes (when user toggles dark/light)
+    const observer = new MutationObserver(() => {
+        updateStarColor();
+        // Optionally redraw a frame immediately, but loop will handle it
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -55,7 +103,7 @@
 
     function initStars() {
         stars = [];
-        for (let i = 0; i < 400; i++) {
+        for (let i = 0; i < 250; i++) {
             stars.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
@@ -68,7 +116,6 @@
         }
     }
 
-    /* --- PIERCING DEBRIS LOGIC --- */
     function createDebris(x, y, vx, vy) {
         const p = document.createElement('div');
         p.className = 'comet-debris';
@@ -81,10 +128,7 @@
         
         document.body.appendChild(p);
 
-        // PIERCING EFFECT: 
-        // Particles start with the comet's speed (vx, vy) but quickly lose it,
-        // while also expanding slightly outward from the path.
-        let angle = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5; // Shockwave angle
+        let angle = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5;
         let force = Math.sqrt(vx*vx + vy*vy) * 0.1;
         
         let driftX = (Math.cos(angle) * force) * -0.5; 
@@ -94,7 +138,7 @@
         let scale = 1.2;
 
         const animateDebris = () => {
-            opacity -= 0.02; // Fast fade for "hot" particles
+            opacity -= 0.02;
             scale -= 0.02;
             
             const currentX = parseFloat(p.style.left);
@@ -105,7 +149,6 @@
             p.style.opacity = opacity;
             p.style.transform = `scale(${scale})`;
 
-            // Drift slowly fades
             driftX *= 0.98;
             driftY *= 0.98;
 
@@ -125,9 +168,8 @@
         let vx = e.clientX - lastX;
         let vy = e.clientY - lastY;
         
-        // High density debris near the head for "piercing" look
         if (Math.abs(vx) > 1 || Math.abs(vy) > 1) {
-            for(let i=0; i<3; i++) { // Spawn 3 particles at once for richness
+            for(let i=0; i<2; i++) {
                 createDebris(e.clientX, e.clientY, vx, vy);
             }
         }
@@ -138,12 +180,13 @@
 
     function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Draw stars with current theme color
         stars.forEach(s => {
             s.opacity += s.twinkle;
             if (s.opacity > 1 || s.opacity < 0.4) s.twinkle *= -1;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+            ctx.fillStyle = `rgba(${currentStarColor === '#ffffff' ? '255,255,255' : '0,0,0'}, ${s.opacity})`;
             ctx.fill();
             s.x += s.speedX; s.y += s.speedY;
             if (s.x < 0) s.x = canvas.width; if (s.x > canvas.width) s.x = 0;

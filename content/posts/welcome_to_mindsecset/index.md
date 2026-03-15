@@ -1,9 +1,6 @@
 +++
-categories = ["Mind Sec Set!!"]
 date = 2025-12-23T20:50:14Z
-description = ""
 draft = false
-image = "__GHOST_URL__/content/images/2025/12/ChatGPT-Image-Dec-24--2025--09_28_08-PM.png"
 slug = "welcome_to_mindsecset"
 summary = "Welcome to MindSecSet!!"
 tags = ["MindSecSet"]
@@ -21,6 +18,7 @@ This field demands constant adaptation where new threats emerge daily, tools evo
 These posts are honest reflections from someone in the trenches, shared to help make your own advancement feel more achievable.
 
 No gatekeeping—just real talk.
+
 Thanks for joining the journey.
 
 — Prakash Ayyanagoudar
