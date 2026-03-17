@@ -1,0 +1,11 @@
+{{ define "main" }}
+  {{ $partials := .Site.Params.homepage }}
+
+ <!--{{ partial "nebula-sand.html" . }}-->
+
+  <!-- Recent posts (from Blowfish theme) -->
+  {{ if $partials.showRecent }}
+    {{ partial "recent-articles/main.html" . }}
+  {{ end }}
+{{ end }}
+

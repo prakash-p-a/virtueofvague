@@ -1,0 +1,255 @@
+<div id="galaxy-container" style="position: relative; width: 100%; min-height: 500px; margin: 2rem 0; overflow: hidden; border-radius: 24px;">
+  <canvas id="galaxy-canvas" style="display: block; width: 100%; height: auto; background: transparent;"></canvas>
+  
+  <!-- Subtle sound toggle -->
+  <div style="position: absolute; bottom: 10px; right: 10px; z-index: 10;">
+    <button id="sound-toggle" style="background: rgba(128,128,128,0.2); border: 1px solid currentColor; border-radius: 30px; padding: 0.3rem 0.8rem; font-size: 0.8rem; cursor: pointer; font-family: inherit; backdrop-filter: blur(4px);">
+      🔇 Sound off
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const canvas = document.getElementById('galaxy-canvas');
+  const ctx = canvas.getContext('2d');
+  const container = document.getElementById('galaxy-container');
+  const soundBtn = document.getElementById('sound-toggle');
+
+  // ========== CONFIGURATION ==========
+  const STAR_COUNT = 8000;               // more stars for richness
+  const GALAXY_RADIUS = 4000;             // immense – you only see a fraction
+  const DISK_THICKNESS = 0.15;             // very flat spiral
+  const CORE_RADIUS = 300;                 // bright central bulge
+  const ROTATION_SPEED = 0.00001;          // extremely slow (rad/frame)
+  const COLOR_STAR_COUNT = 4;               // exactly 4 colorful stars
+  const COLOR_CHANGE_SPEED = 0.008;         // faster hue cycling
+
+  // Palette for colorful stars (will blend continuously)
+  const COLOR_PALETTE = [
+    { r: 255, g: 120, b: 100 }, // coral
+    { r: 200, g: 220, b: 255 }, // ice blue
+    { r: 210, g: 160, b: 255 }, // lavender
+    { r: 255, g: 220, b: 140 }, // warm gold
+    { r: 160, g: 255, b: 200 }, // mint
+    { r: 255, g: 180, b: 200 }, // pink
+  ];
+
+  // ========== GLOBAL STATE ==========
+  let width, height;
+  let stars = [];
+  let rotationAngle = 0;
+  let isDark = document.documentElement.classList.contains('dark');
+  let colorfulStars = []; // indices of stars that change color
+  let huePhases = [];     // per star phase (0..2PI)
+
+  // ========== AUDIO ==========
+  let audioContext = null;
+  let oscillator = null;
+  let gainNode = null;
+  let soundEnabled = false;
+
+  function initAudio() {
+    if (audioContext) return;
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    oscillator = audioContext.createOscillator();
+    gainNode = audioContext.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 70;
+    gainNode.gain.value = 0.015;
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.start();
+    gainNode.gain.value = 0;
+  }
+
+  soundBtn.addEventListener('click', () => {
+    if (!audioContext) initAudio();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    soundEnabled = !soundEnabled;
+    if (gainNode) {
+      gainNode.gain.value = soundEnabled ? 0.015 : 0;
+    }
+    soundBtn.textContent = soundEnabled ? '🔊 Sound on' : '🔇 Sound off';
+  });
+
+  // ========== GALAXY GENERATION ==========
+  function generateGalaxy() {
+    const centerX = width / 2;
+    const centerY = height / 2;
+    stars = [];
+
+    // Generate star clouds using fractal / clustered distribution
+    for (let i = 0; i < STAR_COUNT; i++) {
+      // Distance from center: power law to create dense core + sparse arms
+      let r = Math.pow(Math.random(), 1.8) * GALAXY_RADIUS;
+
+      // Angle: spiral bias with randomness
+      let spiralBias = Math.log(r / 200 + 1) * 5.0;
+      let armOffset = (i % 2) * Math.PI; // two main arms
+      let randomAngleJitter = (Math.random() - 0.5) * 0.7;
+      let angle = armOffset + spiralBias + randomAngleJitter;
+
+      // Add random clusters: sometimes stars clump in small groups
+      if (Math.random() < 0.2) {
+        // Shift position toward a random cluster point
+        let clusterAngle = Math.random() * 2 * Math.PI;
+        let clusterDist = Math.random() * 600;
+        let dx = clusterDist * Math.cos(clusterAngle);
+        let dy = clusterDist * Math.sin(clusterAngle);
+        r += dx * 0.3;
+        angle += dy * 0.01; // subtle
+      }
+
+      // Convert to Cartesian with disk flattening
+      let xRel = r * Math.cos(angle);
+      let yRel = r * Math.sin(angle) * DISK_THICKNESS; // flatten vertically
+
+      // Star properties
+      const distanceFactor = Math.max(0.2, 1 - (r / GALAXY_RADIUS) * 0.9);
+      const size = (Math.random() * 1.8 + 0.3) * distanceFactor;
+      const brightness = (Math.random() * 0.6 + 0.2) * distanceFactor;
+
+      stars.push({
+        xRel, yRel,
+        size,
+        brightness,
+        r,
+        angleBase: angle,
+        isColorful: false,
+        color: null
+      });
+    }
+
+    // Select exactly 4 colorful stars (distinct)
+    colorfulStars = [];
+    for (let i = 0; i < COLOR_STAR_COUNT; i++) {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * stars.length);
+      } while (stars[idx].isColorful);
+      stars[idx].isColorful = true;
+      colorfulStars.push(idx);
+      huePhases.push(Math.random() * 2 * Math.PI);
+    }
+  }
+
+  // ========== ROTATION ==========
+  function rotateGalaxy() {
+    rotationAngle += ROTATION_SPEED;
+    const cos = Math.cos(rotationAngle);
+    const sin = Math.sin(rotationAngle);
+
+    stars.forEach(s => {
+      const newXRel = s.xRel * cos - s.yRel * sin;
+      const newYRel = s.xRel * sin + s.yRel * cos;
+      s.xRel = newXRel;
+      s.yRel = newYRel;
+    });
+  }
+
+  // ========== UPDATE COLORFUL STARS ==========
+  function updateColorfulStars() {
+    colorfulStars.forEach((idx, i) => {
+      const s = stars[idx];
+      if (!s) return;
+
+      // Advance phase
+      huePhases[i] += COLOR_CHANGE_SPEED;
+      const t = (huePhases[i] / (2 * Math.PI)) % 1;
+
+      // Blend between two colors from palette based on t
+      const paletteIndex = Math.floor(t * COLOR_PALETTE.length);
+      const nextIndex = (paletteIndex + 1) % COLOR_PALETTE.length;
+      const blend = (t * COLOR_PALETTE.length) % 1;
+
+      const c1 = COLOR_PALETTE[paletteIndex];
+      const c2 = COLOR_PALETTE[nextIndex];
+
+      const r = Math.round(c1.r * (1 - blend) + c2.r * blend);
+      const g = Math.round(c1.g * (1 - blend) + c2.g * blend);
+      const b = Math.round(c1.b * (1 - blend) + c2.b * blend);
+
+      s.color = `rgba(${r}, ${g}, ${b}, ${s.brightness * 0.9})`;
+    });
+  }
+
+  // ========== DRAW ==========
+  function drawGalaxy() {
+    ctx.clearRect(0, 0, width, height);
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    // Subtle core glow
+    const gradient = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, CORE_RADIUS);
+    if (isDark) {
+      gradient.addColorStop(0, 'rgba(200, 220, 255, 0.12)');
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+    } else {
+      gradient.addColorStop(0, 'rgba(80, 100, 200, 0.08)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    }
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw stars visible within viewport
+    stars.forEach(s => {
+      const screenX = centerX + s.xRel;
+      const screenY = centerY + s.yRel;
+      if (screenX < -20 || screenX > width + 20 || screenY < -20 || screenY > height + 20) return;
+
+      ctx.beginPath();
+      ctx.arc(screenX, screenY, s.size, 0, 2 * Math.PI);
+
+      let color;
+      if (s.isColorful && s.color) {
+        color = s.color;
+      } else {
+        const base = isDark ? 255 : 0;
+        color = `rgba(${base}, ${base}, ${base}, ${s.brightness})`;
+      }
+      ctx.fillStyle = color;
+      ctx.shadowColor = isDark ? '#fff' : '#000';
+      ctx.shadowBlur = 3;
+      ctx.fill();
+    });
+
+    ctx.shadowBlur = 0;
+  }
+
+  // ========== ANIMATION LOOP ==========
+  function animate() {
+    rotateGalaxy();
+    updateColorfulStars();
+    drawGalaxy();
+    requestAnimationFrame(animate);
+  }
+
+  // ========== RESIZE ==========
+  function resizeCanvas() {
+    width = container.clientWidth;
+    height = 500; // fixed height
+    canvas.width = width;
+    canvas.height = height;
+    generateGalaxy(); // regenerate for new dimensions
+  }
+
+  // ========== THEME CHANGE ==========
+  function updateTheme() {
+    isDark = document.documentElement.classList.contains('dark');
+    // Colors update on next draw
+  }
+  const observer = new MutationObserver(updateTheme);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  // ========== INIT ==========
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+  });
+  resizeCanvas();
+  animate();
+})();
+</script>	

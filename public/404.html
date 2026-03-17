@@ -308,20 +308,81 @@
         padding: 0 1rem;
     }
 
-         
-    header .flex.items-center.justify-between {
-        justify-content: space-around !important;
-    }
-
-    header nav {
-        flex: 1 1 auto;
-    }
-
-    header nav ul {
-        display: flex;
-        justify-content: space-around;
+     
+    .main-menu .flex.flex-1.items-center.justify-between {
         width: 100%;
     }
+
+    .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
+        flex: 1 1 auto !important;
+        margin-left: 0 !important;
+        gap: 0 !important;
+        display: flex !important;
+        justify-content: space-evenly !important;
+        width: 100% !important;
+    }
+     
+    section.flex.flex-wrap.max-w-prose {
+        max-width: 1200px !important;        
+        margin-left: auto !important;
+        margin-right: auto !important;
+        justify-content: center !important;  
+        gap: 1rem;                           
+    }
+
+     
+    section.flex.flex-wrap.max-w-prose > article {
+        width: auto !important;               
+        min-width: 180px;                     
+        max-width: 220px;                      
+        margin: 0 !important;                  
+        padding: 1.5rem 1rem !important;       
+        background: rgba(128, 128, 128, 0.05);
+        border: 1px solid rgba(128, 128, 128, 0.15);
+        border-radius: 16px;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        text-align: center;
+    }
+
+    section.flex.flex-wrap.max-w-prose > article:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        background: rgba(128, 128, 128, 0.1);
+    }
+
+     
+    section.flex.flex-wrap.max-w-prose > article h2 a {
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    section.flex.flex-wrap.max-w-prose > article h2 a:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+     
+    section.flex.flex-wrap.max-w-prose > article .text-neutral-400 {
+        display: inline-block;
+        background: rgba(128, 128, 128, 0.2);
+        border-radius: 20px;
+        padding: 0.2rem 0.8rem;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        color: inherit !important;
+    }
+
+     
+    section.flex.flex-wrap.max-w-prose > article .text-primary-500 {
+        display: none;
+    }
+
      
     .article-tags {
         display: flex;
