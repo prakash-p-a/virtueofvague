@@ -211,11 +211,11 @@
       "@type": "Person",
       "name": "Virtue of Vague"
     },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-12-23T20:50:14\u002b00:00",
+    "datePublished": "2025-12-23T20:50:14\u002b00:00",
     
-    
-    
-    
-    
+    "dateModified": "2025-12-23T20:50:14\u002b00:00",
     
     
     
@@ -231,9 +231,7 @@
 
   
   
-    <link rel="icon" type="image/png" href="http://localhost:1313/icon.png?v=9">
-
-
+    
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -265,6 +263,7 @@
      
     html, body, a, button { cursor: none !important; }
 
+    
     #custom-cursor {
         position: fixed;
         width: 14px;
@@ -298,6 +297,38 @@
         font-family: 'Libre Baskerville', 'Times New Roman', serif !important;
         font-weight: 700 !important;
         letter-spacing: -0.02em !important;
+    }
+
+     
+     
+    .taxonomy-container,
+    .term-container {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 1rem;
+    }
+
+     
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;  
+        margin-top: 1rem;
+    }
+
+     
+    .article-tags a {
+        background: rgba(128,128,128,0.1);
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+    }
+    .article-tags a:hover {
+        background: rgba(128,128,128,0.2);
+        text-decoration: none;
     }
 </style>
 
@@ -500,10 +531,6 @@
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
       
-        <a href="http://localhost:1313/" class="text-base font-medium">
-          Virtue Of Vague
-        </a>
-      
     </nav>
     
   <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
@@ -583,11 +610,11 @@
       
         
   <a
-  href="http://localhost:1313/posts/about/"
+  href="http://localhost:1313/about/"
   
   class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
   aria-label="About"
-  title="About Virtue of Vague">
+  title="About">
   
   
     <p class="text-base font-medium">
@@ -797,11 +824,11 @@
               
   <li class="mt-1">
   <a
-    href="http://localhost:1313/posts/about/"
+    href="http://localhost:1313/about/"
     
     class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
     aria-label="About"
-    title="About Virtue of Vague">
+    title="About">
     
     
       <p class="text-bg font-bg">
@@ -1175,8 +1202,8 @@
             <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
               <a
                 class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
-                href="http://localhost:1313/posts/about/"
-                title="About Virtue of Vague">
+                href="http://localhost:1313/about/"
+                title="About">
                 
                 About the Author
               </a>

@@ -4,7 +4,7 @@ draft = false
 slug = "about"
 summary = "Hi, I'm Prakash Ayyanagoudar."
 title = "About"
-showAuthor: false
+showAuthor= false
 
 +++
 

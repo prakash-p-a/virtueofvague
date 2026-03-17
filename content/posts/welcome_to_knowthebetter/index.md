@@ -1,5 +1,5 @@
 +++
-date = 2025-12-24T16:09:49Z
+date = 2025-12-23T16:09:49Z
 draft = false
 slug = "welcome_to_knowthebetter"
 summary = "Welcome to Know The Better"

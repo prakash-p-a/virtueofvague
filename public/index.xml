@@ -27,16 +27,6 @@ When we let go of negativity, space opens for peace.
     </item>
     
     <item>
-      <title>Hello, :)</title>
-      <link>http://localhost:1313/posts/welcome_to_knowthebetter/</link>
-      <pubDate>Wed, 24 Dec 2025 16:09:49 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/welcome_to_knowthebetter/</guid>
-      <description>Welcome to Know The Better</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_knowthebetter/featured.png" />
-    </item>
-    
-    <item>
       <title>Hope in the Hopelessness</title>
       <link>http://localhost:1313/posts/hope-in-the-hope-less-ness/</link>
       <pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate>
@@ -81,11 +71,21 @@ It builds an aura of calm and possibility, leading to a truly positive mind.
     </item>
     
     <item>
+      <title>Hello, :)</title>
+      <link>http://localhost:1313/posts/welcome_to_knowthebetter/</link>
+      <pubDate>Tue, 23 Dec 2025 16:09:49 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/welcome_to_knowthebetter/</guid>
+      <description>Welcome to Know The Better</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_knowthebetter/featured.png" />
+    </item>
+    
+    <item>
       <title>About</title>
-      <link>http://localhost:1313/posts/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Sat, 20 Dec 2025 20:50:15 +0000</pubDate>
       <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>Hi, I’m Prakash Ayyanagoudar.</description>
       
     </item>

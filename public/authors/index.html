@@ -231,41 +231,104 @@
 
   
   
-    <link rel="icon" type="image/png" href="http://localhost:1313/icon.png?v=9">
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+     
+    :root {
+        --bg-color: #000;
+        --star-color: #fff;
+        --cursor-gradient: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 70%);
+        --debris-color: #fff;
+    }
+    html:not(.dark) {
+        --bg-color: #f5f5f5;
+        --star-color: #000;
+        --cursor-gradient: radial-gradient(circle, #000 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%);
+        --debris-color: #000;
+    }
+
     #stars-canvas {
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
         z-index: -1;
-        background: #000;
+        background: var(--bg-color);  
     }
     body { background: transparent !important; }
 
      
     html, body, a, button { cursor: none !important; }
 
+    
     #custom-cursor {
         position: fixed;
         width: 14px;
         height: 14px;
-         
-        background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 70%);
+        background: var(--cursor-gradient);  
         border-radius: 50%;
         pointer-events: none;
         z-index: 99999;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 15px 2px rgba(255,255,255,0.5);
+    }
+     
+    html:not(.dark) #custom-cursor {
+        box-shadow: 0 0 15px 2px rgba(0,0,0,0.3);
     }
 
     .comet-debris {
         position: fixed;
-        background: #fff;
+        background: var(--debris-color);  
         border-radius: 50%;
         pointer-events: none;
         z-index: 99998;
         filter: blur(0.3px);
+        will-change: transform, opacity;
+    }
+
+     
+     
+     
+    h1.mb-2.text-4xl.font-extrabold.text-neutral-800 {
+        font-family: 'Libre Baskerville', 'Times New Roman', serif !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.02em !important;
+    }
+
+     
+     
+    .taxonomy-container,
+    .term-container {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 1rem;
+    }
+
+     
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;  
+        margin-top: 1rem;
+    }
+
+     
+    .article-tags a {
+        background: rgba(128,128,128,0.1);
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+    }
+    .article-tags a:hover {
+        background: rgba(128,128,128,0.2);
+        text-decoration: none;
     }
 </style>
 
@@ -280,6 +343,22 @@
     
     let stars = [];
     let lastX = 0, lastY = 0;
+    let currentStarColor = '#ffffff'; 
+
+    
+    function updateStarColor() {
+        const isDark = document.documentElement.classList.contains('dark');
+        currentStarColor = isDark ? '#ffffff' : '#000000';
+    }
+    
+    updateStarColor();
+
+    
+    const observer = new MutationObserver(() => {
+        updateStarColor();
+        
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -288,7 +367,7 @@
 
     function initStars() {
         stars = [];
-        for (let i = 0; i < 400; i++) {
+        for (let i = 0; i < 250; i++) {
             stars.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
@@ -301,7 +380,6 @@
         }
     }
 
-     
     function createDebris(x, y, vx, vy) {
         const p = document.createElement('div');
         p.className = 'comet-debris';
@@ -314,10 +392,7 @@
         
         document.body.appendChild(p);
 
-        
-        
-        
-        let angle = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5; 
+        let angle = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5;
         let force = Math.sqrt(vx*vx + vy*vy) * 0.1;
         
         let driftX = (Math.cos(angle) * force) * -0.5; 
@@ -327,7 +402,7 @@
         let scale = 1.2;
 
         const animateDebris = () => {
-            opacity -= 0.02; 
+            opacity -= 0.02;
             scale -= 0.02;
             
             const currentX = parseFloat(p.style.left);
@@ -338,7 +413,6 @@
             p.style.opacity = opacity;
             p.style.transform = `scale(${scale})`;
 
-            
             driftX *= 0.98;
             driftY *= 0.98;
 
@@ -358,9 +432,8 @@
         let vx = e.clientX - lastX;
         let vy = e.clientY - lastY;
         
-        
         if (Math.abs(vx) > 1 || Math.abs(vy) > 1) {
-            for(let i=0; i<3; i++) { 
+            for(let i=0; i<2; i++) {
                 createDebris(e.clientX, e.clientY, vx, vy);
             }
         }
@@ -371,12 +444,13 @@
 
     function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         stars.forEach(s => {
             s.opacity += s.twinkle;
             if (s.opacity > 1 || s.opacity < 0.4) s.twinkle *= -1;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+            ctx.fillStyle = `rgba(${currentStarColor === '#ffffff' ? '255,255,255' : '0,0,0'}, ${s.opacity})`;
             ctx.fill();
             s.x += s.speedX; s.y += s.speedY;
             if (s.x < 0) s.x = canvas.width; if (s.x > canvas.width) s.x = 0;
@@ -457,10 +531,6 @@
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
       
-        <a href="http://localhost:1313/" class="text-base font-medium">
-          Virtue Of Vague
-        </a>
-      
     </nav>
     
   <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
@@ -540,11 +610,11 @@
       
         
   <a
-  href="http://localhost:1313/posts/about/"
+  href="http://localhost:1313/about/"
   
   class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
   aria-label="About"
-  title="About Virtue of Vague">
+  title="About">
   
   
     <p class="text-base font-medium">
@@ -754,11 +824,11 @@
               
   <li class="mt-1">
   <a
-    href="http://localhost:1313/posts/about/"
+    href="http://localhost:1313/about/"
     
     class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
     aria-label="About"
-    title="About Virtue of Vague">
+    title="About">
     
     
       <p class="text-bg font-bg">
@@ -905,8 +975,8 @@
             <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
               <a
                 class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
-                href="http://localhost:1313/posts/about/"
-                title="About Virtue of Vague">
+                href="http://localhost:1313/about/"
+                title="About">
                 
                 About the Author
               </a>

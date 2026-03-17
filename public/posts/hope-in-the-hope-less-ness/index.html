@@ -250,9 +250,7 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
 
   
   
-    <link rel="icon" type="image/png" href="http://localhost:1313/icon.png?v=9">
-
-
+    
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -284,6 +282,7 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
      
     html, body, a, button { cursor: none !important; }
 
+    
     #custom-cursor {
         position: fixed;
         width: 14px;
@@ -317,6 +316,38 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
         font-family: 'Libre Baskerville', 'Times New Roman', serif !important;
         font-weight: 700 !important;
         letter-spacing: -0.02em !important;
+    }
+
+     
+     
+    .taxonomy-container,
+    .term-container {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 1rem;
+    }
+
+     
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;  
+        margin-top: 1rem;
+    }
+
+     
+    .article-tags a {
+        background: rgba(128,128,128,0.1);
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+    }
+    .article-tags a:hover {
+        background: rgba(128,128,128,0.2);
+        text-decoration: none;
     }
 </style>
 
@@ -519,10 +550,6 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
       
-        <a href="http://localhost:1313/" class="text-base font-medium">
-          Virtue Of Vague
-        </a>
-      
     </nav>
     
   <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
@@ -602,11 +629,11 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
       
         
   <a
-  href="http://localhost:1313/posts/about/"
+  href="http://localhost:1313/about/"
   
   class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
   aria-label="About"
-  title="About Virtue of Vague">
+  title="About">
   
   
     <p class="text-base font-medium">
@@ -816,11 +843,11 @@ All the villagers gathered to pray for rain after a long drought. Everyone came 
               
   <li class="mt-1">
   <a
-    href="http://localhost:1313/posts/about/"
+    href="http://localhost:1313/about/"
     
     class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
     aria-label="About"
-    title="About Virtue of Vague">
+    title="About">
     
     
       <p class="text-bg font-bg">
@@ -1211,14 +1238,14 @@ Everyone came empty-handed&hellip; except one boy who brought an UMBRELLA.</p>
           
             <a
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-              href="http://localhost:1313/posts/welcome_to_knowthebetter/">
+              href="http://localhost:1313/posts/the-happiness-of-heart/">
               <span class="leading-6">
-                Hello, :)&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                The happiness of Heart&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2025-12-24T16:09:49&#43;00:00">24 December 2025</time>
+                <time datetime="2025-12-25T12:30:30&#43;00:00">25 December 2025</time>
               </span>
             
           
@@ -1282,8 +1309,8 @@ Everyone came empty-handed&hellip; except one boy who brought an UMBRELLA.</p>
             <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
               <a
                 class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
-                href="http://localhost:1313/posts/about/"
-                title="About Virtue of Vague">
+                href="http://localhost:1313/about/"
+                title="About">
                 
                 About the Author
               </a>

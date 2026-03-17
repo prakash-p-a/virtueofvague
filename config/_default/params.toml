@@ -22,7 +22,7 @@ mainSections = ["posts"]
 
 disableImageOptimization = false
 disableImageOptimizationMD = false
-disableTextInHeader = false
+disableTextInHeader = true
 # backgroundImageWidth = 1200
 
 # defaultBackgroundImage = "IMAGE.jpg" # used as default for background images
@@ -64,6 +64,13 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   cardViewScreenWidth = true
   layoutBackgroundBlur = true # only used when layout equals background
   disableHeroImageFilter = true # only used when layout equals hero
+  [[homepage.sections]]
+  name = "calm-game"
+  weight = 5
+  [homepage.sections.params]
+    partial = "calm-game.html"
+    title = "Take a Calm Moment"
+    subtitle = "Gently train your mind toward positivity"
 
 [article]
   showDate = true
@@ -126,6 +133,8 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showLikes = false
   showTableOfContents = false
   cardView = false
+  showCards = false   # might affect list style
+  constrainItemsWidth = true
 
 [term]
   showHero = true

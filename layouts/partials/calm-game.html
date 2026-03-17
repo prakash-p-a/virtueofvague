@@ -1,0 +1,175 @@
+{{ $isDark := false }}
+{{ if eq .Site.Params.defaultAppearance "dark" }}{{ $isDark = true }}{{ end }}
+
+<div id="game-container" style="position: relative; width: 100%; max-width: 600px; margin: 2rem auto; background: transparent;">
+  <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); background: transparent;"></canvas>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; color: var(--text-color);">
+    <span id="game-score" style="font-size: 1.2rem; font-family: 'Libre Baskerville', serif;">Calm points: 0</span>
+    <button id="game-reset" style="background: none; border: 1px solid currentColor; border-radius: 20px; padding: 0.3rem 1rem; cursor: pointer; font-family: inherit;">Reset</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const canvas = document.getElementById('game-canvas');
+  const ctx = canvas.getContext('2d');
+  const scoreSpan = document.getElementById('game-score');
+  const resetBtn = document.getElementById('game-reset');
+
+  // Game settings
+  const POSITIVE_COUNT = 8;
+  const NEGATIVE_COUNT = 4;
+  const MAX_SPEED = 0.8;
+  const OBJECT_RADIUS = 20;
+
+  let objects = [];
+  let score = 0;
+
+  // Detect dark mode
+  const isDark = document.documentElement.classList.contains('dark');
+  const colors = {
+    positive: isDark ? '#FFD966' : '#FFAA00',
+    negative: isDark ? '#F28B82' : '#CC0000',
+    text: isDark ? '#FFFFFF' : '#000000',
+  };
+
+  // Helper: random between min and max
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  // Create a new object (positive or negative)
+  function createObject(type) {
+    const x = rand(OBJECT_RADIUS, canvas.width - OBJECT_RADIUS);
+    const y = rand(OBJECT_RADIUS, canvas.height - OBJECT_RADIUS);
+    const vx = rand(-MAX_SPEED, MAX_SPEED);
+    const vy = rand(-MAX_SPEED, MAX_SPEED);
+    return { x, y, vx, vy, type };
+  }
+
+  // Initialize game
+  function initGame() {
+    objects = [];
+    for (let i = 0; i < POSITIVE_COUNT; i++) {
+      objects.push(createObject('positive'));
+    }
+    for (let i = 0; i < NEGATIVE_COUNT; i++) {
+      objects.push(createObject('negative'));
+    }
+    score = 0;
+    updateScore();
+  }
+
+  // Update score display
+  function updateScore() {
+    scoreSpan.textContent = `Calm points: ${score}`;
+  }
+
+  // Draw everything
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    objects.forEach(obj => {
+      // Draw face
+      ctx.beginPath();
+      ctx.arc(obj.x, obj.y, OBJECT_RADIUS, 0, 2 * Math.PI);
+      ctx.fillStyle = obj.type === 'positive' ? colors.positive : colors.negative;
+      ctx.fill();
+      ctx.strokeStyle = isDark ? '#FFFFFF' : '#333333';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Draw eyes and mouth
+      ctx.fillStyle = isDark ? '#FFFFFF' : '#000000';
+      // eyes
+      ctx.beginPath();
+      ctx.arc(obj.x - 8, obj.y - 5, 3, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(obj.x + 8, obj.y - 5, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // mouth (smile or frown)
+      ctx.beginPath();
+      if (obj.type === 'positive') {
+        ctx.arc(obj.x, obj.y + 5, 8, 0.1, Math.PI - 0.1);
+      } else {
+        ctx.arc(obj.x, obj.y + 12, 8, Math.PI + 0.1, 2 * Math.PI - 0.1);
+      }
+      ctx.strokeStyle = isDark ? '#FFFFFF' : '#000000';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  // Update positions and bounce off walls
+  function update() {
+    objects.forEach(obj => {
+      obj.x += obj.vx;
+      obj.y += obj.vy;
+
+      // Bounce off edges
+      if (obj.x < OBJECT_RADIUS || obj.x > canvas.width - OBJECT_RADIUS) {
+        obj.vx *= -1;
+        obj.x = Math.min(Math.max(obj.x, OBJECT_RADIUS), canvas.width - OBJECT_RADIUS);
+      }
+      if (obj.y < OBJECT_RADIUS || obj.y > canvas.height - OBJECT_RADIUS) {
+        obj.vy *= -1;
+        obj.y = Math.min(Math.max(obj.y, OBJECT_RADIUS), canvas.height - OBJECT_RADIUS);
+      }
+    });
+
+    requestAnimationFrame(update);
+  }
+
+  // Handle clicks on canvas
+  function handleCanvasClick(e) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const mouseX = (e.clientX - rect.left) * scaleX;
+    const mouseY = (e.clientY - rect.top) * scaleY;
+
+    // Check from front to back (last drawn is top)
+    for (let i = objects.length - 1; i >= 0; i--) {
+      const obj = objects[i];
+      const dist = Math.hypot(mouseX - obj.x, mouseY - obj.y);
+      if (dist <= OBJECT_RADIUS) {
+        if (obj.type === 'positive') {
+          // Remove and add new positive object
+          objects.splice(i, 1);
+          objects.push(createObject('positive'));
+          score++;
+          updateScore();
+        } else {
+          // Negative: do nothing (or you can deduct points: score--;)
+          // We'll keep it neutral for stress-free play.
+        }
+        break; // only one click per frame
+      }
+    }
+  }
+
+  // Reset game
+  resetBtn.addEventListener('click', () => {
+    initGame();
+  });
+
+  // Start animation loops
+  initGame();
+  draw();
+  update();
+
+  // Attach click listener
+  canvas.addEventListener('click', handleCanvasClick);
+
+  // Optional: adapt to theme changes (if user toggles dark mode)
+  const observer = new MutationObserver(() => {
+    location.reload(); // simple but effective; you can also update colors dynamically
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+})();
+</script>
