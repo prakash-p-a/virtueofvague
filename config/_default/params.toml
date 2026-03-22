@@ -50,8 +50,8 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showAppearanceSwitcher = true
   showScrollToTop = true
 
-[appearance]
-  favicon = "favicon.png"
+#[appearance]
+ # favicon = "favicon.png"
 
 [homepage]
   layout = "background"

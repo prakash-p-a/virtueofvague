@@ -292,6 +292,36 @@
         will-change: transform, opacity;
     }
 
+
+     
+
+     
+    @media (min-width: 768px) {
+        div.flex.md\:hidden.items-center.gap-x-5 {
+            display: none !important;
+        }
+    }
+
+     
+    @media (max-width: 767px) {
+        nav.hidden.md\:flex.items-center.gap-x-5 {
+            display: none !important;
+        }
+        
+         
+        #search-button, 
+        #appearance-switcher {
+            display: none !important;
+        }
+    }
+
+     
+    #menu-wrapper #search-button-mobile,
+    #menu-wrapper #appearance-switcher-mobile {
+        display: flex;  
+    }
+
+    
      
      
      
