@@ -297,6 +297,36 @@
         will-change: transform, opacity;
     }
 
+
+     
+
+     
+    @media (min-width: 768px) {
+        div.flex.md\:hidden.items-center.gap-x-5 {
+            display: none !important;
+        }
+    }
+
+     
+    @media (max-width: 767px) {
+        nav.hidden.md\:flex.items-center.gap-x-5 {
+            display: none !important;
+        }
+        
+         
+        #search-button, 
+        #appearance-switcher {
+            display: none !important;
+        }
+    }
+
+     
+    #menu-wrapper #search-button-mobile,
+    #menu-wrapper #appearance-switcher-mobile {
+        display: flex;  
+    }
+
+    
      
      
      
@@ -317,18 +347,26 @@
     }
 
      
-    .main-menu .flex.flex-1.items-center.justify-between {
-        width: 100%;
+    @media (min-width: 768px) {
+        .main-menu .flex.flex-1.items-center.justify-between {
+            width: 100%;
+        }
+
+        .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
+            flex: 1 1 auto !important;
+            margin-left: 0 !important;
+            gap: 0 !important;
+            display: flex !important;
+            justify-content: space-evenly !important;
+            width: 100% !important;
+        }
     }
 
-    .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
-        flex: 1 1 auto !important;
-        margin-left: 0 !important;
-        gap: 0 !important;
+     
+    .main-menu .md\:hidden {
         display: flex !important;
-        justify-content: space-evenly !important;
-        width: 100% !important;
     }
+
      
     section.flex.flex-wrap.max-w-prose {
         max-width: 1200px !important;        
@@ -546,6 +584,26 @@
     loop();
     window.addEventListener('resize', () => { resize(); initStars(); });
 })();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuButton = document.getElementById('menu-button');
+    const menuWrapper = document.getElementById('menu-wrapper');
+    const closeButton = document.getElementById('menu-close-button');
+    if (menuButton && menuWrapper) {
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            menuWrapper.classList.toggle('invisible');
+            menuWrapper.classList.toggle('opacity-0');
+        });
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                menuWrapper.classList.add('invisible', 'opacity-0');
+            });
+        }
+    }
+});
 </script>
   
 
@@ -1222,6 +1280,34 @@ It&rsquo;s about asking better questions, staying curious, and growing one vague
     
     <footer class="pt-8 max-w-prose print:hidden">
       
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="http://localhost:1313/relax/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Relax Your Mind
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="0001-01-01T00:00:00&#43;00:00">1 January 0001</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+        </span>
+      </div>
+    </div>
   
 
 

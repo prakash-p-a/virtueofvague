@@ -1,174 +1,118 @@
-{{ $isDark := false }}
-{{ if eq .Site.Params.defaultAppearance "dark" }}{{ $isDark = true }}{{ end }}
-
-<div id="game-container" style="position: relative; width: 100%; max-width: 600px; margin: 2rem auto; background: transparent;">
-  <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); background: transparent;"></canvas>
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; color: var(--text-color);">
-    <span id="game-score" style="font-size: 1.2rem; font-family: 'Libre Baskerville', serif;">Calm points: 0</span>
-    <button id="game-reset" style="background: none; border: 1px solid currentColor; border-radius: 20px; padding: 0.3rem 1rem; cursor: pointer; font-family: inherit;">Reset</button>
+<div id="breathing-container" style="position: relative; width: 100%; max-width: 400px; margin: 0 auto; text-align: center;">
+  <canvas id="breath-canvas" width="400" height="400" style="display: block; width: 100%; height: auto; background: transparent;"></canvas>
+  <div style="margin-top: 1rem; font-family: 'Libre Baskerville', serif;">
+    <span id="breath-phase" style="font-size: 1.5rem;">inhale</span>
+    <span id="breath-timer" style="display: block; font-size: 1rem;">4s</span>
   </div>
+  <button id="reset-breath" style="background: none; border: 1px solid currentColor; border-radius: 30px; padding: 0.3rem 1.2rem; margin-top: 0.5rem; cursor: pointer;">reset</button>
 </div>
 
 <script>
 (function() {
-  const canvas = document.getElementById('game-canvas');
+  const canvas = document.getElementById('breath-canvas');
   const ctx = canvas.getContext('2d');
-  const scoreSpan = document.getElementById('game-score');
-  const resetBtn = document.getElementById('game-reset');
+  const phaseSpan = document.getElementById('breath-phase');
+  const timerSpan = document.getElementById('breath-timer');
+  const resetBtn = document.getElementById('reset-breath');
 
-  // Game settings
-  const POSITIVE_COUNT = 8;
-  const NEGATIVE_COUNT = 4;
-  const MAX_SPEED = 0.8;
-  const OBJECT_RADIUS = 20;
+  const INHALE = 4;
+  const EXHALE = 4;
+  let startTime = null;
+  let phase = 'inhale';
+  let animationFrame;
 
-  let objects = [];
-  let score = 0;
+  // Cursor speed tracking for brightness
+  let lastX = 0, lastY = 0;
+  let lastTimestamp = 0;
+  let cursorSpeed = 0; // range 0..1 maybe
+  let speedFactor = 0; // added brightness
 
-  // Detect dark mode
+  // Theme
   const isDark = document.documentElement.classList.contains('dark');
-  const colors = {
-    positive: isDark ? '#FFD966' : '#FFAA00',
-    negative: isDark ? '#F28B82' : '#CC0000',
-    text: isDark ? '#FFFFFF' : '#000000',
-  };
+  let baseColor = isDark ? [255,255,255] : [0,0,0];
 
-  // Helper: random between min and max
-  function rand(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  // Create a new object (positive or negative)
-  function createObject(type) {
-    const x = rand(OBJECT_RADIUS, canvas.width - OBJECT_RADIUS);
-    const y = rand(OBJECT_RADIUS, canvas.height - OBJECT_RADIUS);
-    const vx = rand(-MAX_SPEED, MAX_SPEED);
-    const vy = rand(-MAX_SPEED, MAX_SPEED);
-    return { x, y, vx, vy, type };
-  }
-
-  // Initialize game
-  function initGame() {
-    objects = [];
-    for (let i = 0; i < POSITIVE_COUNT; i++) {
-      objects.push(createObject('positive'));
+  function updateCursorSpeed(e) {
+    const now = performance.now();
+    const dt = Math.min(100, now - lastTimestamp);
+    if (dt > 0) {
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      const speed = Math.hypot(dx, dy) / dt;
+      cursorSpeed = Math.min(1, speed / 2); // normalize to 0..1 (max speed ~2px/ms)
+      speedFactor = Math.min(0.8, cursorSpeed * 0.8);
     }
-    for (let i = 0; i < NEGATIVE_COUNT; i++) {
-      objects.push(createObject('negative'));
-    }
-    score = 0;
-    updateScore();
+    lastX = e.clientX;
+    lastY = e.clientY;
+    lastTimestamp = now;
   }
+  document.addEventListener('mousemove', updateCursorSpeed);
 
-  // Update score display
-  function updateScore() {
-    scoreSpan.textContent = `Calm points: ${score}`;
-  }
-
-  // Draw everything
-  function draw() {
+  function drawCircle(progress) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    objects.forEach(obj => {
-      // Draw face
-      ctx.beginPath();
-      ctx.arc(obj.x, obj.y, OBJECT_RADIUS, 0, 2 * Math.PI);
-      ctx.fillStyle = obj.type === 'positive' ? colors.positive : colors.negative;
-      ctx.fill();
-      ctx.strokeStyle = isDark ? '#FFFFFF' : '#333333';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+    const centerX = canvas.width/2;
+    const centerY = canvas.height/2;
+    const minRadius = 40;
+    const maxRadius = 120;
+    const radius = minRadius + progress * (maxRadius - minRadius);
 
-      // Draw eyes and mouth
-      ctx.fillStyle = isDark ? '#FFFFFF' : '#000000';
-      // eyes
-      ctx.beginPath();
-      ctx.arc(obj.x - 8, obj.y - 5, 3, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(obj.x + 8, obj.y - 5, 3, 0, 2 * Math.PI);
-      ctx.fill();
+    // Brightness increases with cursor speed
+    const brightness = 0.7 + speedFactor * 0.5; // 0.7..1.2
+    const r = Math.min(255, baseColor[0] * brightness);
+    const g = Math.min(255, baseColor[1] * brightness);
+    const b = Math.min(255, baseColor[2] * brightness);
 
-      // mouth (smile or frown)
-      ctx.beginPath();
-      if (obj.type === 'positive') {
-        ctx.arc(obj.x, obj.y + 5, 8, 0.1, Math.PI - 0.1);
-      } else {
-        ctx.arc(obj.x, obj.y + 12, 8, Math.PI + 0.1, 2 * Math.PI - 0.1);
-      }
-      ctx.strokeStyle = isDark ? '#FFFFFF' : '#000000';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    });
-
-    requestAnimationFrame(draw);
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = isDark ? '#fff' : '#000';
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2*Math.PI);
+    ctx.fillStyle = `rgba(${r},${g},${b},0.9)`;
+    ctx.fill();
+    ctx.shadowBlur = 0;
   }
 
-  // Update positions and bounce off walls
-  function update() {
-    objects.forEach(obj => {
-      obj.x += obj.vx;
-      obj.y += obj.vy;
+  function updatePhase() {
+    if (!startTime) startTime = performance.now();
+    const now = performance.now();
+    const elapsed = (now - startTime) / 1000;
+    let cycleTime = elapsed % (INHALE + EXHALE);
+    let newPhase;
+    let progress = 0;
 
-      // Bounce off edges
-      if (obj.x < OBJECT_RADIUS || obj.x > canvas.width - OBJECT_RADIUS) {
-        obj.vx *= -1;
-        obj.x = Math.min(Math.max(obj.x, OBJECT_RADIUS), canvas.width - OBJECT_RADIUS);
-      }
-      if (obj.y < OBJECT_RADIUS || obj.y > canvas.height - OBJECT_RADIUS) {
-        obj.vy *= -1;
-        obj.y = Math.min(Math.max(obj.y, OBJECT_RADIUS), canvas.height - OBJECT_RADIUS);
-      }
-    });
-
-    requestAnimationFrame(update);
-  }
-
-  // Handle clicks on canvas
-  function handleCanvasClick(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-
-    const mouseX = (e.clientX - rect.left) * scaleX;
-    const mouseY = (e.clientY - rect.top) * scaleY;
-
-    // Check from front to back (last drawn is top)
-    for (let i = objects.length - 1; i >= 0; i--) {
-      const obj = objects[i];
-      const dist = Math.hypot(mouseX - obj.x, mouseY - obj.y);
-      if (dist <= OBJECT_RADIUS) {
-        if (obj.type === 'positive') {
-          // Remove and add new positive object
-          objects.splice(i, 1);
-          objects.push(createObject('positive'));
-          score++;
-          updateScore();
-        } else {
-          // Negative: do nothing (or you can deduct points: score--;)
-          // We'll keep it neutral for stress-free play.
-        }
-        break; // only one click per frame
-      }
+    if (cycleTime < INHALE) {
+      newPhase = 'inhale';
+      progress = cycleTime / INHALE;
+    } else {
+      newPhase = 'exhale';
+      progress = 1 - (cycleTime - INHALE) / EXHALE;
     }
+
+    if (newPhase !== phase) {
+      phase = newPhase;
+      phaseSpan.textContent = phase;
+    }
+
+    let remaining = (INHALE + EXHALE) - cycleTime;
+    if (phase === 'inhale') remaining = INHALE - cycleTime;
+    else remaining = (INHALE + EXHALE) - cycleTime;
+    timerSpan.textContent = Math.max(0, remaining).toFixed(1) + 's';
+
+    drawCircle(progress);
+    requestAnimationFrame(updatePhase);
   }
 
-  // Reset game
   resetBtn.addEventListener('click', () => {
-    initGame();
+    startTime = performance.now();
+    phase = 'inhale';
+    phaseSpan.textContent = 'inhale';
   });
 
-  // Start animation loops
-  initGame();
-  draw();
-  update();
+  updatePhase();
 
-  // Attach click listener
-  canvas.addEventListener('click', handleCanvasClick);
-
-  // Optional: adapt to theme changes (if user toggles dark mode)
+  // Optional: update base color on theme change
   const observer = new MutationObserver(() => {
-    location.reload(); // simple but effective; you can also update colors dynamically
+    const isDarkNew = document.documentElement.classList.contains('dark');
+    baseColor = isDarkNew ? [255,255,255] : [0,0,0];
   });
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 })();

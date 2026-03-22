@@ -59,6 +59,37 @@
         will-change: transform, opacity;
     }
 
+
+    /* --- FIX FOR DUPLICATE ICONS --- */
+
+    /* 1. On Desktop: Hide the mobile-specific container */
+    @media (min-width: 768px) {
+        div.flex.md\:hidden.items-center.gap-x-5 {
+            display: none !important;
+        }
+    }
+
+    /* 2. On Mobile: Hide the desktop-specific nav and its icons */
+    @media (max-width: 767px) {
+        nav.hidden.md\:flex.items-center.gap-x-5 {
+            display: none !important;
+        }
+        
+        /* Ensure the search-button and switcher specifically are gone */
+        #search-button, 
+        #appearance-switcher {
+            display: none !important;
+        }
+    }
+
+    /* 3. Cleanup: Ensure the mobile menu wrapper search/switcher stays hidden 
+    until the hamburger menu is actually opened */
+    #menu-wrapper #search-button-mobile,
+    #menu-wrapper #appearance-switcher-mobile {
+        display: flex; /* Keeps them inside the menu if that's where you want them */
+    }
+
+    
     /* Site title font */
     /* Force font on site title – ultra-specific selectors for Blowfish */
     /* Force site title font - based on inspected element */

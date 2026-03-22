@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Games on Virtue Of Vague</title>
+    <link>http://localhost:1313/games/</link>
+    <description>Recent content in Games on Virtue Of Vague</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>prakashpayyanagoudar@gmail.com (Virtue of Vague)</managingEditor>
+    <webMaster>prakashpayyanagoudar@gmail.com (Virtue of Vague)</webMaster>
+    <copyright>© 2026 Virtue of Vague</copyright>
+    <atom:link href="http://localhost:1313/games/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Breath &amp; Be</title>
+      <link>http://localhost:1313/games/breath/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/games/breath/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Emotion Profiling</title>
+      <link>http://localhost:1313/games/profiling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/games/profiling/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Lost in Universe</title>
+      <link>http://localhost:1313/games/universe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/games/universe/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

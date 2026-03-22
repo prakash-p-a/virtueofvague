@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-12">
+  <h1 class="text-4xl font-serif text-center mb-12" style="font-family: 'Libre Baskerville', serif;">Relax Your Mind</h1>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Breath & Be Card -->
+    <a href="/relax/breath" class="group block bg-neutral-100 dark:bg-neutral-800 rounded-2xl p-6 transition-all hover:scale-105 hover:shadow-xl">
+      <div class="text-5xl mb-4">🌬️</div>
+      <h2 class="text-2xl font-semibold mb-2">Breath & Be</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">A gentle breathing guide that syncs with your cursor. Relax in seconds.</p>
+    </a>
+
+    <!-- Profiling Game Card -->
+    <a href="/relax/profiling" class="group block bg-neutral-100 dark:bg-neutral-800 rounded-2xl p-6 transition-all hover:scale-105 hover:shadow-xl">
+      <div class="text-5xl mb-4">🧠</div>
+      <h2 class="text-2xl font-semibold mb-2">Emotion Profiling</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">Select words that resonate with you and build your emotional landscape.</p>
+    </a>
+
+    <!-- Lost in Universe Card -->
+    <a href="/relax/universe" class="group block bg-neutral-100 dark:bg-neutral-800 rounded-2xl p-6 transition-all hover:scale-105 hover:shadow-xl">
+      <div class="text-5xl mb-4">🌌</div>
+      <h2 class="text-2xl font-semibold mb-2">Lost in Universe</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">Drift through a slow‑moving galaxy. Your cursor leaves water‑like ripples.</p>
+    </a>
+  </div>
+</div>
+{{ end }}

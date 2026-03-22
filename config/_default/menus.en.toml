@@ -21,6 +21,13 @@
   pageRef = "posts"
   weight = 20
 
+
+#[[main]]
+#name = "Relax Your Mind"
+#pageRef = "relax"
+#weight = 70
+
+
 # FIX 1: Use 'url' instead of 'pageRef' for specific tags
 # Hugo converts "KnowTheBetter" -> "know-the-better"
 [[main]]

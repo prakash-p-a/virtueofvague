@@ -211,11 +211,11 @@
       "@type": "Person",
       "name": "Virtue of Vague"
     },
-    "copyrightYear": "2025",
-    "dateCreated": "2025-12-25T12:30:30\u002b00:00",
-    "datePublished": "2025-12-25T12:30:30\u002b00:00",
     
-    "dateModified": "2025-12-25T12:30:30\u002b00:00",
+    
+    
+    
+    
     
     
     
@@ -292,6 +292,36 @@
         will-change: transform, opacity;
     }
 
+
+     
+
+     
+    @media (min-width: 768px) {
+        div.flex.md\:hidden.items-center.gap-x-5 {
+            display: none !important;
+        }
+    }
+
+     
+    @media (max-width: 767px) {
+        nav.hidden.md\:flex.items-center.gap-x-5 {
+            display: none !important;
+        }
+        
+         
+        #search-button, 
+        #appearance-switcher {
+            display: none !important;
+        }
+    }
+
+     
+    #menu-wrapper #search-button-mobile,
+    #menu-wrapper #appearance-switcher-mobile {
+        display: flex;  
+    }
+
+    
      
      
      
@@ -312,18 +342,26 @@
     }
 
      
-    .main-menu .flex.flex-1.items-center.justify-between {
-        width: 100%;
+    @media (min-width: 768px) {
+        .main-menu .flex.flex-1.items-center.justify-between {
+            width: 100%;
+        }
+
+        .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
+            flex: 1 1 auto !important;
+            margin-left: 0 !important;
+            gap: 0 !important;
+            display: flex !important;
+            justify-content: space-evenly !important;
+            width: 100% !important;
+        }
     }
 
-    .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
-        flex: 1 1 auto !important;
-        margin-left: 0 !important;
-        gap: 0 !important;
+     
+    .main-menu .md\:hidden {
         display: flex !important;
-        justify-content: space-evenly !important;
-        width: 100% !important;
     }
+
      
     section.flex.flex-wrap.max-w-prose {
         max-width: 1200px !important;        
@@ -541,6 +579,26 @@
     loop();
     window.addEventListener('resize', () => { resize(); initStars(); });
 })();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuButton = document.getElementById('menu-button');
+    const menuWrapper = document.getElementById('menu-wrapper');
+    const closeButton = document.getElementById('menu-close-button');
+    if (menuButton && menuWrapper) {
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            menuWrapper.classList.toggle('invisible');
+            menuWrapper.classList.toggle('opacity-0');
+        });
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                menuWrapper.classList.add('invisible', 'opacity-0');
+            });
+        }
+    }
+});
 </script>
   
 
