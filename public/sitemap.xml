@@ -4,18 +4,24 @@
 
   <url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-12-25T12:30:30+00:00</lastmod>
+    <lastmod>2026-03-23T13:40:43+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://localhost:1313/posts/the-happiness-of-heart/</loc>
-    <lastmod>2025-12-25T12:30:30+00:00</lastmod>
+    <loc>http://localhost:1313/posts/robert-sapolsky/</loc>
+    <lastmod>2026-03-23T13:40:43+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:1313/</loc>
+    <lastmod>2026-03-23T13:40:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/the-happiness-of-heart/</loc>
     <lastmod>2025-12-25T12:30:30+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -47,11 +53,6 @@
   <url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-12-20T20:50:15+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/posts/Robert-Sapolsky/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

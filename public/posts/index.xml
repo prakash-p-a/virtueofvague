@@ -9,7 +9,22 @@
     <managingEditor>prakashpayyanagoudar@gmail.com (Virtue of Vague)</managingEditor>
     <webMaster>prakashpayyanagoudar@gmail.com (Virtue of Vague)</webMaster>
     <copyright>© 2026 Virtue of Vague</copyright>
-    <lastBuildDate>Thu, 25 Dec 2025 12:30:30 +0000</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Mar 2026 13:40:43 +0530</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Robert Sapolsky through my brain and why free will is a JOKE that actually sets you free</title>
+      <link>http://localhost:1313/posts/robert-sapolsky/</link>
+      <pubDate>Mon, 23 Mar 2026 13:40:43 +0530</pubDate>
+      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
+      <guid>http://localhost:1313/posts/robert-sapolsky/</guid>
+      <description>Folks, so i’ve been going down this rabbit hole lately.
+Robert Sapolsky. the guy is a neuroendocrinologist, professor at Stanford, spent decades watching baboons in Africa.
+wrote a book called behave that’s basically 800 pages of “your brain is lying to you about who’s in charge.”
+and honestly? it’s messing with me in the best way.
+disclaimer: this is my first attempt to digest his work. i’m no neuroscientist. just a guy in bengaluru trying to figure out why i do the stupid things i do.
+</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/robert-sapolsky/featured.png" />
+    </item>
     
     <item>
       <title>The happiness of Heart</title>
@@ -78,27 +93,6 @@ It builds an aura of calm and possibility, leading to a truly positive mind.
       <guid>http://localhost:1313/posts/welcome_to_knowthebetter/</guid>
       <description>Welcome to Know The Better</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_knowthebetter/featured.png" />
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://localhost:1313/posts/Robert-Sapolsky/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/Robert-Sapolsky/</guid>
-      <description>-–
-title = “Robert Sapolsky through my brain and why free will is a JOKE that actually sets you free”
-date = 2026-03-23T13:40:43+05:30
-slug = “robert-sapolsky”
-draft = false
-tags = [“knowthebetter”]
-showHero = false
--–
-Folks, so i’ve been going down this rabbit hole lately.
-Robert Sapolsky. the guy is a neuroendocrinologist, professor at Stanford, spent decades watching baboons in Africa.
-wrote a book called *behave* that’s basically 800 pages of “your brain is lying to you about who’s in charge.”
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/Robert-Sapolsky/featured.png" />
     </item>
     
   </channel>
