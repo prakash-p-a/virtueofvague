@@ -115,9 +115,9 @@ Sapolsky says:
 
 
 
-**you didn't choose to be *angry*.
+**you didn't choose to be *angry*.**
 
-you were *angry* before you knew you were *angry*.**
+**you were *angry* before you knew you were *angry*.**
 
 
 
@@ -251,4 +251,4 @@ does understanding the biology of decision-making make life easier or harder for
 
 **credits**: this post is based on the work of robert sapolsky, professor of biology and neurology at stanford university, author of *behave: the biology of humans at our best and worst* (2017) and *determined: a science of life without free will* (2023). his lectures are freely available on youtube. all ideas about the layered influences on behavior (seconds, hours, years, centuries, millennia) are his framework. i'm just a guy trying to understand it.
 
-(I took a little help from AI to spell check and few polishing. XD)
+(full disclosure: got AI to clean up my typos cause my brain works faster than my fingers. XD)
