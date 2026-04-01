@@ -527,10 +527,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     word.style.opacity = '1';
                     word.style.fontWeight = '';
                     word.style.textShadow = '';
-                } else if (absCenter < readLine + viewportHeight * 0.3) {
+                } else if (absCenter < readLine + viewportHeight * 0.12) {
                     // In reveal zone — fade in smoothly
                     word.style.transition = 'opacity 0.3s ease';
-                    const pos = (absCenter - readLine) / (viewportHeight * 0.3);
+                    const pos = (absCenter - readLine) / (viewportHeight * 0.12);
                     word.style.opacity = Math.max(0.12, 1 - pos).toFixed(2);
                     word.style.fontWeight = '';
                     word.style.textShadow = '';
