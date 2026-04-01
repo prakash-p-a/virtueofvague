@@ -233,6 +233,20 @@
         text-decoration: none;
     }
 
+    /* Word-by-word reveal */
+    .word {
+        display: inline-block;
+        transition: opacity 0.05s linear;
+        opacity: 0.3;
+    }
+
+ 
+
+    /* Make sure paragraph styles don't affect word spans */
+    p {
+        line-height: 1.6;
+    }
+
     /* Reading progress bar */
     .reading-progress {
         position: fixed;
@@ -245,17 +259,7 @@
         transition: width 0.1s ease;
     }
 
-    /* Reading fade effect */
-    .prose p,
-    .post-content p,
-    article p {
-        transition: opacity 0.2s ease;
-    }
-
-    p.reading-active {
-        text-shadow: 0 0 1px currentColor;
-        font-weight: 500;
-    }
+ 
 </style>
 
 <div class="reading-progress"></div>
@@ -448,60 +452,95 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+
 <script>
-// Reading progress bar and text fade effect
 (function() {
-    const progressBar = document.querySelector('.reading-progress');
-    const articleContent = document.querySelector('article, .post-content, main');
-    
-    if (!articleContent) return;
-    
-    const paragraphs = articleContent.querySelectorAll('p');
-    let currentActiveParagraph = null;
-    
-    function updateReadingProgress() {
-        const winScroll = window.scrollY;
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = (winScroll / height) * 100;
-        if (progressBar) progressBar.style.width = scrolled + '%';
-        
-        const viewportHeight = window.innerHeight;
-        
-        // Apply fade to paragraphs based on scroll position
-        paragraphs.forEach(p => {
-            const rect = p.getBoundingClientRect();
-            const isVisible = rect.top < viewportHeight && rect.bottom > 0;
-            
-            if (isVisible) {
-                const paragraphProgress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / viewportHeight));
-                const fadeLevel = 0.3 + (paragraphProgress * 0.7);
-                p.style.opacity = fadeLevel;
-            } else if (rect.bottom < 0) {
-                p.style.opacity = 1;
-            } else if (rect.top > viewportHeight) {
-                p.style.opacity = 0.5;
-            }
-        });
-        
-        // Highlight current reading paragraph
-        paragraphs.forEach(p => {
-            const rect = p.getBoundingClientRect();
-            const isActive = rect.top < viewportHeight * 0.6 && rect.bottom > viewportHeight * 0.3;
-            
-            if (isActive) {
-                if (currentActiveParagraph && currentActiveParagraph !== p) {
-                    currentActiveParagraph.classList.remove('reading-active');
+    if (window._readingEffectsActive) return;
+    window._readingEffectsActive = true;
+
+    function init() {
+        const progressBar = document.querySelector('.reading-progress');
+        let content = document.querySelector('.prose') || document.querySelector('article') || document.querySelector('main');
+
+        if (!content) return;
+
+        // 1. Wrap words if not already wrapped
+        if (!content.querySelector('.word')) {
+            function wrapWords(node) {
+                const tagsToSkip = ['H1', 'H2', 'NAV', 'BUTTON', 'SVG', 'SCRIPT', 'STYLE', 'HEADER', 'FOOTER'];
+                if (node.parentNode && tagsToSkip.includes(node.parentNode.tagName)) return;
+
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    const parent = node.parentNode;
+                    const words = node.textContent.split(/(\s+)/);
+                    const wrapper = document.createElement('span');
+                    words.forEach(part => {
+                        if (part.trim() === '') {
+                            wrapper.appendChild(document.createTextNode(part));
+                        } else {
+                            const span = document.createElement('span');
+                            span.className = 'word';
+                            span.textContent = part;
+                            wrapper.appendChild(span);
+                        }
+                    });
+                    parent.replaceChild(wrapper, node);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (tagsToSkip.includes(node.tagName)) return;
+                    Array.from(node.childNodes).forEach(wrapWords);
                 }
-                p.classList.add('reading-active');
-                currentActiveParagraph = p;
-            } else if (currentActiveParagraph !== p) {
-                p.classList.remove('reading-active');
             }
+            Array.from(content.childNodes).forEach(wrapWords);
+        }
+
+        const words = document.querySelectorAll('.word');
+
+        function update() {
+            const viewportHeight = window.innerHeight;
+            
+            // FOCUS POINT: 40% down from the top of the screen 
+            // This is where the "active" sentence lives.
+            const focusCenter = viewportHeight * 0.4; 
+            
+            // FADE DISTANCE: How many pixels above/below the center to start fading
+            const fadeRange = viewportHeight * 0.25; 
+
+            words.forEach(word => {
+                const rect = word.getBoundingClientRect();
+                const wordCenter = rect.top + (rect.height / 2);
+
+                // Calculate distance from focus center
+                const distanceFromCenter = Math.abs(wordCenter - focusCenter);
+
+                if (distanceFromCenter < fadeRange) {
+                    // Inside the focus zone: Linear fade from 0.3 to 1.0
+                    const progress = 1 - (distanceFromCenter / fadeRange);
+                    // Use an exponent (Math.pow) to make the "pop" sharper in the middle
+                    const opacity = 0.2 + (Math.pow(progress, 1.5) * 0.8);
+                    word.style.opacity = opacity;
+                    word.style.filter = `blur(${ (1 - progress) * 1 }px)`; // Optional subtle blur
+                } else {
+                    // Outside the zone
+                    word.style.opacity = 0.2;
+                    word.style.filter = 'blur(1px)';
+                }
+            });
+
+            if (progressBar) {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = (scrollTop / docHeight) * 100 + '%';
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(update);
         });
+        window.addEventListener('resize', update);
+        update(); 
     }
-    
-    window.addEventListener('scroll', updateReadingProgress);
-    window.addEventListener('resize', updateReadingProgress);
-    updateReadingProgress();
+
+    document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
 </script>
