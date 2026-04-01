@@ -420,32 +420,36 @@
 </script>
 
 <script>
-// Mobile menu fix - ensure links work
 document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menu-button');
     const menuWrapper = document.getElementById('menu-wrapper');
     const closeButton = document.getElementById('menu-close-button');
-    
+
     if (menuButton && menuWrapper) {
-        menuButton.addEventListener('click', function(e) {
-            e.preventDefault();
+        menuButton.addEventListener('click', function() {
             menuWrapper.classList.toggle('invisible');
             menuWrapper.classList.toggle('opacity-0');
         });
-        
+
         if (closeButton) {
             closeButton.addEventListener('click', function() {
                 menuWrapper.classList.add('invisible', 'opacity-0');
             });
         }
     }
-    
-    // Ensure all mobile menu links close the menu when clicked
+
+    // Close menu on link click — but let navigation happen naturally
     const menuLinks = document.querySelectorAll('#menu-wrapper a');
     menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (menuWrapper) {
-                menuWrapper.classList.add('invisible', 'opacity-0');
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                // External or page link — close menu then navigate
+                if (menuWrapper) menuWrapper.classList.add('invisible', 'opacity-0');
+                // Don't preventDefault — let browser navigate
+            } else if (href && href.startsWith('#')) {
+                // Anchor link — close menu
+                if (menuWrapper) menuWrapper.classList.add('invisible', 'opacity-0');
             }
         });
     });
