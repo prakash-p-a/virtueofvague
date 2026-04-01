@@ -23,4 +23,3 @@ You're not alone in the vague.
 
 Thank you for being here.
 
-— Prakash Ayyanagoudar

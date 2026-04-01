@@ -29,4 +29,3 @@ A small shift in perspective can change everything.
 
 What toxic thought will you release today?
 
-- Virtue of Vague

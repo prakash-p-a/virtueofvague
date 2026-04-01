@@ -305,6 +305,20 @@ disclaimer: this is my first attempt to digest his work. i’m no neuroscientist
         will-change: transform, opacity;
     }
 
+     
+    @media (min-width: 768px) {
+        html, body, a, button {
+            cursor: none !important;
+        }
+        
+        #custom-cursor {
+            transition: opacity 0.3s ease;
+        }
+        
+        body.idle #custom-cursor {
+            opacity: 0;
+        }
+    }
 
      
 
@@ -613,6 +627,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
   
 
   

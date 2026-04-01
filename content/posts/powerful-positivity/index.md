@@ -29,5 +29,4 @@ It builds an aura of calm and possibility, leading to a truly positive mind.
 Just mind your thoughts and become infinite.
 
 
-—Virtue of Vague
 

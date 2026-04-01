@@ -48,5 +48,5 @@ Yet it's this very hope that keeps us moving forward.
 In hopelessness, hope is the light we carry inside.
 
 
-— Virtue of Vague
+
 

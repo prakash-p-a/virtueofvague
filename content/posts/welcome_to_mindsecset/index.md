@@ -21,4 +21,3 @@ No gatekeeping—just real talk.
 
 Thanks for joining the journey.
 
-— Prakash Ayyanagoudar
