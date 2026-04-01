@@ -453,45 +453,41 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+
 <script>
 (function() {
-    if (window._wordRevealDone) return;
-    window._wordRevealDone = true;
+    const ATTR = 'data-word-reveal-v3';
+    if (document.documentElement.getAttribute(ATTR) === 'done') return;
+    document.documentElement.setAttribute(ATTR, 'done');
 
     function init() {
-        // Find the exact blog content container
         const content = document.querySelector('.article-content');
-        if (!content) return;
+        if (!content || content.getAttribute(ATTR) === 'done') return;
+        content.setAttribute(ATTR, 'done');
 
         const progressBar = document.querySelector('.reading-progress');
 
-        // If words are already wrapped here, just attach scroll handler
-        if (content.querySelector('.word')) {
-            const words = document.querySelectorAll('.word');
-            if (words.length) attachScrollHandler(words, progressBar);
-            return;
-        }
+        // Clean up any previous word spans
+        content.querySelectorAll('.word').forEach(w => {
+            w.replaceWith(document.createTextNode(w.textContent));
+        });
 
-        // Mark this container as processed
-        content.classList.add('words-processed');
-
-        // Wrap words only inside this container (skip headings, SVG, etc.)
         function wrapWords(node) {
-            const tagsToSkip = ['H1', 'H2', 'H3', 'NAV', 'BUTTON', 'SVG', 'SCRIPT', 'STYLE'];
+            const tagsToSkip = ['H1','H2','H3','NAV','BUTTON','SVG','SCRIPT','STYLE'];
             if (node.parentNode && tagsToSkip.includes(node.parentNode.tagName)) return;
-
             if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
                 const parent = node.parentNode;
                 if (parent.closest('svg') || parent.closest('nav')) return;
-
-                const words = node.textContent.split(/(\s+)/);
+                const parts = node.textContent.split(/(\s+)/);
                 const wrapper = document.createElement('span');
-                words.forEach(part => {
+                parts.forEach(part => {
                     if (part.trim() === '') {
                         wrapper.appendChild(document.createTextNode(part));
                     } else {
                         const span = document.createElement('span');
                         span.className = 'word';
+                        span.style.opacity = '0.15';
+                        span.style.transition = 'opacity 0.4s ease, font-weight 0.2s ease';
                         span.textContent = part;
                         wrapper.appendChild(span);
                     }
@@ -503,72 +499,77 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        const children = Array.from(content.childNodes);
-        children.forEach(wrapWords);
+        Array.from(content.childNodes).forEach(wrapWords);
 
-        const words = document.querySelectorAll('.word');
-        if (words.length) attachScrollHandler(words, progressBar);
-    }
+        const words = Array.from(content.querySelectorAll('.word'));
+        if (!words.length) return;
 
-    function attachScrollHandler(words, progressBar) {
         function update() {
             const scrollTop = window.scrollY;
             const viewportHeight = window.innerHeight;
-            const zoneHeight = viewportHeight * 0.3;
-            const zoneTop = scrollTop + (viewportHeight - zoneHeight) / 2;
-            const zoneBottom = zoneTop + zoneHeight;
-            const zoneCenter = (zoneTop + zoneBottom) / 2;
+
+            // Read line = 60% down the viewport
+            const readLine = scrollTop + viewportHeight * 0.6;
+            // Reveal zone = between 40% and 60% of viewport  
+            const revealTop = scrollTop + viewportHeight * 0.4;
 
             let closestWord = null;
-            let minDistance = Infinity;
+            let minDist = Infinity;
+            const focusLine = scrollTop + viewportHeight * 0.5;
 
             words.forEach(word => {
                 const rect = word.getBoundingClientRect();
-                const wordTop = rect.top + scrollTop;
-                const wordBottom = rect.bottom + scrollTop;
-                const wordCenter = (wordTop + wordBottom) / 2;
+                const absCenter = rect.top + scrollTop + rect.height / 2;
 
-                let opacity = 0.3;
-                if (wordBottom < zoneTop) opacity = 1;
-                else if (wordTop > zoneBottom) opacity = 0.3;
-                else {
-                    const pos = (wordCenter - zoneTop) / zoneHeight;
-                    opacity = 0.3 + pos * 0.7;
-                    opacity = Math.min(1, Math.max(0.3, opacity));
+                if (absCenter < readLine) {
+                    // Above read line — fully visible instantly
+                    word.style.transition = 'none';
+                    word.style.opacity = '1';
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
+                } else if (absCenter < readLine + viewportHeight * 0.3) {
+                    // In reveal zone — fade in smoothly
+                    word.style.transition = 'opacity 0.3s ease';
+                    const pos = (absCenter - readLine) / (viewportHeight * 0.3);
+                    word.style.opacity = Math.max(0.12, 1 - pos).toFixed(2);
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
+                } else {
+                    // Far below — fully faded
+                    word.style.transition = 'none';
+                    word.style.opacity = '0.12';
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
                 }
-                word.style.opacity = opacity;
 
-                const distance = Math.abs(wordCenter - zoneCenter);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestWord = word;
-                }
+                const dist = Math.abs(absCenter - focusLine);
+                if (dist < minDist) { minDist = dist; closestWord = word; }
             });
 
-            words.forEach(w => w.classList.remove('reading-active'));
-            if (closestWord) closestWord.classList.add('reading-active');
+            // Highlight the single word closest to center
+            if (closestWord) {
+                closestWord.style.opacity = '1';
+                closestWord.style.fontWeight = '700';
+                closestWord.style.textShadow = '0 0 8px rgba(255,255,255,0.6)';
+            }
 
             if (progressBar) {
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = (scrollTop / docHeight) * 100;
-                progressBar.style.width = progress + '%';
+                const docHeight = document.documentElement.scrollHeight - viewportHeight;
+                progressBar.style.width = ((scrollTop / docHeight) * 100) + '%';
             }
         }
+
+        // Initial state — fade everything below fold
+        update();
 
         let ticking = false;
-        function onScroll() {
+        window.addEventListener('scroll', () => {
             if (!ticking) {
-                requestAnimationFrame(() => {
-                    update();
-                    ticking = false;
-                });
+                requestAnimationFrame(() => { update(); ticking = false; });
                 ticking = true;
             }
-        }
-
-        window.addEventListener('scroll', onScroll);
+        });
         window.addEventListener('resize', update);
-        update();
     }
 
     if (document.readyState === 'loading') {
