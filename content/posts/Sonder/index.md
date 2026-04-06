@@ -8,8 +8,6 @@ showHero = false
 +++
 
 
-
-
 when comparision its hard to compare and not completely fair to do it as we all are unique by our choices and thinkings and beliefs which caused the current life as its byproducts of multiple factors we see heard amd believed in
 we need to understand and believe in sonderness of life but that doesn't give us permission to feel the ego boost and throwing the kindness into dustbin.
 
