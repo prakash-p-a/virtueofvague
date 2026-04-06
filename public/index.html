@@ -650,32 +650,36 @@
 </script>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menu-button');
     const menuWrapper = document.getElementById('menu-wrapper');
     const closeButton = document.getElementById('menu-close-button');
-    
+
     if (menuButton && menuWrapper) {
-        menuButton.addEventListener('click', function(e) {
-            e.preventDefault();
+        menuButton.addEventListener('click', function() {
             menuWrapper.classList.toggle('invisible');
             menuWrapper.classList.toggle('opacity-0');
         });
-        
+
         if (closeButton) {
             closeButton.addEventListener('click', function() {
                 menuWrapper.classList.add('invisible', 'opacity-0');
             });
         }
     }
-    
+
     
     const menuLinks = document.querySelectorAll('#menu-wrapper a');
     menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (menuWrapper) {
-                menuWrapper.classList.add('invisible', 'opacity-0');
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                
+                if (menuWrapper) menuWrapper.classList.add('invisible', 'opacity-0');
+                
+            } else if (href && href.startsWith('#')) {
+                
+                if (menuWrapper) menuWrapper.classList.add('invisible', 'opacity-0');
             }
         });
     });
@@ -683,27 +687,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+
 <script>
 (function() {
-    
-    const ATTR = 'data-word-reveal-v2';
+    const ATTR = 'data-word-reveal-v3';
     if (document.documentElement.getAttribute(ATTR) === 'done') return;
+    document.documentElement.setAttribute(ATTR, 'done');
 
-    function tryInit() {
+    function init() {
         const content = document.querySelector('.article-content');
-        if (!content) return;
-        if (content.getAttribute(ATTR) === 'done') return;
-
-        
-        document.documentElement.setAttribute(ATTR, 'done');
+        if (!content || content.getAttribute(ATTR) === 'done') return;
         content.setAttribute(ATTR, 'done');
 
+        const progressBar = document.querySelector('.reading-progress');
+
         
-        document.querySelectorAll('.word').forEach(w => {
+        content.querySelectorAll('.word').forEach(w => {
             w.replaceWith(document.createTextNode(w.textContent));
         });
-
-        const progressBar = document.querySelector('.reading-progress');
 
         function wrapWords(node) {
             const tagsToSkip = ['H1','H2','H3','NAV','BUTTON','SVG','SCRIPT','STYLE'];
@@ -719,6 +720,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         const span = document.createElement('span');
                         span.className = 'word';
+                        span.style.opacity = '0.15';
+                        span.style.transition = 'opacity 0.4s ease, font-weight 0.2s ease';
                         span.textContent = part;
                         wrapper.appendChild(span);
                     }
@@ -732,43 +735,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
         Array.from(content.childNodes).forEach(wrapWords);
 
-        const words = Array.from(document.querySelectorAll('.word'));
+        const words = Array.from(content.querySelectorAll('.word'));
         if (!words.length) return;
 
         function update() {
             const scrollTop = window.scrollY;
             const viewportHeight = window.innerHeight;
-            const zoneHeight = viewportHeight * 0.3;
-            const zoneTop = scrollTop + (viewportHeight - zoneHeight) / 2;
-            const zoneBottom = zoneTop + zoneHeight;
-            const zoneCenter = (zoneTop + zoneBottom) / 2;
+
+            
+            const readLine = scrollTop + viewportHeight * 0.6;
+            
+            const revealTop = scrollTop + viewportHeight * 0.4;
 
             let closestWord = null;
-            let minDistance = Infinity;
+            let minDist = Infinity;
+            const focusLine = scrollTop + viewportHeight * 0.5;
 
             words.forEach(word => {
                 const rect = word.getBoundingClientRect();
-                const wordCenter = rect.top + scrollTop + rect.height / 2;
-                let opacity = 0.3;
-                if (rect.bottom + scrollTop < zoneTop) opacity = 1;
-                else if (rect.top + scrollTop > zoneBottom) opacity = 0.3;
-                else {
-                    const pos = (wordCenter - zoneTop) / zoneHeight;
-                    opacity = Math.min(1, Math.max(0.3, 0.3 + pos * 0.7));
+                const absCenter = rect.top + scrollTop + rect.height / 2;
+
+                if (absCenter < readLine) {
+                    
+                    word.style.transition = 'none';
+                    word.style.opacity = '1';
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
+                } else if (absCenter < readLine + viewportHeight * 0.12) {
+                    
+                    word.style.transition = 'opacity 0.3s ease';
+                    const pos = (absCenter - readLine) / (viewportHeight * 0.12);
+                    word.style.opacity = Math.max(0.12, 1 - pos).toFixed(2);
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
+                } else {
+                    
+                    word.style.transition = 'none';
+                    word.style.opacity = '0.12';
+                    word.style.fontWeight = '';
+                    word.style.textShadow = '';
                 }
-                word.style.opacity = opacity;
-                const dist = Math.abs(wordCenter - zoneCenter);
-                if (dist < minDistance) { minDistance = dist; closestWord = word; }
+
+                const dist = Math.abs(absCenter - focusLine);
+                if (dist < minDist) { minDist = dist; closestWord = word; }
             });
 
-            words.forEach(w => w.classList.remove('reading-active'));
-            if (closestWord) closestWord.classList.add('reading-active');
+            
+            if (closestWord) {
+                closestWord.style.opacity = '1';
+                closestWord.style.fontWeight = '700';
+                closestWord.style.textShadow = '0 0 8px rgba(255,255,255,0.6)';
+            }
 
             if (progressBar) {
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight - viewportHeight;
                 progressBar.style.width = ((scrollTop / docHeight) * 100) + '%';
             }
         }
+
+        
+        update();
 
         let ticking = false;
         window.addEventListener('scroll', () => {
@@ -778,15 +804,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         window.addEventListener('resize', update);
-        update();
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', tryInit);
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        tryInit();
+        init();
     }
 })();
+</script>
+
+<style>
+ 
+h2.mt-0.mb-0.text-xl {
+    font-family: 'Libre Baskerville', Georgia, serif !important;
+    font-style: italic !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.12em !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-weight: 400 !important;
+    margin-top: 0.5rem !important;
+}
+html:not(.dark) h2.mt-0.mb-0.text-xl {
+    color: rgba(0, 0, 0, 0.45) !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    if (window.location.pathname !== '/') return;
+
+    const siteTitle = document.querySelector('h1, .site-title, header a[href="http://localhost:1313/"]');
+    if (!siteTitle) return;
+
+    const tagline = document.createElement('p');
+    tagline.className = 'home-tagline';
+    tagline.textContent = 'The less you know, More you Believe';
+
+    
+    const parent = siteTitle.closest('header') || siteTitle.parentElement;
+    parent.insertAdjacentElement('afterend', tagline);
+});
 </script>
   
 
@@ -850,6 +909,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
+      
+        <a href="http://localhost:1313/" class="text-base font-medium">
+          Virtue Of Vague
+        </a>
       
     </nav>
     

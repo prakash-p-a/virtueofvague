@@ -832,6 +832,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 })();
 </script>
+
+<style>
+ 
+h2.mt-0.mb-0.text-xl {
+    font-family: 'Libre Baskerville', Georgia, serif !important;
+    font-style: italic !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.12em !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-weight: 400 !important;
+    margin-top: 0.5rem !important;
+}
+html:not(.dark) h2.mt-0.mb-0.text-xl {
+    color: rgba(0, 0, 0, 0.45) !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    if (window.location.pathname !== '/') return;
+
+    const siteTitle = document.querySelector('h1, .site-title, header a[href="http://localhost:1313/"]');
+    if (!siteTitle) return;
+
+    const tagline = document.createElement('p');
+    tagline.className = 'home-tagline';
+    tagline.textContent = 'The less you know, More you Believe';
+
+    
+    const parent = siteTitle.closest('header') || siteTitle.parentElement;
+    parent.insertAdjacentElement('afterend', tagline);
+});
+</script>
   
 
   
@@ -894,6 +928,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div class="flex flex-1 items-center justify-between">
     <nav class="flex space-x-3">
+      
+        <a href="http://localhost:1313/" class="text-base font-medium">
+          Virtue Of Vague
+        </a>
       
     </nav>
     
