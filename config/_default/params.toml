@@ -50,27 +50,22 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showAppearanceSwitcher = true
   showScrollToTop = true
 
-#[appearance]
- # favicon = "favicon.png"
+[appearance]
+  favicon = "favicon.png"
 
 [homepage]
-  layout = "background"
+  layout = "page"
   showRecent = true
-  showRecentItems = 10
-  cardView = true  # adds small thumbnails in list
+  #showRecentItems = 10
+  #cardView = true  # adds small thumbnails in list
   #homepageImage = "IMAGE.jpg" # used in: hero, and card
-  showMoreLink = true
-  showMoreLinkDest = "/posts/"
-  cardViewScreenWidth = true
-  layoutBackgroundBlur = true # only used when layout equals background
-  disableHeroImageFilter = true # only used when layout equals hero
-  [[homepage.sections]]
-  name = "calm-game"
-  weight = 5
-  [homepage.sections.params]
-    partial = "calm-game.html"
-    title = "Take a Calm Moment"
-    subtitle = "Gently train your mind toward positivity"
+  #showMoreLink = true
+  #showMoreLinkDest = "/posts/"
+  #cardViewScreenWidth = true
+  #layoutBackgroundBlur = true # only used when layout equals background
+  #disableHeroImageFilter = true # only used when layout equals hero
+  #showHero = true
+ 
 
 [article]
   showDate = true
@@ -104,7 +99,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   # sharingLinks = [ "linkedin", "twitter", "bluesky", "mastodon", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram", "line"]
   showZenMode = true
 
-[Author]
+[author]
   name = "Virtue of Vague"
   headline = "*The less you know, More you Believe*"
 
