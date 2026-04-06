@@ -509,8 +509,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!words.length) return;
 
         function update() {
-            const scrollTop = window.scrollY;
-            const viewportHeight = window.innerHeight;
+                const scrollTop = window.scrollY;
+                const viewportHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight - viewportHeight;
+                
+                // Near bottom — reveal everything
+                const nearBottom = docHeight - scrollTop < viewportHeight * 0.3;
+                if (nearBottom) {
+                    words.forEach(w => {
+                        w.style.transition = 'opacity 0.4s ease';
+                        w.style.opacity = '1';
+                        w.style.fontWeight = '';
+                        w.style.textShadow = '';
+                    });
+                    if (progressBar) progressBar.style.width = '100%';
+                    return;
+                }
 
             // Read line = 60% down the viewport
             const readLine = scrollTop + viewportHeight * 0.6;
@@ -598,6 +612,45 @@ h2.mt-0.mb-0.text-xl {
 html:not(.dark) h2.mt-0.mb-0.text-xl {
     color: rgba(0, 0, 0, 0.45) !important;
 }
+    a[href="https://virtueofvague.com/"],
+    a[href="/"] {
+        white-space: nowrap !important;
+    }
+    /* ── Nav logo / site name ── */
+    a[href="https://virtueofvague.com/"],
+    a[href="/"] {
+        font-family: 'Libre Baskerville', Georgia, serif !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.04em !important;
+        line-height: 1.2 !important;
+        font-style: italic !important;
+    }
+
+    /* ── Homepage hero title ── */
+    h1.mb-2.text-4xl.font-extrabold {
+        font-family: 'Libre Baskerville', Georgia, serif !important;
+        font-size: 2.8rem !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.02em !important;
+        text-align: center !important;
+    }
+
+    /* ── Tagline ── */
+    h1.mb-2.text-4xl.font-extrabold + h2 {
+        font-family: 'Libre Baskerville', Georgia, serif !important;
+        font-style: italic !important;
+        font-size: 1rem !important;
+        letter-spacing: 0.14em !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+        margin-top: 0.5rem !important;
+    }
+    html:not(.dark) h1.mb-2.text-4xl.font-extrabold + h2 {
+        color: rgba(0, 0, 0, 0.4) !important;
+    }
+
 </style>
 
 <script>
@@ -617,3 +670,4 @@ document.addEventListener('DOMContentLoaded', function() {
     parent.insertAdjacentElement('afterend', tagline);
 });
 </script>
+
