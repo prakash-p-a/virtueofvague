@@ -1,7 +1,7 @@
 +++
 date = 2026-04-06T13:40:43+05:30
 draft = false
-slug = "robert-sapolsky"
+slug = "Snow-flake"
 tags = ["KnowTheBetter"]
 title = "snowflake on the surface. compost underneath."
 showHero = false
