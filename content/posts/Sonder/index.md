@@ -8,24 +8,24 @@ showHero = false
 +++
 
 
-when comparision its hard to compare and not completely fair to do it as we all are unique by our choices and thinkings and beliefs which caused the current life as its byproducts of multiple factors we see heard amd believed in
-we need to understand and believe in sonderness of life but that doesn't give us permission to feel the ego boost and throwing the kindness into dustbin.
+when comparison its hard to compare and not completely fair to do it as we all are unique by our choices and thinking and beliefs which caused the current life as its byproducts of multiple factors we see heard and believed in
+we need to understand and believe in sonder of life but that doesn't give us permission to feel the ego boost and throwing the kindness into dustbin.
 
-we need to make realization of fight club as well we are and our values on social lense are like compost heap and remains the same based on value creation and management of social intelligence of individual person and some flakes of luck as well
+we need to make realization of fight club as well we are and our values on social lens are like compost heap and remains the same based on value creation and management of social intelligence of individual person and some flakes of luck as well
 
-its been complicated where human has inate feeling of being recognised and felt dopamine/serotonin rush when being identified and understood by other human/s so they try to get that each time with expressing truth (rarely) being deceptive or finding win win situation or fitting in into socitical rules or chasing something where all are chansing to get.
+its been complicated where human has innate feeling of being recognised and felt dopamine/serotonin rush when being identified and understood by other human/s so they try to get that each time with expressing truth (rarely) being deceptive or finding win-win situation or fitting in into societal rules or chasing something where all are chasing to get.
 
-Need to explain the tractic of catagorization from Robert saplosky as telling number of paints used building the painting on canvas something people never thought of where it creates new category in mind to evaluvate and they could be chance of grabbing attention or getting impressed. its been similar efforts from influencers and compaies to trick into social life of people>
+Need to explain the tactic of categorization from Robert Sapolsky as telling number of paints used building the painting on canvas something people never thought of where it creates new category in mind to evaluate and they could be chance of grabbing attention or getting impressed. its been similar efforts from influencers and compaies to trick into social life of people>
 
 its been always similar way and we need to acknowledge as its basic human desire as food and sex and we need to find ways to formulate as per our personality and choices we made till the present
 
-end of theme should be like indetifying the human trait of comparision on each second with other stuffs from stuffs he has like clothes thoughts lifepath car bike soo many common items and it causes making life commitments evolve around to satify those cravings ehich never exists and making realise as it need to be treated and not useful if you want to live life in better way
+end of theme should be like identifying the human trait of comparison on each second with other stuffs from stuffs he has like clothes thoughts lifepath car bike soo many common items and it causes making life commitments evolve around to satisfy those cravings which never exists and making realise as it need to be treated and not useful if you want to live life in better way
 
 first need to observe the emotions and try to document/memorise it then question yourself why did it came (most of cases its from our subconcious mind and past memories - the memories which we choose to keep it with us not actually make us better or worst - which made us real us today -nothing more nothing less)
 
 once you are able to understand the nuanced memories and reason behind it you will start feeling the guilt or regret of having the feeling - exact feeling of comparing then don't go into the vicious cycle try to accepting the past thing 
 
-other than that valuing present more than past and stop imagining the future keep changing the present by understanding your own actions and traits and accepting them quickly rather than overthinking them and start changing your own daily habits (in kannada we call it as Dinasadhane - daily efforts) it can surpass any traits or habits we have and help us to build better life we wished/expected/imagined throughtout out life.
+other than that valuing present more than past and stop imagining the future keep changing the present by understanding your own actions and traits and accepting them quickly rather than overthinking them and start changing your own daily habits (in kannada we call it as Dinasadhane - daily efforts) it can surpass any traits or habits we have and help us to build better life we wished/expected/imagined throughout out life.
 
 I say not to expect anything in life but what to do at roots we all are humans with animal traits who seeks brain chems to be populated each time (Dopamine)
 
@@ -87,9 +87,9 @@ all of it. just different flavors of the same hunger.
 
 ---
 
-## sapolsky's trick: how influencers and companies exploit this
+## Sapolsky's trick: how influencers and companies exploit this
 
-robert sapolsky has this brilliant example. (full credit to him.)
+Robert Sapolsky has this brilliant example. (full credit to him.)
 
 he says: if you tell someone "there are 47 paints used in this painting" – they never thought about that before. you just created a **new category** in their mind. now they're impressed. now they're paying attention. now they think you're smart.
 
@@ -195,4 +195,4 @@ are you going to keep chasing ghosts? or are you going to sit with yourself, acc
 
 ---
 
-**credits:** robert sapolsky's "categories as attention tricks" idea is from his lectures and books (*behave*, *determined*). the fight club compost reference is from chuck palahniuk's novel/film. the concept of sonder is from the dictionary of obscure sorrows. the word *dinasadhane* is kannada. i'm just a guy connecting dots.
+**credits:** Robert Sapolsky's "categories as attention tricks" idea is from his lectures and books (*behave*, *determined*). the fight club compost reference is from chuck palahniuk's novel/film. the concept of sonder is from the dictionary of obscure sorrows. the word *dinasadhane* is kannada. i'm just a guy connecting dots.
