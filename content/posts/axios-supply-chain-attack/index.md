@@ -3,7 +3,7 @@ date = 2026-04-26T13:40:43+05:30
 draft = false
 slug = "Axios-Threat"
 tags = ["MindSecSet"]
-title= "How a Fake Teams Meeting Took Down One of npm's Most Trusted Packages"
+title = "How a Fake Teams Meeting Took Down One of npm's Most Trusted Packages"
 showHero = false
 +++
 

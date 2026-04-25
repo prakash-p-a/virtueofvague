@@ -3,19 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-04-25T13:40:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-03-23T13:40:43+05:30</lastmod>
+    <lastmod>2026-04-25T13:40:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/Think-negative/</loc>
+    <lastmod>2026-04-25T13:40:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/Snow-flake/</loc>
+    <lastmod>2026-04-06T13:40:43+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>http://localhost:1313/posts/robert-sapolsky/</loc>
-    <lastmod>2026-03-23T13:40:43+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/</loc>
     <lastmod>2026-03-23T13:40:43+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -73,11 +85,6 @@
   </url>
   <url>
     <loc>http://localhost:1313/games/universe/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://localhost:1313/relax/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>

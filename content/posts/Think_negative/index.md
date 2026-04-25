@@ -1,7 +1,7 @@
 +++
-date = 2026-04-06T13:40:43+05:30
+date = 2026-04-25T13:40:43+05:30
 draft = false
-slug = "Snow-flake"
+slug = "Think-negative"
 tags = ["KnowTheBetter"]
 title = "the negative mindset that actually works"
 showHero = false
