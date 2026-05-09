@@ -1,156 +1,11 @@
 /* ===== HIDE REDUNDANT HEADER NAV ON DESKTOP (sidebar is now the nav) ===== */
 @media (min-width: 1024px) {
-    .hidden.md\\:flex.items-center.gap-x-5 {
+    nav.hidden.md\:flex.items-center.gap-x-5 {
         display: none !important;
     }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
-/* ===== SIDEBAR NAVIGATION ===== */
-.sidebar-nav {
-    width: 16rem; /* 256px (w-64 in Tailwind) */
-    padding-top: 2rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    background: #171717;
-    border-left: 1px solid #333;
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #4b5563 #2a2a2a;
-}
-
-.sidebar-nav::-webkit-scrollbar {
-    width: 8px;
-}
-
-.sidebar-nav::-webkit-scrollbar-track {
-    background: #2a2a2a;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 4px;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb:hover {
-    background: #5a6673;
-}
-
-/* ===== SIDEBAR MENU ===== */
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.sidebar-section {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ===== SIDEBAR LABELS (Parent items without links) ===== */
-.sidebar-label {
-    font-family: var(--font-serif-display);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #ffffff;
-    display: block;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-}
-
-/* ===== SIDEBAR MENU ITEMS ===== */
-.sidebar-item {
-    font-family: var(--font-serif-body);
-    font-size: 1rem;
-    color: #d1d5db;
-    text-decoration: none;
-    display: block;
-    padding: 0.5rem 0;
-    transition: all 0.2s ease;
-    position: relative;
-    border-bottom: 1px solid transparent;
-}
-
-.sidebar-parent {
-    color: #ffffff;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.sidebar-item:hover {
-    color: #a3a3a3;
-}
-
-.sidebar-item.active {
-    color: #a3a3a3;
-    border-bottom-color: #a3a3a3;
-    font-weight: 500;
-}
-
-.sidebar-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, #a3a3a3, transparent);
-}
-
-/* ===== SIDEBAR SUBMENU (Nested items) ===== */
-.sidebar-submenu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-top: 0.75rem;
-    padding-left: 0;
-}
-
-.sidebar-submenu .sidebar-item {
-    font-size: 0.9rem;
-    color: #9ca3af;
-    padding: 0.35rem 0 0.35rem 0.75rem;
-    margin-bottom: 0;
-}
-
-.sidebar-submenu .sidebar-item:hover {
-    color: #bfdbfe;
-}
-
-.sidebar-submenu .sidebar-item.active {
-    color: #bfdbfe;
-    font-weight: 600;
-}
-
-/* ===== SIDEBAR DIVIDERS ===== */
-.sidebar-divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, #a3a3a3 0%, transparent 80%);
-    opacity: 0.4;
-    margin: 0;
-}
-
-/* ===== DESKTOP LAYOUT WITH SIDEBAR ===== */
-@media (min-width: 1024px) {
-    body {
-        position: relative;
-    }
-
-    .relative.flex.flex-col.grow {
-        margin-right: 0;
-    }
-}
-
-/* ===== MOBILE: Hide sidebar ===== */
-@media (max-width: 1023px) {
-    .sidebar-nav {
-        display: none;
-    }
-}
 
 /* ===== TYPOGRAPHY: Journal Feel ===== */
 :root {
@@ -175,6 +30,214 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
+
+/* ===== SIDEBAR NAVIGATION ===== */
+.sidebar-nav {
+    width: 16rem; /* 256px (w-64 in Tailwind) */
+    padding-top: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background: #171717;
+    border-left: 1px solid #333;
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #2a2a2a;
+}
+
+html:not(.dark) .sidebar-nav {
+    background: #f5f5f5;
+    border-left-color: #d4d4d8;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+html:not(.dark) .sidebar-nav::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+}
+
+html:not(.dark) .sidebar-nav::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: #5a6673;
+}
+
+html:not(.dark) .sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* ===== SIDEBAR MENU ===== */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== SIDEBAR LABELS (Parent items without links) ===== */
+.sidebar-label {
+    font-family: var(--font-serif-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+html:not(.dark) .sidebar-label {
+    color: #1f2937;
+}
+
+/* ===== SIDEBAR MENU ITEMS ===== */
+.sidebar-item {
+    font-family: var(--font-serif-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #d1d5db;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 0;
+    transition: all 0.2s ease;
+    position: relative;
+    border-bottom: 1px solid transparent;
+}
+
+html:not(.dark) .sidebar-item {
+    color: #4b5563;
+}
+
+.sidebar-parent {
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+html:not(.dark) .sidebar-parent {
+    color: #1f2937;
+}
+
+.sidebar-item:hover {
+    color: #a3a3a3;
+}
+
+html:not(.dark) .sidebar-item:hover {
+    color: #6b7280;
+}
+
+.sidebar-item.active {
+    color: #a3a3a3;
+    border-bottom-color: #a3a3a3;
+    font-weight: 500;
+}
+
+html:not(.dark) .sidebar-item.active {
+    color: #374151;
+    border-bottom-color: #6b7280;
+}
+
+.sidebar-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #a3a3a3, transparent);
+}
+
+html:not(.dark) .sidebar-item.active::after {
+    background: linear-gradient(90deg, #6b7280, transparent);
+}
+
+/* ===== SIDEBAR SUBMENU (Nested items) ===== */
+.sidebar-submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 0.75rem;
+    padding-left: 0;
+}
+
+.sidebar-submenu .sidebar-item {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    padding: 0.4rem 0 0.4rem 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+html:not(.dark) .sidebar-submenu .sidebar-item {
+    color: #6b7280;
+}
+
+.sidebar-submenu .sidebar-item:hover {
+    color: #bfdbfe;
+}
+
+html:not(.dark) .sidebar-submenu .sidebar-item:hover {
+    color: #4b5563;
+}
+
+.sidebar-submenu .sidebar-item.active {
+    color: #bfdbfe;
+    font-weight: 600;
+}
+
+html:not(.dark) .sidebar-submenu .sidebar-item.active {
+    color: #374151;
+    font-weight: 600;
+}
+
+/* ===== SIDEBAR DIVIDERS ===== */
+.sidebar-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #a3a3a3 0%, transparent 80%);
+    opacity: 0.4;
+    margin: 0;
+}
+
+html:not(.dark) .sidebar-divider {
+    background: linear-gradient(90deg, #9ca3af 0%, transparent 80%);
+    opacity: 0.6;
+}
+
+/* ===== DESKTOP LAYOUT WITH SIDEBAR ===== */
+@media (min-width: 1024px) {
+    body {
+        position: relative;
+    }
+
+    .relative.flex.flex-col.grow {
+        margin-right: 0;
+    }
+}
+
+/* ===== MOBILE: Hide sidebar ===== */
+@media (max-width: 1023px) {
+    .sidebar-nav {
+        display: none;
+    }
+}
 
 /* ===== GLOBAL WHITESPACE ===== */
 /* Increase breathing room throughout */
@@ -206,8 +269,16 @@ main > section {
     break-inside: avoid;
 }
 
+html:not(.dark) .article-link-card {
+    border-color: #e5e7eb;
+}
+
 .article-link-card:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+html:not(.dark) .article-link-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .article-link-card img {
@@ -227,6 +298,10 @@ main > section {
     background: var(--color-neutral-900);
 }
 
+html:not(.dark) .article-link-card-content {
+    background: #ffffff;
+}
+
 .article-link-card-title {
     font-family: var(--font-serif-display);
     font-size: 1.25rem;
@@ -235,10 +310,18 @@ main > section {
     color: #fff;
 }
 
+html:not(.dark) .article-link-card-title {
+    color: #1f2937;
+}
+
 .article-link-card-meta {
     font-size: 0.875rem;
     color: #888;
     margin: 0.75rem 0;
+}
+
+html:not(.dark) .article-link-card-meta {
+    color: #9ca3af;
 }
 
 .article-link-card-excerpt {
@@ -246,6 +329,10 @@ main > section {
     line-height: 1.6;
     color: #bbb;
     margin-top: 0.75rem;
+}
+
+html:not(.dark) .article-link-card-excerpt {
+    color: #6b7280;
 }
 
 .article-link-card-tag {
@@ -256,6 +343,11 @@ main > section {
     border-radius: 999px;
     color: #a3a3a3;
     margin-top: 0.75rem;
+}
+
+html:not(.dark) .article-link-card-tag {
+    background: rgba(0, 0, 0, 0.05);
+    color: #6b7280;
 }
 
 /* ===== MASONRY LAYOUT ===== */
@@ -296,6 +388,11 @@ main > section {
     margin-bottom: 3rem;
 }
 
+html:not(.dark) .hero-manifesto {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
 .hero-manifesto-quote {
     font-family: var(--font-serif-display);
     font-size: 2.5rem;
@@ -306,11 +403,19 @@ main > section {
     font-style: italic;
 }
 
+html:not(.dark) .hero-manifesto-quote {
+    color: #1f2937;
+}
+
 .hero-manifesto-divider {
     width: 60px;
     height: 2px;
     background: linear-gradient(90deg, transparent, #a3a3a3, transparent);
     margin: 1.5rem auto;
+}
+
+html:not(.dark) .hero-manifesto-divider {
+    background: linear-gradient(90deg, transparent, #9ca3af, transparent);
 }
 
 .hero-manifesto-philosophy {
@@ -320,6 +425,10 @@ main > section {
     max-width: 600px;
     margin: 1.5rem auto 0;
     font-style: italic;
+}
+
+html:not(.dark) .hero-manifesto-philosophy {
+    color: #6b7280;
 }
 
 /* ===== RECENT SECTION TITLE ===== */
@@ -333,6 +442,10 @@ h2.recent-title {
     padding-bottom: 1rem;
 }
 
+html:not(.dark) h2.recent-title {
+    color: #1f2937;
+}
+
 h2.recent-title::after {
     content: '';
     position: absolute;
@@ -341,6 +454,45 @@ h2.recent-title::after {
     width: 40px;
     height: 2px;
     background: linear-gradient(90deg, #a3a3a3, transparent);
+}
+
+html:not(.dark) h2.recent-title::after {
+    background: linear-gradient(90deg, #9ca3af, transparent);
+}
+
+/* ===== FOOTER STYLING ===== */
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0 1rem;
+    border-top: 1px solid #333;
+}
+
+html:not(.dark) footer {
+    border-top-color: #e5e7eb;
+}
+
+footer nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+footer nav ul li {
+    margin: 0;
+}
+
+footer nav ul li a {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: color 0.2s ease;
+}
+
+footer nav ul li a:hover {
+    color: var(--color-primary-400);
 }
 
 /* ===== FORCE THE HERO IMAGE INSIDE ARTICLES ===== */
@@ -358,6 +510,10 @@ time {
     font-size: 0.875rem;
     color: #888;
     letter-spacing: 1px;
+}
+
+html:not(.dark) time {
+    color: #9ca3af;
 }
 
 /* ===== IMPROVE READABILITY ===== */
