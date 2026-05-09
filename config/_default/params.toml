@@ -56,6 +56,11 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [homepage]
   layout = "page"
   showRecent = true
+  enableMasonry = true
+  columnCount = 3
+  columnCountTablet = 2
+  columnCountMobile = 1
+  imageHeightRatio = 0.65
   #showRecentItems = 10
   #cardView = true  # adds small thumbnails in list
   #homepageImage = "IMAGE.jpg" # used in: hero, and card

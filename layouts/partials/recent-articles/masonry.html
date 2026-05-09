@@ -1,0 +1,26 @@
+<section class="space-y-10 w-full">
+  {{ if .Site.Params.homepage.showRecent }}
+    <h2 class="recent-title">
+      {{ i18n "recentArticles" | default "Recent" }}
+    </h2>
+
+    <div class="masonry-container">
+      {{- $paginator := .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) (default 12 .Site.Params.homepage.showRecentItems) -}}
+
+      {{- range $paginator.Pages -}}
+        <div class="masonry-item">
+          {{- partial "article-link/gallery-card" . -}}
+        </div>
+      {{- end -}}
+    </div>
+
+    {{- if .Site.Params.homepage.showMoreLink -}}
+      <div class="text-center mt-8">
+        <a href="{{ .Site.Params.homepage.showMoreLinkDest | default "/posts/" }}"
+           class="inline-block px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-serif-display transition-colors">
+          {{ i18n "viewAllArticles" | default "View All Articles" }}
+        </a>
+      </div>
+    {{- end -}}
+  {{ end }}
+</section>

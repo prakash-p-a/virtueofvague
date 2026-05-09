@@ -1,0 +1,74 @@
+<article class="article-link-card">
+  {{- /* Extract featured image from post */ -}}
+  {{- $featured := "" -}}
+  {{- $featuredURL := "" -}}
+  {{- if not .Params.hideFeatureImage -}}
+    {{- /* Check frontmatter featureimage parameter */ -}}
+    {{- with .Params.featureimage -}}
+      {{- if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") -}}
+        {{- $featuredURL = . -}}
+      {{- else -}}
+        {{- $featured = resources.Get . -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- /* Check page resources for *feature*, *cover*, *thumbnail* */ -}}
+    {{- if not (or $featured $featuredURL) -}}
+      {{- $images := .Resources.ByType "image" -}}
+      {{- range slice "*feature*" "*cover*" "*thumbnail*" -}}
+        {{- if not $featured -}}{{- $featured = $images.GetMatch . -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- /* Generate image URL if needed */ -}}
+    {{- if not $featuredURL -}}
+      {{- with $featured -}}
+        {{- $featuredURL = .RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Display featured image if available */ -}}
+  {{- if $featuredURL -}}
+    <div class="article-link-card-image">
+      <img src="{{ $featuredURL }}" alt="{{ .Title }}" loading="lazy" decoding="async">
+    </div>
+  {{- end -}}
+
+  <div class="article-link-card-content">
+    {{- if .Params.date -}}
+      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="article-link-card-meta">
+        {{- .Date.Format (default "January 2, 2006" .Site.Params.dateFormat) -}}
+      </time>
+    {{- end -}}
+
+    <h3 class="article-link-card-title">
+      <a href="{{ .Permalink }}" class="not-prose decoration-primary-500 hover:underline">
+        {{- .Title -}}
+      </a>
+    </h3>
+
+    {{- $excerpt := "" -}}
+    {{- if .Params.summary -}}
+      {{- $excerpt = .Params.summary -}}
+    {{- else if .Summary -}}
+      {{- $excerpt = .Summary | truncate 150 -}}
+    {{- else -}}
+      {{- $excerpt = (.Content | plainify | truncate 150) -}}
+    {{- end -}}
+
+    {{- if $excerpt -}}
+      <p class="article-link-card-excerpt">
+        {{- $excerpt -}}
+      </p>
+    {{- end -}}
+
+    {{- if .Params.tags -}}
+      <div class="article-link-card-tags">
+        {{- range (first 1 .Params.tags) -}}
+          <span class="article-link-card-tag">{{ . }}</span>
+        {{- end -}}
+      </div>
+    {{- end -}}
+  </div>
+</article>

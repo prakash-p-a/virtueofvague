@@ -3,9 +3,11 @@
 
  <!--{{ partial "nebula-sand.html" . }}-->
 
+  <!-- Hero Manifesto Section -->
+  {{ partial "home/hero-manifesto.html" . }}
+
   <!-- Recent posts (from Blowfish theme) -->
   {{ if $partials.showRecent }}
     {{ partial "recent-articles/main.html" . }}
   {{ end }}
 {{ end }}
-

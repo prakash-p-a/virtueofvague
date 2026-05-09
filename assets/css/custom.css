@@ -1,11 +1,219 @@
-/* Force the hero image inside articles to be fully visible (not cropped) */
-/* We use !important to override the theme's default settings */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
-.article-header img, 
+/* ===== TYPOGRAPHY: Journal Feel ===== */
+:root {
+    --font-serif-body: 'Crimson Text', Georgia, serif;
+    --font-serif-display: 'Playfair Display', Georgia, serif;
+}
+
+body {
+    font-family: var(--font-serif-body);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+}
+
+/* Headings: Elegant serif display */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+/* ===== GLOBAL WHITESPACE ===== */
+/* Increase breathing room throughout */
+
+.prose {
+    line-height: 1.9;
+}
+
+/* Article cards: More spacing */
+article {
+    margin: 1.5rem 0;
+}
+
+section {
+    margin: 3rem 0;
+}
+
+/* Content sections have more vertical breathing room */
+main > section {
+    padding: 2rem 0;
+}
+
+/* ===== ARTICLE CARDS: Image Focus ===== */
+.article-link-card {
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    break-inside: avoid;
+}
+
+.article-link-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.article-link-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    transition: filter 0.3s ease;
+}
+
+.article-link-card:hover img {
+    filter: brightness(1.05);
+}
+
+.article-link-card-content {
+    padding: 1.5rem;
+    background: var(--color-neutral-900);
+}
+
+.article-link-card-title {
+    font-family: var(--font-serif-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: #fff;
+}
+
+.article-link-card-meta {
+    font-size: 0.875rem;
+    color: #888;
+    margin: 0.75rem 0;
+}
+
+.article-link-card-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #bbb;
+    margin-top: 0.75rem;
+}
+
+.article-link-card-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    color: #a3a3a3;
+    margin-top: 0.75rem;
+}
+
+/* ===== MASONRY LAYOUT ===== */
+.masonry-container {
+    column-count: 3;
+    column-gap: 2rem;
+    column-rule: none;
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .masonry-container {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .masonry-container {
+        column-count: 1;
+        column-gap: 0;
+    }
+    .masonry-item {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* ===== QUOTE/MANIFESTO STYLING ===== */
+.hero-manifesto {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.hero-manifesto-quote {
+    font-family: var(--font-serif-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    margin: 0;
+    font-style: italic;
+}
+
+.hero-manifesto-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #a3a3a3, transparent);
+    margin: 1.5rem auto;
+}
+
+.hero-manifesto-philosophy {
+    font-size: 1rem;
+    color: #999;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    font-style: italic;
+}
+
+/* ===== RECENT SECTION TITLE ===== */
+h2.recent-title {
+    font-family: var(--font-serif-display);
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 3rem 0 2rem 0;
+    color: #fff;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+h2.recent-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #a3a3a3, transparent);
+}
+
+/* ===== FORCE THE HERO IMAGE INSIDE ARTICLES ===== */
+.article-header img,
 .hero-image-container img {
     object-fit: contain !important;
-    /* Optional settings below to make it look neater */
-    width: auto !important;  /* Ensures it doesn't stretch horizontally */
-    max-height: 70vh;        /* Limits height so tall images don't fill the whole screen */
-    margin: 0 auto;          /* Centers the image horizontally */
+    width: auto !important;
+    max-height: 70vh;
+    margin: 0 auto;
+}
+
+/* ===== DATES: Subtle Styling ===== */
+time {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+/* ===== IMPROVE READABILITY ===== */
+.prose a {
+    transition: color 0.2s ease;
+}
+
+.prose a:hover {
+    color: var(--color-primary-400);
+    text-decoration: underline;
 }
