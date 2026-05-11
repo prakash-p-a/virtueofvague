@@ -29,14 +29,9 @@
   weight = 32
 
 [[main]]
-  name = "Games"
+  name = "Stillness"
+  pageRef = "stillness/breath"
   weight = 40
-
-[[main]]
-  name = "Breath Game"
-  pageRef = "games/breath"
-  parent = "Games"
-  weight = 41
 
 # -- Footer Menu --
 [[footer]]

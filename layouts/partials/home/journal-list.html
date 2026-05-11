@@ -1,11 +1,34 @@
-{{- /* Journal list: clean text rows of older posts */ -}}
+{{- /* Journal list: clean text rows with mood filter */ -}}
 {{- $posts := . -}}
 {{- if $posts -}}
+{{- /* Collect distinct moods present in this set, preserving canonical order */ -}}
+{{- $canonicalOrder := slice "quiet" "fierce" "lost" "curious" "tender" -}}
+{{- $present := slice -}}
+{{- range $posts -}}
+  {{- with .Params.mood -}}
+    {{- if not (in $present .) -}}{{- $present = $present | append . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $orderedMoods := slice -}}
+{{- range $canonicalOrder -}}
+  {{- if in $present . -}}{{- $orderedMoods = $orderedMoods | append . -}}{{- end -}}
+{{- end -}}
+
 <section class="journal-list-section">
   <h2 class="journal-list-title">more from the journals</h2>
+
+  {{- if $orderedMoods -}}
+  <div class="mood-filter" role="group" aria-label="Filter by mood">
+    <button type="button" class="mood-filter-btn is-active" data-mood="all">all</button>
+    {{- range $orderedMoods -}}
+      <button type="button" class="mood-filter-btn mood-{{ . }}" data-mood="{{ . }}">{{ . }}</button>
+    {{- end -}}
+  </div>
+  {{- end -}}
+
   <ol class="journal-list">
     {{- range $posts -}}
-      <li class="journal-entry">
+      <li class="journal-entry" data-mood="{{ .Params.mood | default `` }}">
         <a href="{{ .Permalink }}" class="journal-entry-link">
           <time datetime="{{ .Date.Format "2006-01-02" }}" class="journal-date">
             {{- .Date.Format "2 Jan 2006" -}}
@@ -18,5 +41,31 @@
       </li>
     {{- end -}}
   </ol>
+
+  <p class="mood-empty" hidden>nothing in this mood yet.</p>
 </section>
+
+<script>
+(function () {
+  const filter = document.querySelector('.mood-filter');
+  if (!filter) return;
+  const buttons = filter.querySelectorAll('.mood-filter-btn');
+  const entries = document.querySelectorAll('.journal-entry');
+  const empty = document.querySelector('.mood-empty');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mood = btn.dataset.mood;
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      let visible = 0;
+      entries.forEach((e) => {
+        const match = mood === 'all' || e.dataset.mood === mood;
+        e.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      if (empty) empty.hidden = visible !== 0;
+    });
+  });
+})();
+</script>
 {{- end -}}

@@ -1,0 +1,236 @@
+{{ define "main" }}
+<a href="{{ "/" | relLangURL }}" class="practice-exit" aria-label="Return home">&larr; back</a>
+
+<section class="practice practice-breath" data-state="idle">
+  <header class="practice-intro">
+    <h1 class="practice-title">{{ .Title | lower }}</h1>
+    <p class="practice-sub">{{ .Params.description }}</p>
+  </header>
+
+  <div class="celestial-moon" aria-hidden="true">
+    <div class="moon-orbit">
+      <div class="moon-body">
+      </div>
+      <!-- Directional lighting overlays - give the photo a 3D sphere feel -->
+      <div class="moon-lit"></div>
+      <div class="moon-terminator"></div>
+    </div>
+  </div>
+
+  <div class="practice-stage">
+    <div class="breath-circle" aria-hidden="true">
+      <div class="breath-circle-glow"></div>
+    </div>
+    <p class="breath-label" aria-live="polite">begin when ready</p>
+  </div>
+
+  <div class="practice-controls">
+    <div class="duration-picker" role="radiogroup" aria-label="Choose duration">
+      <button type="button" class="duration-btn" data-duration="180" role="radio" aria-checked="false">3 min</button>
+      <button type="button" class="duration-btn is-active" data-duration="300" role="radio" aria-checked="true">5 min</button>
+      <button type="button" class="duration-btn" data-duration="600" role="radio" aria-checked="false">10 min</button>
+    </div>
+    <button type="button" class="practice-start">begin</button>
+    <button type="button" class="practice-pause" hidden>pause</button>
+    <p class="practice-meta">
+      <span class="practice-elapsed">0:00</span>
+      <span class="practice-divider">&middot;</span>
+      <span class="practice-pattern">inhale 4 &middot; exhale 6</span>
+    </p>
+  </div>
+</section>
+
+<script>
+(function () {
+  const stage  = document.querySelector('.practice-breath');
+  const circle = document.querySelector('.breath-circle');
+  const label  = document.querySelector('.breath-label');
+  const moonOrbit = document.querySelector('.moon-orbit');
+  const startBtn = document.querySelector('.practice-start');
+  const pauseBtn = document.querySelector('.practice-pause');
+  const elapsed  = document.querySelector('.practice-elapsed');
+  const durBtns  = document.querySelectorAll('.duration-btn');
+
+  const INHALE_MS = 4000;
+  const EXHALE_MS = 6000;
+  const CYCLE_MS  = INHALE_MS + EXHALE_MS;
+
+  let durationS = 300;
+  let startTime = 0;
+  let pausedAt = 0;
+  let totalPaused = 0;
+  let rafId = null;
+  let currentPhase = null;
+
+  function setState(s) { stage.dataset.state = s; }
+
+  function fmt(s) {
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60);
+    return m + ':' + ss.toString().padStart(2, '0');
+  }
+
+  function setCosmicDilation(v) {
+    window._cosmicDilation = v;
+  }
+
+  function updateMoon(progress) {
+    // The moon traces a wide arc from the right wall's mid-height,
+    // up and over the top, down to the left wall's mid-height.
+    // Visibility: ~20% at the side walls, ~13% at the top of the arc.
+    if (!moonOrbit) return;
+    const p = Math.max(0, Math.min(1, progress));
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const size = moonOrbit.offsetWidth || 600;
+
+    const visibleEdge = 0.05;   // ~5% of moon visible at the side walls
+    const visibleMid  = 0.07;   // ~7% visible at the arc's peak
+
+    // X: linear right wall → left wall
+    const xStart = W - size * visibleEdge;
+    const xEnd   = -size * (1 - visibleEdge);
+    const x = xStart + (xEnd - xStart) * p;
+
+    // Y: sine arc — at edges, moon center sits at viewport mid-height
+    //               at middle, moon center rises high above the top
+    const yEdge = H / 2 - size / 2;
+    const yMid  = -size * (1 - visibleMid);
+    const arc = Math.sin(p * Math.PI); // 0 at edges, 1 at apex
+    const y = yEdge + (yMid - yEdge) * arc;
+
+    moonOrbit.style.left = x + 'px';
+    moonOrbit.style.top  = y + 'px';
+  }
+
+  // Recompute the moon's position on resize so the arc stays correct.
+  let lastProgress = 0;
+  window.addEventListener('resize', () => updateMoon(lastProgress));
+
+  durBtns.forEach((b) => {
+    b.addEventListener('click', () => {
+      if (stage.dataset.state !== 'idle' && stage.dataset.state !== 'done') return;
+      durBtns.forEach((x) => {
+        const on = x === b;
+        x.classList.toggle('is-active', on);
+        x.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      durationS = parseInt(b.dataset.duration, 10);
+    });
+  });
+
+  function tick() {
+    const now = performance.now();
+    const t = now - startTime - totalPaused;
+    const secs = t / 1000;
+    elapsed.textContent = fmt(secs);
+
+    // Moon progress across the whole session
+    updateMoon(secs / durationS);
+
+    if (secs >= durationS) return finish();
+
+    const cyclePos = t % CYCLE_MS;
+    const inInhale = cyclePos < INHALE_MS;
+    const phase = inInhale ? 'inhale' : 'exhale';
+
+    if (phase !== currentPhase) {
+      currentPhase = phase;
+      circle.classList.toggle('is-inhale', inInhale);
+      circle.classList.toggle('is-exhale', !inInhale);
+      if (moonOrbit) {
+        moonOrbit.classList.toggle('is-inhale', inInhale);
+        moonOrbit.classList.toggle('is-exhale', !inInhale);
+      }
+      label.textContent = phase;
+      // Slow the cosmos during exhale, normal speed during inhale
+      setCosmicDilation(inInhale ? 1 : 0.35);
+    }
+
+    lastProgress = secs / durationS;
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    setState('breathing');
+    startTime = performance.now();
+    totalPaused = 0;
+    currentPhase = null;
+    startBtn.hidden = true;
+    pauseBtn.hidden = false;
+    pauseBtn.textContent = 'pause';
+    tick();
+  }
+
+  function togglePause() {
+    if (stage.dataset.state === 'breathing') {
+      pausedAt = performance.now();
+      setState('paused');
+      pauseBtn.textContent = 'resume';
+      cancelAnimationFrame(rafId);
+      const cs = getComputedStyle(circle);
+      circle.style.transform = cs.transform;
+      circle.style.transition = 'none';
+      label.textContent = 'paused';
+      setCosmicDilation(1);
+    } else if (stage.dataset.state === 'paused') {
+      totalPaused += performance.now() - pausedAt;
+      setState('breathing');
+      pauseBtn.textContent = 'pause';
+      requestAnimationFrame(() => {
+        circle.style.transition = '';
+        circle.style.transform = '';
+        currentPhase = null;
+        tick();
+      });
+    }
+  }
+
+  function finish() {
+    cancelAnimationFrame(rafId);
+    setState('done');
+    pauseBtn.hidden = true;
+    startBtn.hidden = false;
+    startBtn.textContent = 'again';
+    label.textContent = 'thank you';
+    circle.classList.remove('is-inhale', 'is-exhale');
+    circle.style.transform = '';
+    circle.style.transition = '';
+    if (moonOrbit) moonOrbit.classList.remove('is-inhale', 'is-exhale');
+    updateMoon(1);
+    lastProgress = 1;
+    setCosmicDilation(1);
+  }
+
+  function reset() {
+    label.textContent = 'begin when ready';
+    elapsed.textContent = '0:00';
+    circle.classList.remove('is-inhale', 'is-exhale');
+    circle.style.transform = '';
+    circle.style.transition = '';
+    if (moonOrbit) moonOrbit.classList.remove('is-inhale', 'is-exhale');
+    currentPhase = null;
+    updateMoon(0);
+    lastProgress = 0;
+  }
+
+  startBtn.addEventListener('click', () => {
+    if (stage.dataset.state === 'done') reset();
+    start();
+  });
+  pauseBtn.addEventListener('click', togglePause);
+
+  // Tap the breathing area to toggle pause (mobile-friendly)
+  document.querySelector('.practice-stage').addEventListener('click', () => {
+    if (stage.dataset.state === 'breathing' || stage.dataset.state === 'paused') togglePause();
+  });
+
+  // Reset cosmic time if user leaves the page
+  window.addEventListener('pagehide', () => setCosmicDilation(1));
+
+  // Position the moon at its start arc point as soon as the page is ready
+  updateMoon(0);
+})();
+</script>
+{{ end }}

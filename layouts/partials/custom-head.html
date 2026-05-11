@@ -402,14 +402,18 @@
 
     function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Allow the breath practice (or any page) to dilate cosmic time.
+        // Default 1; lower values slow the universe.
+        const dilation = (typeof window._cosmicDilation === 'number') ? window._cosmicDilation : 1;
         stars.forEach(s => {
-            s.opacity += s.twinkle;
+            s.opacity += s.twinkle * dilation;
             if (s.opacity > 1 || s.opacity < 0.4) s.twinkle *= -1;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${currentStarColor === '#ffffff' ? '255,255,255' : '0,0,0'}, ${s.opacity})`;
             ctx.fill();
-            s.x += s.speedX; s.y += s.speedY;
+            s.x += s.speedX * dilation;
+            s.y += s.speedY * dilation;
             if (s.x < 0) s.x = canvas.width; if (s.x > canvas.width) s.x = 0;
             if (s.y < 0) s.y = canvas.height; if (s.y > canvas.height) s.y = 0;
         });

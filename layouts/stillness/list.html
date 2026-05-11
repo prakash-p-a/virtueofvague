@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="stillness-list">
+  <header class="stillness-header">
+    <h1 class="stillness-title">stillness</h1>
+    <p class="stillness-sub">{{ .Params.description }}</p>
+  </header>
+
+  <ul class="practice-list">
+    {{- range .Pages -}}
+      <li>
+        <a href="{{ .Permalink }}" class="practice-card">
+          <span class="practice-card-name">{{ .Title | lower }}</span>
+          <span class="practice-card-desc">{{ .Params.description }}</span>
+        </a>
+      </li>
+    {{- end -}}
+  </ul>
+</section>
+{{ end }}

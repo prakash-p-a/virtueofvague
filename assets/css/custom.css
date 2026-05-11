@@ -477,6 +477,174 @@ html:not(.dark) .featured-continue:hover {
     color: #000;
 }
 
+/* ===== ENTRY DOORS: two thematic paths ===== */
+.entry-doors {
+    max-width: 720px;
+    margin: 0 auto 5rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    text-align: center;
+}
+
+.entry-doors-prompt {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.04em;
+    margin-right: 0.5rem;
+}
+
+html:not(.dark) .entry-doors-prompt {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.door {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+html:not(.dark) .door {
+    border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+
+.door:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+}
+
+html:not(.dark) .door:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.7);
+}
+
+.door-label {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #f5f5f5;
+    line-height: 1;
+}
+
+html:not(.dark) .door-label {
+    color: #1f2937;
+}
+
+.door-sub {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 0.4rem;
+}
+
+html:not(.dark) .door-sub {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.entry-doors-divider {
+    font-family: var(--font-serif-display);
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+html:not(.dark) .entry-doors-divider {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 540px) {
+    .entry-doors {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .entry-doors-divider {
+        display: none;
+    }
+    .entry-doors-prompt {
+        margin: 0 0 0.5rem;
+    }
+}
+
+/* ===== MOOD FILTER: clickable mood pills above the list ===== */
+.mood-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 2rem;
+    padding: 0;
+}
+
+.mood-filter-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 0.25rem 0.85rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+html:not(.dark) .mood-filter-btn {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.mood-filter-btn:hover {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+html:not(.dark) .mood-filter-btn:hover {
+    color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.mood-filter-btn.is-active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+html:not(.dark) .mood-filter-btn.is-active {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Mood-tinted active states inherit colors from .mood-* classes */
+.mood-filter-btn.mood-quiet.is-active   { border-color: #93a5b8; color: #93a5b8; }
+.mood-filter-btn.mood-fierce.is-active  { border-color: #d97757; color: #d97757; }
+.mood-filter-btn.mood-lost.is-active    { border-color: #8b8595; color: #8b8595; }
+.mood-filter-btn.mood-curious.is-active { border-color: #a3c293; color: #a3c293; }
+.mood-filter-btn.mood-tender.is-active  { border-color: #d1a3a3; color: #d1a3a3; }
+
+.mood-empty {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    padding: 2rem 0;
+}
+
+html:not(.dark) .mood-empty {
+    color: rgba(0, 0, 0, 0.4);
+}
+
 /* ===== JOURNAL LIST: clean text rows ===== */
 .journal-list-section {
     max-width: 720px;
@@ -612,4 +780,566 @@ html:not(.dark) .journal-entry-title {
 .prose a:hover {
     color: var(--color-primary-400);
     text-decoration: underline;
+}
+
+/* =========================================================
+   STILLNESS — practices live here. Full-immersion section.
+   ========================================================= */
+
+/* Strip the site chrome on practice pages so the practice fills
+   the viewport — stars + cursor stay; nav, footer, max-width go. */
+body[data-section="stillness"] .main-menu,
+body[data-section="stillness"] footer,
+body[data-section="stillness"] #the-top {
+    display: none !important;
+}
+
+body[data-section="stillness"] {
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body[data-section="stillness"] #main-content {
+    min-height: 100dvh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Small "back" link replaces the header */
+.practice-exit {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.5rem;
+    z-index: 20;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.25s ease, letter-spacing 0.25s ease;
+}
+
+.practice-exit:hover {
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.28em;
+}
+
+html:not(.dark) .practice-exit {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+html:not(.dark) .practice-exit:hover {
+    color: rgba(0, 0, 0, 0.95);
+}
+
+/* ===== STILLNESS LIST (currently unused — for future practices) ===== */
+.stillness-list {
+    max-width: 640px;
+    margin: 5rem auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+.stillness-header {
+    margin-bottom: 4rem;
+}
+
+.stillness-title {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 500;
+    margin: 0 0 1rem;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    color: #f5f5f5;
+}
+
+html:not(.dark) .stillness-title {
+    color: #1f2937;
+}
+
+.stillness-sub {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+}
+
+html:not(.dark) .stillness-sub {
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.practice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.practice-card {
+    display: block;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+html:not(.dark) .practice-card {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.practice-card:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+html:not(.dark) .practice-card:hover {
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.practice-card-name {
+    display: block;
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+html:not(.dark) .practice-card-name {
+    color: #000;
+}
+
+.practice-card-desc {
+    display: block;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+html:not(.dark) .practice-card-desc {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* ===== BREATH PRACTICE ===== */
+.practice-breath {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4.5rem 1.5rem 3rem;
+    gap: 2rem;
+    text-align: center;
+}
+
+.practice-intro {
+    margin-top: 1rem;
+}
+
+.practice-title {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.01em;
+}
+
+html:not(.dark) .practice-title {
+    color: rgba(0, 0, 0, 0.92);
+}
+
+.practice-sub {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+}
+
+html:not(.dark) .practice-sub {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.practice-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* The breathing circle: soft radial glow that scales */
+.breath-circle {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    transform: scale(0.55);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: radial-gradient(
+        circle at center,
+        rgba(180, 210, 240, 0.6) 0%,
+        rgba(180, 210, 240, 0.18) 45%,
+        transparent 75%
+    );
+    box-shadow: 0 0 60px 10px rgba(180, 210, 240, 0.18);
+    will-change: transform;
+}
+
+.breath-circle.is-inhale {
+    transform: scale(1.15);
+    transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.breath-circle.is-exhale {
+    transform: scale(0.55);
+    transition: transform 6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.breath-circle-glow {
+    position: absolute;
+    inset: 25%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 100%
+    );
+}
+
+html:not(.dark) .breath-circle {
+    background: radial-gradient(
+        circle at center,
+        rgba(60, 90, 130, 0.4) 0%,
+        rgba(60, 90, 130, 0.12) 45%,
+        transparent 75%
+    );
+    box-shadow: 0 0 60px 10px rgba(60, 90, 130, 0.15);
+}
+
+html:not(.dark) .breath-circle-glow {
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.18) 0%,
+        rgba(0, 0, 0, 0.05) 50%,
+        transparent 100%
+    );
+}
+
+@media (max-width: 480px) {
+    .breath-circle {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+/* Breath phase label */
+.breath-label {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    letter-spacing: 0.3em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    min-height: 1.5rem;
+    transition: opacity 0.4s ease;
+}
+
+html:not(.dark) .breath-label {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+/* Controls bar */
+.practice-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.duration-picker {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.duration-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    padding: 0.3rem 0.95rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+html:not(.dark) .duration-btn {
+    border-color: rgba(0, 0, 0, 0.18);
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.duration-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+html:not(.dark) .duration-btn:hover {
+    color: rgba(0, 0, 0, 0.9);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.duration-btn.is-active {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+html:not(.dark) .duration-btn.is-active {
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.55);
+}
+
+/* Primary action buttons */
+.practice-start,
+.practice-pause {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    padding: 0.7rem 2.5rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: background 0.25s ease, letter-spacing 0.25s ease, color 0.25s ease;
+}
+
+html:not(.dark) .practice-start,
+html:not(.dark) .practice-pause {
+    border-color: rgba(0, 0, 0, 0.4);
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.practice-start:hover,
+.practice-pause:hover {
+    background: rgba(255, 255, 255, 0.06);
+    letter-spacing: 0.3em;
+    color: #fff;
+}
+
+html:not(.dark) .practice-start:hover,
+html:not(.dark) .practice-pause:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000;
+}
+
+/* Meta line (elapsed time + pattern hint) */
+.practice-meta {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+    display: flex;
+    gap: 0.7rem;
+}
+
+html:not(.dark) .practice-meta {
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.practice-divider {
+    opacity: 0.6;
+}
+
+/* ===== CELESTIAL MOON — large textured moon arcing across the sky =====
+   The moon's center traces an arc OVER the top of the viewport. Only a
+   small portion is visible at any time as it passes overhead, like
+   watching a celestial body cross the sky. Black-and-white surface with
+   subtle continuous rotation so texture feels alive. */
+
+.celestial-moon {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.moon-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/* Make sure practice UI floats above the moon when they overlap */
+.practice-breath > .practice-intro,
+.practice-breath > .practice-stage,
+.practice-breath > .practice-controls {
+    position: relative;
+    z-index: 3;
+}
+
+/* Outer container: glow + clipping mask. Position set by JS each frame. */
+.moon-orbit {
+    --moon-size: clamp(460px, 78vmin, 820px);
+
+    position: absolute;
+    width: var(--moon-size);
+    height: var(--moon-size);
+    border-radius: 50%;
+    /* sensible default before JS positions us */
+    left: 70%;
+    top: -55%;
+    overflow: hidden;
+
+    box-shadow:
+        0 0 70px 8px rgba(210, 220, 235, 0.14),
+        0 0 200px 40px rgba(150, 170, 200, 0.07);
+
+    transition: box-shadow 4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Inner body: real moon photo, forced monochrome with crisp contrast.
+   Scaled to 132% so the lunar disc completely overfills the circular
+   mask — the photographed moon isn't perfectly round, so we crop past
+   its asymmetric rim to ensure no photo-black bleeds into the radiance.
+   Rotates slowly (~4 min/cycle) so surface texture feels alive. */
+.moon-body {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-image:
+        url('/images/moon.jpg'),
+        radial-gradient(circle at 50% 50%, #b8b8b8 0%, #888 60%, #555 100%);
+    background-position: center, center;
+    background-size: 132% 132%, cover;
+    background-repeat: no-repeat, no-repeat;
+    filter: grayscale(1) contrast(1.18) brightness(1.05);
+    animation: moon-rotate 240s linear infinite;
+    will-change: transform;
+}
+
+@keyframes moon-rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Static lit-side highlight (does NOT rotate) — sun-side glow */
+.moon-lit {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 32% 28%,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.06) 25%,
+        transparent 55%
+    );
+    pointer-events: none;
+}
+
+/* Static dark-side terminator (does NOT rotate) — gives sphere 3D feel */
+.moon-terminator {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 80% 78%,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.32) 38%,
+        transparent 65%
+    );
+    pointer-events: none;
+}
+
+/* Breath pulse: glow brightens during inhale, softens during exhale */
+.moon-orbit.is-inhale {
+    box-shadow:
+        0 0 140px 22px rgba(220, 230, 250, 0.32),
+        0 0 360px 90px rgba(150, 170, 200, 0.16);
+    transition: box-shadow 4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.moon-orbit.is-exhale {
+    box-shadow:
+        0 0 45px 6px rgba(200, 210, 230, 0.10),
+        0 0 150px 35px rgba(150, 170, 200, 0.05);
+    transition: box-shadow 6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light mode: dial down the photo's brightness so it reads on cream bg */
+html:not(.dark) .moon-body {
+    filter: grayscale(1) contrast(1.22) brightness(0.85);
+}
+
+html:not(.dark) .moon-lit {
+    background: radial-gradient(
+        circle at 32% 28%,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.07) 25%,
+        transparent 55%
+    );
+}
+
+/* Smaller on mobile so the moon doesn't crowd the breath circle */
+@media (max-width: 640px) {
+    .moon-orbit {
+        --moon-size: clamp(320px, 65vmin, 520px);
+    }
+}
+
+/* Honor reduced motion: drop the breath-pulse transition and the slow spin */
+@media (prefers-reduced-motion: reduce) {
+    .moon-orbit,
+    .moon-orbit.is-inhale,
+    .moon-orbit.is-exhale { transition: none !important; }
+    .moon-body { animation: none !important; }
+}
+
+/* State-driven UI */
+.practice-breath[data-state="breathing"] .duration-picker,
+.practice-breath[data-state="paused"] .duration-picker {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.practice-breath[data-state="breathing"] .practice-intro,
+.practice-breath[data-state="paused"] .practice-intro {
+    opacity: 0.4;
+    transition: opacity 1s ease;
+}
+
+/* Reduced motion: skip the scale animation, just show the label */
+@media (prefers-reduced-motion: reduce) {
+    .breath-circle,
+    .breath-circle.is-inhale,
+    .breath-circle.is-exhale {
+        transition: none !important;
+        transform: scale(0.85) !important;
+    }
 }
