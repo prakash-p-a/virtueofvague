@@ -1,124 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Virtue Of Vague</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content on Virtue Of Vague</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <managingEditor>prakashpayyanagoudar@gmail.com (Virtue of Vague)</managingEditor>
-    <webMaster>prakashpayyanagoudar@gmail.com (Virtue of Vague)</webMaster>
-    <copyright>© 2026 Virtue of Vague</copyright>
-    <lastBuildDate>Sat, 25 Apr 2026 13:40:43 +0530</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>the negative mindset that actually works</title>
-      <link>http://localhost:1313/posts/Think-negative/</link>
-      <pubDate>Sat, 25 Apr 2026 13:40:43 +0530</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/Think-negative/</guid>
-      <description>be scared. be ready. don’t break.#let me tell you about two kids.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Virtue Of Vague</title><link>https://virtueofvague.com/posts/</link><description>Recent content on Virtue Of Vague</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>prakashpayyanagoudar@gmail.com (Virtue of Vague)</managingEditor><webMaster>prakashpayyanagoudar@gmail.com (Virtue of Vague)</webMaster><copyright>© 2026 Virtue of Vague</copyright><lastBuildDate>Sat, 25 Apr 2026 13:40:43 +0530</lastBuildDate><atom:link href="https://virtueofvague.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>the negative mindset that actually works</title><link>https://virtueofvague.com/posts/Think-negative/</link><pubDate>Sat, 25 Apr 2026 13:40:43 +0530</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/Think-negative/</guid><description>be scared. be ready. don’t break.
+#
+let me tell you about two kids.
 both are in class 10. board exams coming up. parents are nervous. teachers are breathing down their necks.
-kid a thinks: “what if i fail? what if i don’t get into a good college? what if my friends all pass and i’m left behind?”
-</description>
-      
-    </item>
-    
-    <item>
-      <title>snowflake on the surface. compost underneath.</title>
-      <link>http://localhost:1313/posts/Snow-flake/</link>
-      <pubDate>Mon, 06 Apr 2026 13:40:43 +0530</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/Snow-flake/</guid>
-      <description>when comparison its hard to compare and not completely fair to do it as we all are unique by our choices and thinking and beliefs which caused the current life as its byproducts of multiple factors we see heard and believed in we need to understand and believe in sonder of life but that doesn’t give us permission to feel the ego boost and throwing the kindness into dustbin.
-we need to make realization of fight club as well we are and our values on social lens are like compost heap and remains the same based on value creation and management of social intelligence of individual person and some flakes of luck as well
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/Snow-flake/featured.png" />
-    </item>
-    
-    <item>
-      <title>Robert Sapolsky, my brain and why free will is a JOKE</title>
-      <link>http://localhost:1313/posts/robert-sapolsky/</link>
-      <pubDate>Mon, 23 Mar 2026 13:40:43 +0530</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/robert-sapolsky/</guid>
-      <description>Folks, so i’ve been going down this rabbit hole lately.
+kid a thinks: “what if i fail? what if i don’t get into a good college? what if my friends all pass and i’m left behind?”</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/Think-negative/featured.png"/></item><item><title>How a Fake Teams Meeting Took Down One of npm's Most Trusted Packages</title><link>https://virtueofvague.com/posts/Axios_Threat/</link><pubDate>Thu, 23 Apr 2026 13:40:43 +0530</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/Axios_Threat/</guid><description>On March 30, 2026, one of the most downloaded JavaScript packages on the internet was weaponized against the developers who trusted it most. The Axios npm supply chain attack wasn’t a sophisticated zero-day or a brute-force credential attack. It started with a fake Slack workspace and a Microsoft Teams call.
+Here’s what happened, why it matters, and what defenders should take away.
+What Is Axios?
+#
+If you’ve ever built a web application in JavaScript, there’s a very good chance Axios touched your code. It’s a promise-based HTTP client used to make API requests in both browsers and Node.js — downloaded over 300 million times weekly on npm. It’s the kind of package that’s so ubiquitous, most developers don’t even think about it. That trust is exactly what the attacker exploited.</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/Axios_Threat/featured.png"/></item><item><title>snowflake on the surface. compost underneath.</title><link>https://virtueofvague.com/posts/Snow-flake/</link><pubDate>Mon, 06 Apr 2026 13:40:43 +0530</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/Snow-flake/</guid><description>when comparison its hard to compare and not completely fair to do it as we all are unique by our choices and thinking and beliefs which caused the current life as its byproducts of multiple factors we see heard and believed in we need to understand and believe in sonder of life but that doesn’t give us permission to feel the ego boost and throwing the kindness into dustbin.
+we need to make realization of fight club as well we are and our values on social lens are like compost heap and remains the same based on value creation and management of social intelligence of individual person and some flakes of luck as well</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/Snow-flake/featured.png"/></item><item><title>Robert Sapolsky, my brain and why free will is a JOKE</title><link>https://virtueofvague.com/posts/robert-sapolsky/</link><pubDate>Mon, 23 Mar 2026 13:40:43 +0530</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/robert-sapolsky/</guid><description>Folks, so i’ve been going down this rabbit hole lately.
 Robert Sapolsky. the guy is a neuroendocrinologist, professor at Stanford, spent decades watching baboons in Africa.
 wrote a book called behave that’s basically 800 pages of “your brain is lying to you about who’s in charge.”
 and honestly? it’s messing with me in the best way.
-disclaimer: this is my first attempt to digest his work. i’m no neuroscientist. just a guy in bengaluru trying to figure out why i do the stupid things i do.
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/robert-sapolsky/featured.png" />
-    </item>
-    
-    <item>
-      <title>The happiness of Heart</title>
-      <link>http://localhost:1313/posts/the-happiness-of-heart/</link>
-      <pubDate>Thu, 25 Dec 2025 12:30:30 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/the-happiness-of-heart/</guid>
-      <description>Happiness.
+disclaimer: this is my first attempt to digest his work. i’m no neuroscientist. just a guy in bengaluru trying to figure out why i do the stupid things i do.</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/robert-sapolsky/featured.png"/></item><item><title>The happiness of Heart</title><link>https://virtueofvague.com/posts/the-happiness-of-heart/</link><pubDate>Thu, 25 Dec 2025 12:30:30 +0000</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/the-happiness-of-heart/</guid><description>Happiness.
 For decades, we’ve chased it like something lost, something to discover out there in the world.
 But true happiness isn’t found. It’s built. And it can only be built by us especially from within.
 We can’t force it by constantly thinking about it. Instead, we stay happy by choosing a lifestyle of happiness: That is quietly eliminating toxic thoughts that create toxic realities.
-When we let go of negativity, space opens for peace.
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/the-happiness-of-heart/featured.png" />
-    </item>
-    
-    <item>
-      <title>Hope in the Hopelessness</title>
-      <link>http://localhost:1313/posts/hope-in-the-hope-less-ness/</link>
-      <pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/hope-in-the-hope-less-ness/</guid>
-      <description>Hope is that quiet force giving us a reason to live,
+When we let go of negativity, space opens for peace.</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/the-happiness-of-heart/featured.png"/></item><item><title>Hope in the Hopelessness</title><link>https://virtueofvague.com/posts/hope-in-the-hope-less-ness/</link><pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/hope-in-the-hope-less-ness/</guid><description>Hope is that quiet force giving us a reason to live,
 to laugh,
 to love,
 to stay happy, even when everything feels heavy.
 For a beggar, hope is the key to facing another day.
 For a patient, it’s the strength to hold on for tomorrow.
 One of my most loved short story about hope:
-All the villagers gathered to pray for rain after a long drought. Everyone came empty-handed… except one boy who brought an UMBRELLA.
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/hope-in-the-hope-less-ness/featured.png" />
-    </item>
-    
-    <item>
-      <title>Powerful Positivity</title>
-      <link>http://localhost:1313/posts/powerful-positivity/</link>
-      <pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/powerful-positivity/</guid>
-      <description>Most of the time,
+All the villagers gathered to pray for rain after a long drought. Everyone came empty-handed… except one boy who brought an UMBRELLA.</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/hope-in-the-hope-less-ness/featured.png"/></item><item><title>Powerful Positivity</title><link>https://virtueofvague.com/posts/powerful-positivity/</link><pubDate>Wed, 24 Dec 2025 13:40:43 +0000</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/powerful-positivity/</guid><description>Most of the time,
 “The problem is not a problem, it is how we see the problem that is the problem.”
 The solution always lies within us. A positive mind, a soul with positive vibes, can transform any challenge.
 Remember: “A positive mind has a solution for every problem, but a negative mind has a problem with every solution.”
 A single positive thought creates a positive frequency.
-It builds an aura of calm and possibility, leading to a truly positive mind.
-</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/powerful-positivity/featured.png" />
-    </item>
-    
-    <item>
-      <title>Hello, :)</title>
-      <link>http://localhost:1313/posts/welcome_to_mindsecset/</link>
-      <pubDate>Tue, 23 Dec 2025 20:50:14 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/welcome_to_mindsecset/</guid>
-      <description>Welcome to MindSecSet!!</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_mindsecset/featured.png" />
-    </item>
-    
-    <item>
-      <title>Hello, :)</title>
-      <link>http://localhost:1313/posts/welcome_to_knowthebetter/</link>
-      <pubDate>Tue, 23 Dec 2025 16:09:49 +0000</pubDate>
-      <author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author>
-      <guid>http://localhost:1313/posts/welcome_to_knowthebetter/</guid>
-      <description>Welcome to Know The Better</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/welcome_to_knowthebetter/featured.png" />
-    </item>
-    
-  </channel>
-</rss>
+It builds an aura of calm and possibility, leading to a truly positive mind.</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/powerful-positivity/featured.png"/></item><item><title>Hello, :)</title><link>https://virtueofvague.com/posts/welcome_to_mindsecset/</link><pubDate>Tue, 23 Dec 2025 20:50:14 +0000</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/welcome_to_mindsecset/</guid><description>Welcome to MindSecSet!!</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/welcome_to_mindsecset/featured.png"/></item><item><title>Hello, :)</title><link>https://virtueofvague.com/posts/welcome_to_knowthebetter/</link><pubDate>Tue, 23 Dec 2025 16:09:49 +0000</pubDate><author>prakashpayyanagoudar@gmail.com (Virtue of Vague)</author><guid>https://virtueofvague.com/posts/welcome_to_knowthebetter/</guid><description>Welcome to Know The Better</description><media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://virtueofvague.com/posts/welcome_to_knowthebetter/featured.png"/></item></channel></rss>

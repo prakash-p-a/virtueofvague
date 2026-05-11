@@ -1,10 +1,3 @@
-/* ===== HIDE REDUNDANT HEADER NAV ON DESKTOP (sidebar is now the nav) ===== */
-@media (min-width: 1024px) {
-    nav.hidden.md\:flex.items-center.gap-x-5 {
-        display: none !important;
-    }
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 /* ===== TYPOGRAPHY: Journal Feel ===== */
@@ -20,6 +13,11 @@ body {
     letter-spacing: 0.3px;
 }
 
+/* ===== HEADER FONT: Match sidebar serif styling ===== */
+.main-menu, .main-menu a, .main-menu nav, .main-menu p, .main-menu nav.flex.space-x-3 a {
+    font-family: var(--font-serif-body);
+}
+
 /* Headings: Elegant serif display */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif-display);
@@ -30,214 +28,6 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
-
-/* ===== SIDEBAR NAVIGATION ===== */
-.sidebar-nav {
-    width: 16rem; /* 256px (w-64 in Tailwind) */
-    padding-top: 2rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    background: #171717;
-    border-left: 1px solid #333;
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #4b5563 #2a2a2a;
-}
-
-html:not(.dark) .sidebar-nav {
-    background: #f5f5f5;
-    border-left-color: #d4d4d8;
-}
-
-.sidebar-nav::-webkit-scrollbar {
-    width: 8px;
-}
-
-.sidebar-nav::-webkit-scrollbar-track {
-    background: #2a2a2a;
-}
-
-html:not(.dark) .sidebar-nav::-webkit-scrollbar-track {
-    background: #f0f0f0;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 4px;
-}
-
-html:not(.dark) .sidebar-nav::-webkit-scrollbar-thumb {
-    background: #9ca3af;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb:hover {
-    background: #5a6673;
-}
-
-html:not(.dark) .sidebar-nav::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
-}
-
-/* ===== SIDEBAR MENU ===== */
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.sidebar-section {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ===== SIDEBAR LABELS (Parent items without links) ===== */
-.sidebar-label {
-    font-family: var(--font-serif-display);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #ffffff;
-    display: block;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
-}
-
-html:not(.dark) .sidebar-label {
-    color: #1f2937;
-}
-
-/* ===== SIDEBAR MENU ITEMS ===== */
-.sidebar-item {
-    font-family: var(--font-serif-body);
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #d1d5db;
-    text-decoration: none;
-    display: block;
-    padding: 0.5rem 0;
-    transition: all 0.2s ease;
-    position: relative;
-    border-bottom: 1px solid transparent;
-}
-
-html:not(.dark) .sidebar-item {
-    color: #4b5563;
-}
-
-.sidebar-parent {
-    color: #ffffff;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-html:not(.dark) .sidebar-parent {
-    color: #1f2937;
-}
-
-.sidebar-item:hover {
-    color: #a3a3a3;
-}
-
-html:not(.dark) .sidebar-item:hover {
-    color: #6b7280;
-}
-
-.sidebar-item.active {
-    color: #a3a3a3;
-    border-bottom-color: #a3a3a3;
-    font-weight: 500;
-}
-
-html:not(.dark) .sidebar-item.active {
-    color: #374151;
-    border-bottom-color: #6b7280;
-}
-
-.sidebar-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, #a3a3a3, transparent);
-}
-
-html:not(.dark) .sidebar-item.active::after {
-    background: linear-gradient(90deg, #6b7280, transparent);
-}
-
-/* ===== SIDEBAR SUBMENU (Nested items) ===== */
-.sidebar-submenu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-top: 0.75rem;
-    padding-left: 0;
-}
-
-.sidebar-submenu .sidebar-item {
-    font-size: 0.95rem;
-    color: #9ca3af;
-    padding: 0.4rem 0 0.4rem 0.75rem;
-    margin-bottom: 0.25rem;
-}
-
-html:not(.dark) .sidebar-submenu .sidebar-item {
-    color: #6b7280;
-}
-
-.sidebar-submenu .sidebar-item:hover {
-    color: #bfdbfe;
-}
-
-html:not(.dark) .sidebar-submenu .sidebar-item:hover {
-    color: #4b5563;
-}
-
-.sidebar-submenu .sidebar-item.active {
-    color: #bfdbfe;
-    font-weight: 600;
-}
-
-html:not(.dark) .sidebar-submenu .sidebar-item.active {
-    color: #374151;
-    font-weight: 600;
-}
-
-/* ===== SIDEBAR DIVIDERS ===== */
-.sidebar-divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, #a3a3a3 0%, transparent 80%);
-    opacity: 0.4;
-    margin: 0;
-}
-
-html:not(.dark) .sidebar-divider {
-    background: linear-gradient(90deg, #9ca3af 0%, transparent 80%);
-    opacity: 0.6;
-}
-
-/* ===== DESKTOP LAYOUT WITH SIDEBAR ===== */
-@media (min-width: 1024px) {
-    body {
-        position: relative;
-    }
-
-    .relative.flex.flex-col.grow {
-        margin-right: 0;
-    }
-}
-
-/* ===== MOBILE: Hide sidebar ===== */
-@media (max-width: 1023px) {
-    .sidebar-nav {
-        display: none;
-    }
-}
 
 /* ===== GLOBAL WHITESPACE ===== */
 /* Increase breathing room throughout */
@@ -350,31 +140,43 @@ html:not(.dark) .article-link-card-tag {
     color: #6b7280;
 }
 
-/* ===== MASONRY LAYOUT ===== */
+/* ===== GALLERY GRID LAYOUT ===== */
+/* Top-aligned grid — cards in the same row share top edge.
+   Cards stretch to row height so card backgrounds align cleanly. */
 .masonry-container {
-    column-count: 3;
-    column-gap: 2rem;
-    column-rule: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: stretch;
 }
 
 .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+}
+
+.masonry-item > .article-link-card {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.masonry-item > .article-link-card > .article-link-card-content {
+    flex: 1 1 auto;
 }
 
 @media (max-width: 1024px) {
     .masonry-container {
-        column-count: 2;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
     }
 }
 
 @media (max-width: 640px) {
     .masonry-container {
-        column-count: 1;
-        column-gap: 0;
-    }
-    .masonry-item {
-        margin-bottom: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -386,7 +188,11 @@ html:not(.dark) .article-link-card-tag {
     border: 1px solid #333;
     border-radius: 12px;
     margin-bottom: 3rem;
+    break-inside: avoid;
+    column-span: all;
+    width: 100%;
 }
+
 
 html:not(.dark) .hero-manifesto {
     background: #ffffff;

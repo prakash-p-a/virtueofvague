@@ -9,8 +9,6 @@ showHero = false
 
 # be scared. be ready. don't break.
 
----
-
 let me tell you about two kids.
 
 both are in class 10. board exams coming up. parents are nervous. teachers are breathing down their necks.

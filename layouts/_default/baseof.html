@@ -27,10 +27,7 @@
       {{ partial "header/basic.html" . }}
     {{ end }}
 
-    {{/* Include sidebar navigation */}}
-    {{ partial "sidebar-nav.html" . }}
-
-    <div class="relative flex flex-col grow lg:pr-64">
+    <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
         {{ block "main" . }}{{ end }}
         {{ if and (site.Params.footer.showScrollToTop | default true) }}

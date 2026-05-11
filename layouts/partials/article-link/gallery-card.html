@@ -50,9 +50,9 @@
 
     {{- $excerpt := "" -}}
     {{- if .Params.summary -}}
-      {{- $excerpt = .Params.summary -}}
+      {{- $excerpt = .Params.summary | plainify -}}
     {{- else if .Summary -}}
-      {{- $excerpt = .Summary | truncate 150 -}}
+      {{- $excerpt = .Summary | plainify | truncate 150 -}}
     {{- else -}}
       {{- $excerpt = (.Content | plainify | truncate 150) -}}
     {{- end -}}

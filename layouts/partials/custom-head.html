@@ -137,25 +137,52 @@
         padding: 0 1rem;
     }
 
-    /* Desktop navigation only – spread items */
+    /* Desktop navigation: title on the far left, nav on the far right */
     @media (min-width: 768px) {
         .main-menu .flex.flex-1.items-center.justify-between {
             width: 100%;
         }
 
         .main-menu .hidden.md\:flex.items-center.gap-x-5.md\:ml-12.h-12 {
-            flex: 1 1 auto !important;
-            margin-left: 0 !important;
-            gap: 0 !important;
+            flex: 0 0 auto !important;
+            margin-left: auto !important;
+            gap: 2.25rem !important;
             display: flex !important;
-            justify-content: space-evenly !important;
-            width: 100% !important;
+            justify-content: flex-end !important;
+            width: auto !important;
+        }
+
+        /* Breathing room around the site title link */
+        .main-menu nav.flex.space-x-3 {
+            margin-right: 1.5rem;
+        }
+
+        /* Nav item typography — match the brand serif, but upright + spaced */
+        .main-menu nav.hidden.md\:flex p,
+        .main-menu nav.hidden.md\:flex a {
+            font-family: 'Libre Baskerville', Georgia, serif !important;
+            font-size: 0.78rem !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.18em !important;
+            text-transform: uppercase !important;
+            font-style: normal !important;
+        }
+
+        /* Subtle hover underline for nav links */
+        .main-menu nav.hidden.md\:flex a {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .main-menu nav.hidden.md\:flex a:hover p {
+            opacity: 0.7;
         }
     }
 
-    /* Ensure mobile hamburger is visible */
-    .main-menu .md\:hidden {
-        display: flex !important;
+    /* Mobile hamburger: visible only on mobile (theme already handles this; don't force it on desktop) */
+    @media (max-width: 767px) {
+        .main-menu .md\:hidden {
+            display: flex !important;
+        }
     }
 
     /* Tags page cards */
@@ -615,19 +642,36 @@ h2.mt-0.mb-0.text-xl {
 html:not(.dark) h2.mt-0.mb-0.text-xl {
     color: rgba(0, 0, 0, 0.45) !important;
 }
-    a[href="https://virtueofvague.com/"],
-    a[href="/"] {
+    /* ── Site identity: monogram only (wordmark text hidden) ── */
+    .main-menu nav.flex.space-x-3 a[href="https://virtueofvague.com/"],
+    .main-menu nav.flex.space-x-3 a[href="/"] {
+        display: inline-flex !important;
+        align-items: center !important;
+        font-size: 0 !important;
+        line-height: 1 !important;
         white-space: nowrap !important;
     }
-    /* ── Nav logo / site name ── */
-    a[href="https://virtueofvague.com/"],
-    a[href="/"] {
-        font-family: 'Libre Baskerville', Georgia, serif !important;
-        font-size: 1rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.04em !important;
-        line-height: 1.2 !important;
-        font-style: italic !important;
+
+    /* Monogram block — small bordered "V·O·V" stamp */
+    .main-menu nav.flex.space-x-3 a[href="https://virtueofvague.com/"]::before,
+    .main-menu nav.flex.space-x-3 a[href="/"]::before {
+        content: "V\00B7O\00B7V";
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        font-style: normal;
+        text-transform: none;
+        letter-spacing: 0.18em;
+        line-height: 1;
+        padding: 0.4rem 0.55rem 0.35rem;
+        border: 1px solid currentColor;
+        border-radius: 2px;
+        opacity: 0.85;
+    }
+
+    .main-menu nav.flex.space-x-3 a[href="https://virtueofvague.com/"]:hover::before,
+    .main-menu nav.flex.space-x-3 a[href="/"]:hover::before {
+        opacity: 1;
     }
 
     /* ── Homepage hero title ── */
@@ -652,40 +696,6 @@ html:not(.dark) h2.mt-0.mb-0.text-xl {
     }
     html:not(.dark) h1.mb-2.text-4xl.font-extrabold + h2 {
         color: rgba(0, 0, 0, 0.4) !important;
-    }
-
-    /* === MASONRY LAYOUT STYLES === */
-    .masonry-container {
-        column-count: 3;
-        column-gap: 2rem;
-        column-rule: none;
-    }
-
-    .masonry-item {
-        break-inside: avoid;
-        margin-bottom: 2rem;
-        -webkit-column-break-inside: avoid;
-        page-break-inside: avoid;
-    }
-
-    @media (max-width: 1024px) {
-        .masonry-container {
-            column-count: 2;
-            column-gap: 1.5rem;
-        }
-        .masonry-item {
-            margin-bottom: 1.5rem;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .masonry-container {
-            column-count: 1;
-            column-gap: 0;
-        }
-        .masonry-item {
-            margin-bottom: 1.5rem;
-        }
     }
 
     /* Gallery card hover effects */

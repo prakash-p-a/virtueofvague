@@ -1,14 +1,11 @@
 +++
-date = 2026-04-26T13:40:43+05:30
+date = 2026-04-23T13:40:43+05:30
 draft = false
-slug = "Axios-Threat"
+slug = "Axios_Threat"
 tags = ["MindSecSet"]
 title = "How a Fake Teams Meeting Took Down One of npm's Most Trusted Packages"
-showHero = false
+showHero = true
 +++
-
-
----
 
 On March 30, 2026, one of the most downloaded JavaScript packages on the internet was weaponized against the developers who trusted it most. The Axios npm supply chain attack wasn't a sophisticated zero-day or a brute-force credential attack. It started with a fake Slack workspace and a Microsoft Teams call.
 

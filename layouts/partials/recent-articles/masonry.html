@@ -1,9 +1,5 @@
 <section class="space-y-10 w-full">
   {{ if .Site.Params.homepage.showRecent }}
-    <h2 class="recent-title">
-      {{ i18n "recentArticles" | default "Recent" }}
-    </h2>
-
     <div class="masonry-container">
       {{- $paginator := .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) (default 12 .Site.Params.homepage.showRecentItems) -}}
 
