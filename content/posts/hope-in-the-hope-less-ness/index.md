@@ -12,6 +12,10 @@ tags= ["KnowTheBetter"]
 
 showHero = true
 
+mood = "quiet"
+
+pullquote = "hope doesn't promise. it persists."
+
 +++
 
 

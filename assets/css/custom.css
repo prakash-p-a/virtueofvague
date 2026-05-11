@@ -310,17 +310,299 @@ footer nav ul li a:hover {
     margin: 0 auto;
 }
 
-/* ===== DATES: Subtle Styling ===== */
-time {
-    font-family: 'Courier New', monospace;
-    font-size: 0.875rem;
+/* ===== DATES: Small-caps serif, folio-style ===== */
+time, .journal-date {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.72rem;
+    font-weight: 400;
     color: #888;
-    letter-spacing: 1px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
 }
 
-html:not(.dark) time {
-    color: #9ca3af;
+html:not(.dark) time,
+html:not(.dark) .journal-date {
+    color: #6b7280;
 }
+
+/* ===== HOMEPAGE: Open book layout ===== */
+.home-fragment {
+    margin: 6rem 0 5rem;
+    text-align: center;
+    position: relative;
+}
+
+/* Hairline ornament above the fragment */
+.home-fragment::before {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 56px;
+    margin: 0 auto 2.5rem;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.35));
+}
+
+html:not(.dark) .home-fragment::before {
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.35));
+}
+
+.home-fragment-line {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.45;
+    letter-spacing: 0.005em;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    padding: 0;
+    text-transform: lowercase;
+}
+
+html:not(.dark) .home-fragment-line {
+    color: rgba(0, 0, 0, 0.82);
+}
+
+.fragment-line-1,
+.fragment-line-2 {
+    display: block;
+}
+
+/* Second line drops slightly and adds breath */
+.fragment-line-2 {
+    margin-top: 0.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.96);
+}
+
+html:not(.dark) .fragment-line-2 {
+    color: rgba(0, 0, 0, 0.92);
+}
+
+/* ===== FEATURED POST: large pull quote ===== */
+.featured-post {
+    max-width: 720px;
+    margin: 0 auto 6rem;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.featured-pullquote {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: relative;
+}
+
+html:not(.dark) .featured-pullquote {
+    color: #1f2937;
+}
+
+.featured-pullquote::before,
+.featured-pullquote::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    margin: 1.5rem auto;
+    background: linear-gradient(90deg, transparent, #a3a3a3, transparent);
+    opacity: 0.6;
+}
+
+html:not(.dark) .featured-pullquote::before,
+html:not(.dark) .featured-pullquote::after {
+    background: linear-gradient(90deg, transparent, #9ca3af, transparent);
+}
+
+.featured-meta {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.featured-title {
+    font-family: var(--font-serif-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #d4d4d8;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+}
+
+.featured-title:hover {
+    color: #fff;
+}
+
+html:not(.dark) .featured-title {
+    color: #374151;
+}
+
+html:not(.dark) .featured-title:hover {
+    color: #000;
+}
+
+.featured-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.featured-continue {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.featured-continue:hover {
+    color: #fff;
+    letter-spacing: 0.22em;
+}
+
+html:not(.dark) .featured-continue:hover {
+    color: #000;
+}
+
+/* ===== JOURNAL LIST: clean text rows ===== */
+.journal-list-section {
+    max-width: 720px;
+    margin: 0 auto 6rem;
+    padding: 0 1rem;
+}
+
+.journal-list-title {
+    font-family: var(--font-serif-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #9ca3af;
+    letter-spacing: 0.04em;
+    margin: 0 0 2rem;
+    padding: 0;
+    border: none;
+}
+
+html:not(.dark) .journal-list-title {
+    color: #6b7280;
+}
+
+.journal-list-title::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 1px;
+    margin-top: 0.75rem;
+    background: linear-gradient(90deg, #a3a3a3, transparent);
+    opacity: 0.5;
+}
+
+html:not(.dark) .journal-list-title::after {
+    background: linear-gradient(90deg, #9ca3af, transparent);
+}
+
+.journal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.journal-entry {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+html:not(.dark) .journal-entry {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.journal-entry:last-child {
+    border-bottom: none;
+}
+
+.journal-entry-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.2s ease;
+}
+
+.journal-entry-link:hover {
+    padding-left: 0.5rem;
+}
+
+.journal-entry-link:hover .journal-entry-title {
+    color: #fff;
+}
+
+html:not(.dark) .journal-entry-link:hover .journal-entry-title {
+    color: #000;
+}
+
+.journal-entry-title {
+    font-family: var(--font-serif-body);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #d4d4d8;
+    transition: color 0.2s ease;
+    line-height: 1.4;
+}
+
+html:not(.dark) .journal-entry-title {
+    color: #374151;
+}
+
+@media (max-width: 640px) {
+    .journal-entry-link {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+        padding: 1rem 0;
+    }
+}
+
+/* ===== MOOD TAGS: emotional entry-point ===== */
+.mood-tag {
+    display: inline-block;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.journal-entry-link:hover .mood-tag,
+.featured-line .mood-tag {
+    opacity: 0.9;
+}
+
+.mood-quiet   { color: #93a5b8; }   /* dusk blue */
+.mood-fierce  { color: #d97757; }   /* ember */
+.mood-lost    { color: #8b8595; }   /* dusty mauve */
+.mood-curious { color: #a3c293; }   /* sage */
+.mood-tender  { color: #d1a3a3; }   /* warm pink */
 
 /* ===== IMPROVE READABILITY ===== */
 .prose a {

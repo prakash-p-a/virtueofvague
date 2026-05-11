@@ -1,0 +1,25 @@
+{{- /* Featured post: large italic pull-quote, no card border */ -}}
+{{- with . -}}
+<article class="featured-post">
+  <blockquote class="featured-pullquote">
+    {{- with .Params.pullquote -}}
+      {{- . -}}
+    {{- else -}}
+      {{- .Summary | plainify | truncate 140 -}}
+    {{- end -}}
+  </blockquote>
+
+  <div class="featured-meta">
+    <a href="{{ .Permalink }}" class="featured-title">{{ .Title }}</a>
+    <div class="featured-line">
+      <time datetime="{{ .Date.Format "2006-01-02" }}" class="journal-date">
+        {{- .Date.Format "2 January 2006" -}}
+      </time>
+      {{- with .Params.mood -}}
+        <span class="mood-tag mood-{{ . }}">{{ . }}</span>
+      {{- end -}}
+    </div>
+    <a href="{{ .Permalink }}" class="featured-continue">continue reading &rarr;</a>
+  </div>
+</article>
+{{- end -}}

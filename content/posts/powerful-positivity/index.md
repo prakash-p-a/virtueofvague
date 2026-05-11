@@ -5,6 +5,8 @@ slug = "powerful-positivity"
 tags = ["KnowTheBetter"]
 title = "Powerful Positivity"
 showHero = true
+mood = "fierce"
+pullquote = "the problem isn't the problem. it's how we see it."
 +++
 
 

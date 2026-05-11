@@ -1,7 +1,16 @@
 {{ define "main" }}
-  {{ partial "home/hero-manifesto.html" . }}
+  {{- $allPosts := where .Site.RegularPages "Section" "in" .Site.Params.mainSections -}}
+  {{- $featured := index $allPosts 0 -}}
+  {{- $rest := after 1 $allPosts -}}
 
-  {{ if .Site.Params.homepage.showRecent }}
-    {{ partial "recent-articles/main.html" . }}
-  {{ end }}
+  <section class="home-fragment">
+    <p class="home-fragment-line">
+      <span class="fragment-line-1">the less you know,</span>
+      <span class="fragment-line-2">more you believe.</span>
+    </p>
+  </section>
+
+  {{- partial "home/featured-post.html" $featured -}}
+
+  {{- partial "home/journal-list.html" $rest -}}
 {{ end }}

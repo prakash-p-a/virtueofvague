@@ -6,6 +6,8 @@ summary = "Welcome to Know The Better"
 tags = ["KnowTheBetter"]
 title = "Hello, :)"
 showHero = true
+mood = "quiet"
+pullquote = "we share more than we ever say out loud."
 +++
 
 

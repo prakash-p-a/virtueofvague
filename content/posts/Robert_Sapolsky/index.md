@@ -5,6 +5,8 @@ slug = "robert-sapolsky"
 tags = ["KnowTheBetter"]
 title = "Robert Sapolsky, my brain and why free will is a JOKE"
 showHero = false
+mood = "lost"
+pullquote = "i thought i was choosing. turns out i was being chosen."
 +++
 
 

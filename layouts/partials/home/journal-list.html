@@ -1,0 +1,22 @@
+{{- /* Journal list: clean text rows of older posts */ -}}
+{{- $posts := . -}}
+{{- if $posts -}}
+<section class="journal-list-section">
+  <h2 class="journal-list-title">more from the journals</h2>
+  <ol class="journal-list">
+    {{- range $posts -}}
+      <li class="journal-entry">
+        <a href="{{ .Permalink }}" class="journal-entry-link">
+          <time datetime="{{ .Date.Format "2006-01-02" }}" class="journal-date">
+            {{- .Date.Format "2 Jan 2006" -}}
+          </time>
+          <span class="journal-entry-title">{{ .Title }}</span>
+          {{- with .Params.mood -}}
+            <span class="mood-tag mood-{{ . }}">{{ . }}</span>
+          {{- end -}}
+        </a>
+      </li>
+    {{- end -}}
+  </ol>
+</section>
+{{- end -}}

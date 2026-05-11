@@ -6,6 +6,8 @@ summary = "Welcome to MindSecSet!!"
 tags = ["MindSecSet"]
 title = "Hello, :)"
 showHero = true
+mood = "curious"
+pullquote = "wins, hard lessons, and aha moments of unlearning."
 +++
 
 
