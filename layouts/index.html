@@ -14,5 +14,13 @@
 
   {{- partial "home/entry-doors.html" . -}}
 
+  <section class="home-breathe">
+    <a href="{{ "/stillness/breath/" | relLangURL }}" class="home-breathe-link">
+      <span class="breathe-dot" aria-hidden="true"></span>
+      <span>feeling heavy? breathe for a minute</span>
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+  </section>
+
   {{- partial "home/journal-list.html" $rest -}}
 {{ end }}

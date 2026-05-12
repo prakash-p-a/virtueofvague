@@ -1343,3 +1343,100 @@ html:not(.dark) .moon-lit {
         transform: scale(0.85) !important;
     }
 }
+
+/* ───────────────────────────────────────────────────────────────
+   Gentle "go breathe" prompts — homepage line + end-of-post callout
+   ─────────────────────────────────────────────────────────────── */
+
+.home-breathe {
+    text-align: center;
+    margin: 2.5rem 0 0.5rem;
+}
+
+.home-breathe-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    transition: opacity 0.4s ease;
+}
+.home-breathe-link:hover {
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+.breathe-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex: 0 0 auto;
+    animation: breathe-pulse 5s ease-in-out infinite;
+}
+
+@keyframes breathe-pulse {
+    0%, 100% { transform: scale(0.55); opacity: 0.25; }
+    50%      { transform: scale(1.15); opacity: 0.9; }
+}
+
+/* End-of-post callout (injected on posts via custom-head.html) */
+.post-breathe {
+    max-width: 60ch;
+    margin: 4rem auto 1rem;
+    padding: 1.75rem 2rem 1.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 14px;
+    background: rgba(128, 128, 128, 0.04);
+    text-align: center;
+}
+
+.post-breathe-text {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: italic;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    opacity: 0.7;
+    margin: 0 0 1.1rem;
+}
+
+.post-breathe-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    opacity: 0.65;
+    transition: opacity 0.4s ease;
+}
+.post-breathe-cta:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.post-breathe-back {
+    display: block;
+    margin-top: 1.1rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+.post-breathe-back:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breathe-dot { animation: none; }
+}

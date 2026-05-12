@@ -632,6 +632,27 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+<script>
+// End-of-post "go breathe" callout — injected only on blog posts.
+(function() {
+    function init() {
+        if (document.body.dataset.section !== 'posts') return;
+        if (document.querySelector('.post-breathe')) return;
+        const content = document.querySelector('.article-content');
+        if (!content) return;
+        const aside = document.createElement('aside');
+        aside.className = 'post-breathe';
+        aside.innerHTML =
+            '<p class="post-breathe-text">if this stirred something up &mdash; it&rsquo;s okay to stop here for a moment.</p>' +
+            '<a href="/stillness/breath/" class="post-breathe-cta"><span>take a breath</span><span aria-hidden="true">&rarr;</span></a>' +
+            '<a href="/posts/" class="post-breathe-back">&larr; back to the writings</a>';
+        content.parentNode.insertBefore(aside, content.nextSibling);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
+
 <style>
 /* Homepage tagline styling */
 h2.mt-0.mb-0.text-xl {
