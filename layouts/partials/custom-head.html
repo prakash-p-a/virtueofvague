@@ -289,7 +289,117 @@
         transition: width 0.1s ease;
     }
 
- 
+    /* ─────────────────────────────────────────────
+       Theme toggle as a sliding pill switch
+       (no template/JS change — restyles the theme button) */
+    #appearance-switcher,
+    #appearance-switcher-mobile {
+        position: relative;
+        box-sizing: border-box;
+        width: 56px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1.5px solid currentColor;
+        background: transparent;
+        flex: 0 0 auto;
+        overflow: hidden;
+        transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* the two icon wrappers rendered by the theme (first = moon, last = sun) */
+    #appearance-switcher > div,
+    #appearance-switcher-mobile > div {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        z-index: 2;
+    }
+    #appearance-switcher .icon,
+    #appearance-switcher-mobile .icon { line-height: 0; }
+    #appearance-switcher .icon svg,
+    #appearance-switcher-mobile .icon svg {
+        width: 14px;
+        height: 14px;
+        display: block;
+    }
+
+    /* sliding knob */
+    #appearance-switcher::after,
+    #appearance-switcher-mobile::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
+        z-index: 3;
+    }
+
+    /* ===== LIGHT MODE: pale track · dark knob left · sun right ===== */
+    html:not(.dark) #appearance-switcher,
+    html:not(.dark) #appearance-switcher-mobile {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.4);
+        color: #1a1a1a;
+    }
+    html:not(.dark) #appearance-switcher::after,
+    html:not(.dark) #appearance-switcher-mobile::after {
+        left: 3px;
+        background: #1a1a1a;
+    }
+    /* hide the theme's moon (first child), show the sun (last child) on the right */
+    html:not(.dark) #appearance-switcher > div:first-child,
+    html:not(.dark) #appearance-switcher-mobile > div:first-child {
+        display: none !important;
+    }
+    html:not(.dark) #appearance-switcher > div:last-child,
+    html:not(.dark) #appearance-switcher-mobile > div:last-child {
+        display: flex !important;
+        right: 6px;
+        left: auto;
+        color: #1a1a1a;
+    }
+
+    /* ===== DARK MODE: navy track · light knob right · moon left ===== */
+    html.dark #appearance-switcher,
+    html.dark #appearance-switcher-mobile {
+        background: #243049;
+        border-color: rgba(255, 255, 255, 0.28);
+        color: #e8e8e8;
+    }
+    html.dark #appearance-switcher::after,
+    html.dark #appearance-switcher-mobile::after {
+        left: 30px;
+        background: #f4f4f4;
+    }
+    /* hide the theme's sun (last child), show the moon (first child) on the left */
+    html.dark #appearance-switcher > div:last-child,
+    html.dark #appearance-switcher-mobile > div:last-child {
+        display: none !important;
+    }
+    html.dark #appearance-switcher > div:first-child,
+    html.dark #appearance-switcher-mobile > div:first-child {
+        display: flex !important;
+        left: 7px;
+        color: #cdd6f4;
+    }
+
+    /* gentle hover lift */
+    #appearance-switcher:hover,
+    #appearance-switcher-mobile:hover {
+        filter: brightness(1.08);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #appearance-switcher::after,
+        #appearance-switcher-mobile::after { transition: none; }
+    }
+
+
 </style>
 
 <div class="reading-progress"></div>
