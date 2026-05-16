@@ -1,5 +1,6 @@
 # Local agent tooling (caveman skills, etc.)
 .agents/
+skills-lock.json
 
 # Local Claude Code settings & state
 .claude/
