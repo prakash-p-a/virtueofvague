@@ -1,0 +1,9 @@
+# Local agent tooling (caveman skills, etc.)
+.agents/
+
+# Local Claude Code settings & state
+.claude/
+
+# Hugo build cache & lock
+resources/_gen/
+.hugo_build.lock
