@@ -993,6 +993,462 @@ html:not(.dark) .post-ai-copy::after {
 </script>
 
 <style>
+/* ─── Comments widget (posts only) ──────────────────────────────────────── */
+.post-comments {
+    max-width: 65ch;
+    margin: 4rem auto 6rem;
+    padding: 0 1rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    color: rgba(255, 255, 255, 0.7);
+}
+html:not(.dark) .post-comments { color: rgba(0, 0, 0, 0.7); }
+
+.post-comments-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.55);
+    padding: 0.5rem 0;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+html:not(.dark) .post-comments-toggle { color: rgba(0, 0, 0, 0.55); }
+.post-comments-toggle:hover { color: rgba(255, 255, 255, 0.9); }
+html:not(.dark) .post-comments-toggle:hover { color: rgba(0, 0, 0, 0.9); }
+.post-comments-toggle .arrow { transition: transform 0.25s ease; }
+.post-comments[data-open="true"] .post-comments-toggle .arrow { transform: rotate(90deg); }
+
+.post-comments-panel {
+    display: none;
+    margin-top: 1.5rem;
+    animation: fadeInUp 0.35s ease;
+}
+.post-comments[data-open="true"] .post-comments-panel { display: block; }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.post-comments-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.6rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+html:not(.dark) .post-comments-form {
+    border-color: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.02);
+}
+.post-comments-form label {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    opacity: 0.6;
+}
+.post-comments-form input,
+.post-comments-form textarea {
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.18);
+    color: inherit;
+    padding: 0.35rem 0;
+    outline: none;
+    resize: vertical;
+}
+html:not(.dark) .post-comments-form input,
+html:not(.dark) .post-comments-form textarea {
+    border-bottom-color: rgba(0, 0, 0, 0.18);
+}
+.post-comments-form textarea {
+    min-height: 5rem;
+    line-height: 1.6;
+}
+.post-comments-form input:focus,
+.post-comments-form textarea:focus {
+    border-bottom-color: #e8c777;
+}
+.post-comments-form .turnstile-slot { min-height: 0; }
+.post-comments-form .submit-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    justify-content: space-between;
+    margin-top: 0.4rem;
+}
+.post-comments-form button[type="submit"] {
+    font-family: inherit;
+    font-style: italic;
+    background: transparent;
+    border: 1px solid rgba(232, 199, 119, 0.5);
+    color: #e8c777;
+    padding: 0.35rem 1rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.post-comments-form button[type="submit"]:hover {
+    background-color: rgba(232, 199, 119, 0.12);
+}
+.post-comments-form button[type="submit"][disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.post-comments-form .form-status {
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.7;
+    min-height: 1.2em;
+}
+.post-comments-form .form-status.error { color: #e57373; }
+.post-comments-form .form-status.ok { color: #81c784; }
+.post-comments-form .reply-context {
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.7;
+    padding-bottom: 0.4rem;
+}
+.post-comments-form .reply-context button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    font: inherit;
+}
+
+.post-comments-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.post-comments-list .empty {
+    font-style: italic;
+    opacity: 0.55;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+.comment {
+    padding: 0.6rem 0.8rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.2rem;
+}
+html:not(.dark) .comment { border-left-color: rgba(0, 0, 0, 0.08); }
+.comment .meta {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 0.3rem;
+}
+.comment .meta .name { font-weight: 600; opacity: 0.85; }
+.comment .body {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+.comment .reply-btn {
+    margin-top: 0.4rem;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-style: italic;
+    font-size: 0.78rem;
+    opacity: 0.55;
+    cursor: pointer;
+    padding: 0;
+}
+.comment .reply-btn:hover { opacity: 0.9; color: #e8c777; }
+
+.comment .children { margin-top: 0.8rem; padding-left: 1.2rem; }
+.comment[data-depth="3"] .children,
+.comment[data-depth="4"] .children { padding-left: 0; }
+.comment .in-reply-to {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    font-style: italic;
+    margin-bottom: 0.2rem;
+}
+
+@media (max-width: 480px) {
+    .post-comments { padding: 0 0.5rem; }
+    .comment .children { padding-left: 0.7rem; }
+    .comment[data-depth="2"] .children,
+    .comment[data-depth="3"] .children { padding-left: 0; }
+}
+</style>
+
+<script>
+// Comments widget — posts only. Lazy-loads Turnstile on first expand.
+(function() {
+    const API = 'https://vov-comments.virtueofvague.workers.dev';
+    const SITE_KEY = '0x4AAAAAADWv8Lo3F04tEjj2';
+    const MAX_DEPTH = 3; // 4 levels total (0..3)
+    let turnstileLoaded = false;
+    let turnstileWidgetId = null;
+
+    function esc(s) {
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function fmtTime(unix) {
+        const d = new Date(unix * 1000);
+        const now = Date.now() / 1000;
+        const delta = now - unix;
+        if (delta < 60) return 'just now';
+        if (delta < 3600) return Math.floor(delta / 60) + 'm ago';
+        if (delta < 86400) return Math.floor(delta / 3600) + 'h ago';
+        if (delta < 86400 * 7) return Math.floor(delta / 86400) + 'd ago';
+        return d.toISOString().slice(0, 10);
+    }
+
+    function loadTurnstile() {
+        return new Promise(function(resolve) {
+            if (turnstileLoaded || (window.turnstile && window.turnstile.render)) {
+                turnstileLoaded = true; resolve(); return;
+            }
+            const s = document.createElement('script');
+            s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            s.async = true; s.defer = true;
+            s.onload = function() { turnstileLoaded = true; resolve(); };
+            document.head.appendChild(s);
+        });
+    }
+
+    function buildTree(flat) {
+        const byId = {};
+        flat.forEach(function(c) { c.children = []; byId[c.id] = c; });
+        const roots = [];
+        flat.forEach(function(c) {
+            if (c.parent_id && byId[c.parent_id]) byId[c.parent_id].children.push(c);
+            else roots.push(c);
+        });
+        return { roots, byId };
+    }
+
+    function renderComment(c, byId) {
+        const visualDepth = Math.min(c.depth || 0, MAX_DEPTH);
+        const parent = c.parent_id ? byId[c.parent_id] : null;
+        const showInReply = parent && c.depth > MAX_DEPTH;
+        const canReply = (c.depth || 0) < MAX_DEPTH;
+
+        let html = '<div class="comment" data-id="' + c.id + '" data-depth="' + visualDepth + '">';
+        if (showInReply) {
+            html += '<div class="in-reply-to">↳ in reply to <strong>' + esc(parent.name) + '</strong></div>';
+        }
+        html += '<div class="meta"><span class="name">' + esc(c.name) + '</span>' +
+                '<span class="time">' + fmtTime(c.created_at) + '</span></div>';
+        html += '<div class="body">' + esc(c.body) + '</div>';
+        if (canReply) {
+            html += '<button type="button" class="reply-btn" data-reply-id="' + c.id + '" data-reply-name="' + esc(c.name) + '">reply</button>';
+        }
+        if (c.children && c.children.length) {
+            html += '<div class="children">';
+            c.children.forEach(function(child) { html += renderComment(child, byId); });
+            html += '</div>';
+        }
+        html += '</div>';
+        return html;
+    }
+
+    async function fetchComments(postSlug, listEl) {
+        listEl.innerHTML = '<div class="empty">loading…</div>';
+        try {
+            const r = await fetch(API + '/api/comments?post=' + encodeURIComponent(postSlug));
+            const data = await r.json();
+            if (!data.comments || !data.comments.length) {
+                listEl.innerHTML = '<div class="empty">no thoughts yet. be the first.</div>';
+                return;
+            }
+            const { roots, byId } = buildTree(data.comments);
+            listEl.innerHTML = roots.map(function(c) { return renderComment(c, byId); }).join('');
+        } catch (e) {
+            listEl.innerHTML = '<div class="empty">couldn’t load comments. refresh to try again.</div>';
+        }
+    }
+
+    function mountTurnstile(slotEl) {
+        if (!window.turnstile) return;
+        if (turnstileWidgetId !== null) {
+            try { window.turnstile.reset(turnstileWidgetId); } catch (e) {}
+            return;
+        }
+        turnstileWidgetId = window.turnstile.render(slotEl, {
+            sitekey: SITE_KEY,
+            size: 'flexible',
+            theme: 'auto',
+        });
+    }
+
+    function init() {
+        if (document.body.dataset.section !== 'posts') return;
+        if (document.querySelector('.post-comments')) return;
+
+        const article = document.querySelector('.article-content');
+        if (!article) return;
+
+        // Determine post slug from URL: /posts/<slug>/
+        const m = window.location.pathname.match(/\/posts\/([^/]+)\/?$/);
+        if (!m) return;
+        const postSlug = decodeURIComponent(m[1]);
+
+        const section = document.createElement('section');
+        section.className = 'post-comments';
+        section.dataset.open = 'false';
+        section.innerHTML =
+            '<button class="post-comments-toggle" type="button" aria-expanded="false">' +
+                '<span class="arrow">→</span>' +
+                '<span class="label">thoughts? leave one</span>' +
+            '</button>' +
+            '<div class="post-comments-panel">' +
+                '<form class="post-comments-form" novalidate>' +
+                    '<div class="reply-context" hidden></div>' +
+                    '<label for="cm-name">name (or initials)</label>' +
+                    '<input id="cm-name" name="name" type="text" maxlength="40" autocomplete="off" required>' +
+                    '<label for="cm-body">your thought</label>' +
+                    '<textarea id="cm-body" name="body" maxlength="2000" required></textarea>' +
+                    '<div class="turnstile-slot"></div>' +
+                    '<div class="submit-row">' +
+                        '<div class="form-status" aria-live="polite"></div>' +
+                        '<button type="submit">leave</button>' +
+                    '</div>' +
+                '</form>' +
+                '<div class="post-comments-list"></div>' +
+            '</div>';
+
+        // Place after breathe callout if present, else after article-content.
+        const breathe = document.querySelector('.post-breathe');
+        const anchor = breathe || article;
+        anchor.parentNode.insertBefore(section, anchor.nextSibling);
+
+        const toggleBtn = section.querySelector('.post-comments-toggle');
+        const panel = section.querySelector('.post-comments-panel');
+        const listEl = section.querySelector('.post-comments-list');
+        const form = section.querySelector('.post-comments-form');
+        const slot = section.querySelector('.turnstile-slot');
+        const statusEl = section.querySelector('.form-status');
+        const replyCtx = section.querySelector('.reply-context');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        let parentId = null;
+
+        function setReplyTo(id, name) {
+            parentId = id;
+            if (id) {
+                replyCtx.hidden = false;
+                replyCtx.innerHTML = 'replying to <strong>' + esc(name) + '</strong> · <button type="button" class="cancel-reply">cancel</button>';
+                form.querySelector('textarea').focus();
+                replyCtx.querySelector('.cancel-reply').addEventListener('click', function() { setReplyTo(null, null); });
+            } else {
+                replyCtx.hidden = true;
+                replyCtx.innerHTML = '';
+            }
+        }
+
+        listEl.addEventListener('click', function(ev) {
+            const btn = ev.target.closest('.reply-btn');
+            if (!btn) return;
+            setReplyTo(parseInt(btn.dataset.replyId, 10), btn.dataset.replyName);
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        toggleBtn.addEventListener('click', async function() {
+            const open = section.dataset.open === 'true';
+            if (open) {
+                section.dataset.open = 'false';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+                return;
+            }
+            section.dataset.open = 'true';
+            toggleBtn.setAttribute('aria-expanded', 'true');
+            fetchComments(postSlug, listEl);
+            await loadTurnstile();
+            mountTurnstile(slot);
+        });
+
+        form.addEventListener('submit', async function(ev) {
+            ev.preventDefault();
+            statusEl.className = 'form-status';
+            statusEl.textContent = '';
+            const name = form.elements['name'].value.trim();
+            const body = form.elements['body'].value.trim();
+            if (!name || !body) {
+                statusEl.classList.add('error');
+                statusEl.textContent = 'name and thought are both needed.';
+                return;
+            }
+            let token = '';
+            try { token = window.turnstile ? window.turnstile.getResponse(turnstileWidgetId) : ''; } catch (e) {}
+            if (!token) {
+                statusEl.classList.add('error');
+                statusEl.textContent = 'verifying you’re human… try again in a moment.';
+                if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            statusEl.textContent = 'posting…';
+            try {
+                const r = await fetch(API + '/api/comments', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        post_slug: postSlug,
+                        name, body,
+                        parent_id: parentId,
+                        turnstile_token: token,
+                    }),
+                });
+                const data = await r.json();
+                if (!r.ok) {
+                    const msg = ({
+                        rate_limited: 'you’re posting fast — give it a few minutes.',
+                        too_many_links: 'too many links in one comment.',
+                        nesting_too_deep: 'reply to a higher comment — the thread is too deep here.',
+                        turnstile_failed: 'verification failed. refresh and try again.',
+                    })[data.error] || ('couldn’t post: ' + (data.error || 'unknown'));
+                    statusEl.classList.add('error');
+                    statusEl.textContent = msg;
+                } else {
+                    statusEl.classList.add('ok');
+                    statusEl.textContent = 'posted. thanks for the thought.';
+                    form.reset();
+                    setReplyTo(null, null);
+                    if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+                    fetchComments(postSlug, listEl);
+                }
+            } catch (e) {
+                statusEl.classList.add('error');
+                statusEl.textContent = 'network error. try again.';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
+
+<style>
 /* Homepage tagline styling */
 h2.mt-0.mb-0.text-xl {
     font-family: 'Libre Baskerville', Georgia, serif !important;

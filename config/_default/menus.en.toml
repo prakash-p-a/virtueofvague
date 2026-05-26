@@ -33,6 +33,13 @@
   pageRef = "stillness/breath"
   weight = 40
 
+[[main]]
+  name = "Discussions"
+  pageRef = "discussions"
+  weight = 50
+  [main.params]
+    icon = "message-circle"
+
 # -- Footer Menu --
 [[footer]]
   name = "Tags"

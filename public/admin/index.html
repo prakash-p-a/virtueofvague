@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>admin · virtueofvague</title>
+    <style>
+        :root {
+            color-scheme: dark light;
+            --bg: #14110f;
+            --fg: rgba(255,255,255,0.85);
+            --muted: rgba(255,255,255,0.55);
+            --border: rgba(255,255,255,0.12);
+            --accent: #e8c777;
+            --error: #e57373;
+            --ok: #81c784;
+            --hidden: rgba(255,255,255,0.4);
+            --spam: #e57373;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f5f1ea;
+                --fg: rgba(0,0,0,0.85);
+                --muted: rgba(0,0,0,0.55);
+                --border: rgba(0,0,0,0.12);
+                --accent: #b88a3a;
+            }
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Libre Baskerville', Georgia, serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+        h1 { font-size: 1.4rem; font-weight: 400; letter-spacing: 0.05em; margin: 0 0 0.2rem; }
+        .subtitle { color: var(--muted); font-style: italic; font-size: 0.9rem; margin-bottom: 2rem; }
+
+        .gate {
+            display: flex; flex-direction: column; gap: 0.8rem;
+            max-width: 400px; margin: 4rem auto;
+            padding: 1.4rem; border: 1px solid var(--border); border-radius: 0.6rem;
+        }
+        .gate label { font-size: 0.85rem; color: var(--muted); }
+        .gate input, .gate button, .toolbar input, .toolbar select {
+            font-family: inherit; font-size: 0.95rem; padding: 0.5rem 0.7rem;
+            background: transparent; color: var(--fg);
+            border: 1px solid var(--border); border-radius: 0.4rem;
+        }
+        .gate button, .toolbar button {
+            cursor: pointer; background: rgba(232,199,119,0.08);
+            border-color: rgba(232,199,119,0.5); color: var(--accent);
+        }
+        .gate button:hover, .toolbar button:hover { background: rgba(232,199,119,0.18); }
+        .gate .err { color: var(--error); font-size: 0.85rem; min-height: 1.2em; }
+
+        .toolbar {
+            display: flex; flex-wrap: wrap; gap: 0.6rem;
+            margin-bottom: 1.5rem; align-items: center;
+        }
+        .toolbar .grow { flex: 1; }
+        .toolbar .logout { color: var(--muted); border-color: var(--border); background: transparent; }
+
+        .list { display: flex; flex-direction: column; gap: 1rem; }
+        .empty { text-align: center; padding: 3rem 0; color: var(--muted); font-style: italic; }
+        .row {
+            border: 1px solid var(--border); border-radius: 0.5rem;
+            padding: 0.8rem 1rem; background: rgba(255,255,255,0.02);
+        }
+        .row.status-hidden { opacity: 0.55; }
+        .row.status-spam { border-color: rgba(229,115,115,0.4); }
+
+        .row .meta {
+            display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: baseline;
+            font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem;
+        }
+        .row .meta .name { color: var(--fg); font-weight: 600; }
+        .row .meta .pill {
+            font-size: 0.7rem; padding: 0.1rem 0.5rem;
+            border-radius: 999px; border: 1px solid var(--border);
+            letter-spacing: 0.05em;
+        }
+        .row .meta .pill.hidden { color: var(--hidden); }
+        .row .meta .pill.spam { color: var(--spam); border-color: rgba(229,115,115,0.4); }
+        .row .body {
+            white-space: pre-wrap; font-size: 0.95rem;
+            margin: 0.4rem 0 0.6rem;
+        }
+        .row .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .row .actions button {
+            font: inherit; font-size: 0.8rem;
+            background: transparent; color: var(--muted);
+            border: 1px solid var(--border); border-radius: 0.3rem;
+            padding: 0.25rem 0.6rem; cursor: pointer;
+        }
+        .row .actions button:hover { color: var(--fg); border-color: var(--fg); }
+        .row .actions button.danger:hover { color: var(--error); border-color: var(--error); }
+
+        .status-bar { color: var(--muted); font-style: italic; font-size: 0.85rem; min-height: 1.2em; margin: 0.6rem 0; }
+        .reply-ref { font-size: 0.75rem; color: var(--muted); font-style: italic; margin-bottom: 0.2rem; }
+
+        .tabs { display: flex; gap: 0.4rem; border-bottom: 1px solid var(--border); margin-bottom: 1.2rem; }
+        .tab {
+            font: inherit; background: transparent; cursor: pointer;
+            color: var(--muted); border: none;
+            padding: 0.55rem 1rem; border-bottom: 2px solid transparent;
+        }
+        .tab.active { color: var(--fg); border-bottom-color: var(--accent); }
+        .tab:hover { color: var(--fg); }
+        .row .thread-title-line { font-weight: 600; margin-bottom: 0.3rem; }
+        .row .thread-reply-count { font-size: 0.78rem; opacity: 0.7; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div id="gate" class="gate" hidden>
+            <h1>admin</h1>
+            <div class="subtitle">paste your bearer token to manage comments.</div>
+            <label for="tok">token</label>
+            <input id="tok" type="password" autocomplete="off">
+            <button id="gate-go" type="button">enter</button>
+            <div class="err" id="gate-err"></div>
+        </div>
+
+        <div id="app" hidden>
+            <h1>admin</h1>
+            <div class="subtitle">moderate freshly posted thoughts. token stored locally only.</div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="comments" type="button">comments</button>
+                <button class="tab" data-tab="threads" type="button">threads</button>
+            </div>
+
+            <div class="toolbar">
+                <input id="filter-post" type="text" placeholder="filter by slug (comments only)" class="grow">
+                <select id="filter-status">
+                    <option value="">all statuses</option>
+                    <option value="visible">visible</option>
+                    <option value="hidden">hidden</option>
+                    <option value="spam">spam</option>
+                </select>
+                <button id="refresh" type="button">refresh</button>
+                <button id="logout" type="button" class="logout">log out</button>
+            </div>
+
+            <div class="status-bar" id="status"></div>
+            <div class="list" id="list"></div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'https://vov-comments.virtueofvague.workers.dev';
+        const TOKEN_KEY = 'vov-admin-token';
+
+        const $ = function(id) { return document.getElementById(id); };
+
+        function esc(s) {
+            return String(s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function fmtTime(unix) {
+            return new Date(unix * 1000).toLocaleString();
+        }
+
+        function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+        function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+        function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+        async function api(path, opts) {
+            opts = opts || {};
+            opts.headers = Object.assign({}, opts.headers || {}, {
+                'Authorization': 'Bearer ' + getToken(),
+                'Content-Type': 'application/json',
+            });
+            const r = await fetch(API + path, opts);
+            if (r.status === 401) {
+                clearToken();
+                showGate();
+                throw new Error('unauthorized');
+            }
+            const data = await r.json();
+            if (!r.ok) throw new Error(data.error || 'request failed');
+            return data;
+        }
+
+        function showGate() {
+            $('gate').hidden = false;
+            $('app').hidden = true;
+            $('gate-err').textContent = '';
+            $('tok').value = '';
+            $('tok').focus();
+        }
+
+        function showApp() {
+            $('gate').hidden = true;
+            $('app').hidden = false;
+            refresh();
+        }
+
+        let currentTab = 'comments';
+
+        async function refresh() {
+            $('status').textContent = 'loading…';
+            const q = new URLSearchParams();
+            const status = $('filter-status').value;
+            if (status) q.set('status', status);
+
+            try {
+                if (currentTab === 'comments') {
+                    const post = $('filter-post').value.trim();
+                    if (post) q.set('post', post);
+                    const data = await api('/api/admin/comments?' + q.toString());
+                    renderList(data.comments || []);
+                    $('status').textContent = data.comments.length + ' comments';
+                } else {
+                    const data = await api('/api/admin/threads?' + q.toString());
+                    renderThreadList(data.threads || []);
+                    $('status').textContent = data.threads.length + ' threads';
+                }
+            } catch (e) {
+                $('status').textContent = 'error: ' + e.message;
+            }
+        }
+
+        function renderThreadList(rows) {
+            const list = $('list');
+            if (!rows.length) {
+                list.innerHTML = '<div class="empty">no threads match.</div>';
+                return;
+            }
+            list.innerHTML = rows.map(function(t) {
+                const statusPill = t.status !== 'visible'
+                    ? '<span class="pill ' + esc(t.status) + '">' + esc(t.status) + '</span>'
+                    : '';
+                return '<div class="row status-' + esc(t.status) + '" data-id="' + t.id + '" data-kind="thread">' +
+                    '<div class="meta">' +
+                        '<span class="name">' + esc(t.name) + '</span>' +
+                        '<span class="time">' + fmtTime(t.created_at) + '</span>' +
+                        '<span class="id">#' + t.id + '</span>' +
+                        '<span class="thread-reply-count">' + (t.reply_count || 0) + ' replies</span>' +
+                        statusPill +
+                    '</div>' +
+                    '<div class="thread-title-line">' + esc(t.title) + '</div>' +
+                    '<div class="body">' + esc(t.body) + '</div>' +
+                    '<div class="actions">' +
+                        (t.status !== 'visible' ? '<button data-act="visible">restore</button>' : '') +
+                        (t.status !== 'hidden'  ? '<button data-act="hidden">hide</button>' : '') +
+                        (t.status !== 'spam'    ? '<button data-act="spam">mark spam</button>' : '') +
+                        '<button data-act="delete" class="danger">delete (+replies)</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function renderList(rows) {
+            const list = $('list');
+            if (!rows.length) {
+                list.innerHTML = '<div class="empty">no comments match.</div>';
+                return;
+            }
+            list.innerHTML = rows.map(function(c) {
+                const statusPill = c.status !== 'visible'
+                    ? '<span class="pill ' + esc(c.status) + '">' + esc(c.status) + '</span>'
+                    : '';
+                const replyRef = c.parent_id
+                    ? '<div class="reply-ref">↳ reply to #' + c.parent_id + ' (depth ' + c.depth + ')</div>'
+                    : '';
+                return '<div class="row status-' + esc(c.status) + '" data-id="' + c.id + '">' +
+                    '<div class="meta">' +
+                        '<span class="name">' + esc(c.name) + '</span>' +
+                        '<span class="slug">/' + esc(c.post_slug) + '/</span>' +
+                        '<span class="time">' + fmtTime(c.created_at) + '</span>' +
+                        '<span class="id">#' + c.id + '</span>' +
+                        statusPill +
+                    '</div>' +
+                    replyRef +
+                    '<div class="body">' + esc(c.body) + '</div>' +
+                    '<div class="actions">' +
+                        (c.status !== 'visible' ? '<button data-act="visible">restore</button>' : '') +
+                        (c.status !== 'hidden'  ? '<button data-act="hidden">hide</button>' : '') +
+                        (c.status !== 'spam'    ? '<button data-act="spam">mark spam</button>' : '') +
+                        '<button data-act="delete" class="danger">delete</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        $('list').addEventListener('click', async function(ev) {
+            const btn = ev.target.closest('button[data-act]');
+            if (!btn) return;
+            const row = btn.closest('.row');
+            const id = row.dataset.id;
+            const kind = row.dataset.kind || 'comment';
+            const act = btn.dataset.act;
+            const base = kind === 'thread' ? '/api/admin/threads/' : '/api/admin/comments/';
+            try {
+                if (act === 'delete') {
+                    const what = kind === 'thread' ? 'thread #' + id + ' (AND all its replies)' : 'comment #' + id;
+                    if (!confirm('Hard-delete ' + what + '?')) return;
+                    await api(base + id, { method: 'DELETE' });
+                } else {
+                    await api(base + id + '/status', {
+                        method: 'POST',
+                        body: JSON.stringify({ status: act }),
+                    });
+                }
+                refresh();
+            } catch (e) {
+                $('status').textContent = 'error: ' + e.message;
+            }
+        });
+
+        document.querySelectorAll('.tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+                $('filter-post').disabled = (currentTab === 'threads');
+                refresh();
+            });
+        });
+
+        $('refresh').addEventListener('click', refresh);
+        $('logout').addEventListener('click', function() { clearToken(); showGate(); });
+        $('filter-post').addEventListener('change', refresh);
+        $('filter-status').addEventListener('change', refresh);
+
+        $('gate-go').addEventListener('click', async function() {
+            const t = $('tok').value.trim();
+            if (!t) return;
+            setToken(t);
+            try {
+                await api('/api/admin/comments?status=visible');
+                showApp();
+            } catch (e) {
+                $('gate-err').textContent = 'token rejected. check and try again.';
+            }
+        });
+        $('tok').addEventListener('keydown', function(ev) {
+            if (ev.key === 'Enter') $('gate-go').click();
+        });
+
+        // Boot
+        if (getToken()) showApp();
+        else showGate();
+    </script>
+</body>
+</html>

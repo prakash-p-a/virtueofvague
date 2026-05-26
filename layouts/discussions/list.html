@@ -1,0 +1,675 @@
+{{ define "main" }}
+<style>
+.discussions-page {
+    max-width: 65ch;
+    margin: 2rem auto 6rem;
+    padding: 0 1rem;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    color: rgba(255,255,255,0.85);
+}
+html:not(.dark) .discussions-page { color: rgba(0,0,0,0.85); }
+
+.discussions-header { margin-bottom: 2.2rem; }
+.discussions-title {
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.4rem;
+}
+.discussions-sub {
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin: 0;
+}
+html:not(.dark) .discussions-sub { color: rgba(0,0,0,0.55); }
+
+.discussions-page .view { display: block; }
+.discussions-page .view[hidden] { display: none !important; }
+
+.thread-list-toolbar { margin-bottom: 1.4rem; }
+
+.primary-btn, .ghost-btn {
+    font-family: inherit;
+    font-style: italic;
+    font-size: 0.95rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 0.45rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: 1px solid rgba(232,199,119,0.5);
+    background: transparent;
+    color: #e8c777;
+}
+.primary-btn:hover { background-color: rgba(232,199,119,0.12); }
+.primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ghost-btn {
+    border-color: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.6);
+}
+html:not(.dark) .ghost-btn {
+    border-color: rgba(0,0,0,0.18);
+    color: rgba(0,0,0,0.6);
+}
+.ghost-btn:hover { background-color: rgba(255,255,255,0.06); }
+
+.new-thread-form, .thread-reply-form {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.6rem;
+    background: rgba(255,255,255,0.02);
+    margin-bottom: 1.5rem;
+}
+html:not(.dark) .new-thread-form,
+html:not(.dark) .thread-reply-form {
+    border-color: rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.02);
+}
+
+.new-thread-form label, .thread-reply-form label {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    opacity: 0.6;
+}
+.new-thread-form input,
+.new-thread-form textarea,
+.thread-reply-form input,
+.thread-reply-form textarea {
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dotted rgba(255,255,255,0.18);
+    color: inherit;
+    padding: 0.35rem 0;
+    outline: none;
+    resize: vertical;
+}
+html:not(.dark) .new-thread-form input,
+html:not(.dark) .new-thread-form textarea,
+html:not(.dark) .thread-reply-form input,
+html:not(.dark) .thread-reply-form textarea {
+    border-bottom-color: rgba(0,0,0,0.18);
+}
+.new-thread-form textarea, .thread-reply-form textarea {
+    min-height: 5rem;
+    line-height: 1.6;
+}
+.new-thread-form input:focus,
+.new-thread-form textarea:focus,
+.thread-reply-form input:focus,
+.thread-reply-form textarea:focus {
+    border-bottom-color: #e8c777;
+}
+
+.submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 0.8rem; margin-top: 0.4rem;
+}
+.form-actions { display: flex; gap: 0.5rem; }
+.form-status {
+    font-size: 0.85rem; font-style: italic; opacity: 0.7;
+    min-height: 1.2em;
+}
+.form-status.error { color: #e57373; }
+.form-status.ok { color: #81c784; }
+
+.thread-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.empty {
+    font-style: italic; opacity: 0.55;
+    text-align: center; padding: 1.8rem 0;
+}
+.thread-row {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.5rem;
+    background: rgba(255,255,255,0.02);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+html:not(.dark) .thread-row {
+    border-color: rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.02);
+}
+.thread-row:hover { border-color: rgba(232,199,119,0.4); }
+
+.thread-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; }
+.thread-title { font-size: 1.05rem; font-weight: 600; opacity: 0.95; }
+.thread-replies-badge {
+    font-size: 0.78rem; font-style: italic;
+    color: #e8c777; opacity: 0.85;
+    white-space: nowrap;
+}
+.thread-preview {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    opacity: 0.75;
+    white-space: pre-wrap;
+}
+.thread-meta {
+    display: flex; gap: 0.8rem; font-size: 0.78rem; opacity: 0.55;
+}
+
+.back-link {
+    display: inline-block;
+    font-style: italic; font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    margin-bottom: 1.2rem;
+}
+html:not(.dark) .back-link { color: rgba(0,0,0,0.55); }
+.back-link:hover { color: #e8c777; }
+
+.thread-content {
+    padding: 1.2rem 1.3rem;
+    border-left: 3px solid rgba(232,199,119,0.4);
+    margin-bottom: 2rem;
+}
+.thread-content .thread-title {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+.thread-content .meta {
+    display: flex; gap: 0.7rem;
+    font-size: 0.8rem; opacity: 0.6;
+    margin-bottom: 0.8rem;
+}
+.thread-content .body {
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 0.98rem;
+}
+
+.thread-replies { margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.comment {
+    padding: 0.6rem 0.8rem;
+    border-left: 2px solid rgba(255,255,255,0.08);
+    border-radius: 0.2rem;
+}
+html:not(.dark) .comment { border-left-color: rgba(0,0,0,0.08); }
+.comment .meta {
+    display: flex; gap: 0.6rem; font-size: 0.8rem;
+    opacity: 0.6; margin-bottom: 0.3rem;
+}
+.comment .meta .name { font-weight: 600; opacity: 0.85; }
+.comment .body {
+    white-space: pre-wrap; line-height: 1.6; font-size: 0.95rem;
+}
+.comment .reply-btn {
+    margin-top: 0.4rem;
+    background: none; border: none;
+    color: inherit; font: inherit;
+    font-style: italic; font-size: 0.78rem;
+    opacity: 0.55; cursor: pointer; padding: 0;
+}
+.comment .reply-btn:hover { opacity: 0.9; color: #e8c777; }
+.comment .children { margin-top: 0.8rem; padding-left: 1.2rem; }
+.comment[data-depth="3"] .children { padding-left: 0; }
+.comment .in-reply-to {
+    font-size: 0.75rem; opacity: 0.5;
+    font-style: italic; margin-bottom: 0.2rem;
+}
+
+.reply-context {
+    font-size: 0.85rem; font-style: italic; opacity: 0.7;
+    padding-bottom: 0.4rem;
+}
+.reply-context button {
+    background: none; border: none;
+    color: inherit; cursor: pointer;
+    text-decoration: underline; font: inherit;
+}
+
+@media (max-width: 480px) {
+    .discussions-page { padding: 0 0.7rem; }
+    .thread-row-head { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .comment .children { padding-left: 0.7rem; }
+    .comment[data-depth="2"] .children { padding-left: 0; }
+}
+</style>
+
+<section class="discussions-page">
+  <header class="discussions-header">
+    <h1 class="discussions-title">discussions</h1>
+    <p class="discussions-sub">{{ .Params.description }}</p>
+  </header>
+
+  <div id="discussions-app">
+    <!-- List view: visible by default. Shows "start a thread" button + thread list. -->
+    <div id="thread-list-view" class="view">
+      <div class="thread-list-toolbar">
+        <button id="start-thread-btn" type="button" class="primary-btn" aria-expanded="false">
+          <span>start a thread</span><span aria-hidden="true">&nbsp;→</span>
+        </button>
+      </div>
+
+      <form id="new-thread-form" class="new-thread-form" hidden novalidate>
+        <label for="th-title">title</label>
+        <input id="th-title" name="title" type="text" maxlength="120" autocomplete="off" required>
+
+        <label for="th-name">your name (or initials)</label>
+        <input id="th-name" name="name" type="text" maxlength="40" autocomplete="off" required>
+
+        <label for="th-body">your thought / question</label>
+        <textarea id="th-body" name="body" maxlength="2000" required></textarea>
+
+        <div class="turnstile-slot" id="th-turnstile-slot"></div>
+
+        <div class="submit-row">
+          <div class="form-status" id="th-status" aria-live="polite"></div>
+          <div class="form-actions">
+            <button type="button" id="th-cancel" class="ghost-btn">cancel</button>
+            <button type="submit" id="th-submit" class="primary-btn">post thread</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="thread-list" class="thread-list"></div>
+    </div>
+
+    <!-- Detail view: shown when ?id=N. -->
+    <div id="thread-detail-view" class="view" hidden>
+      <a href="#" id="back-to-list" class="back-link">← back to discussions</a>
+      <article id="thread-content" class="thread-content"></article>
+
+      <section class="thread-replies" id="thread-replies"></section>
+
+      <form id="reply-form" class="thread-reply-form" novalidate>
+        <div class="reply-context" id="reply-context" hidden></div>
+        <label for="rp-name">your name</label>
+        <input id="rp-name" name="name" type="text" maxlength="40" autocomplete="off" required>
+
+        <label for="rp-body">your reply</label>
+        <textarea id="rp-body" name="body" maxlength="2000" required></textarea>
+
+        <div class="turnstile-slot" id="rp-turnstile-slot"></div>
+
+        <div class="submit-row">
+          <div class="form-status" id="rp-status" aria-live="polite"></div>
+          <button type="submit" id="rp-submit" class="primary-btn">post reply</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const API = 'https://vov-comments.virtueofvague.workers.dev';
+  const SITE_KEY = '0x4AAAAAADWv8Lo3F04tEjj2';
+  const MAX_DEPTH = 3;
+
+  let turnstileLoaded = false;
+  let thWidgetId = null;
+  let rpWidgetId = null;
+  let currentThreadId = null;
+  let currentReplyParent = null;
+
+  const $ = (id) => document.getElementById(id);
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function fmtTime(unix) {
+    if (!unix) return '';
+    const d = new Date(unix * 1000);
+    const now = Date.now() / 1000;
+    const delta = now - unix;
+    if (delta < 60) return 'just now';
+    if (delta < 3600) return Math.floor(delta / 60) + 'm ago';
+    if (delta < 86400) return Math.floor(delta / 3600) + 'h ago';
+    if (delta < 86400 * 7) return Math.floor(delta / 86400) + 'd ago';
+    return d.toISOString().slice(0, 10);
+  }
+
+  function loadTurnstile() {
+    return new Promise(function(resolve) {
+      if (turnstileLoaded || (window.turnstile && window.turnstile.render)) {
+        turnstileLoaded = true; resolve(); return;
+      }
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true; s.defer = true;
+      s.onload = function() { turnstileLoaded = true; resolve(); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function mountTurnstile(slotId, currentId, onMount) {
+    if (!window.turnstile) return currentId;
+    if (currentId !== null) {
+      try { window.turnstile.reset(currentId); } catch (e) {}
+      return currentId;
+    }
+    const id = window.turnstile.render($(slotId), {
+      sitekey: SITE_KEY,
+      size: 'flexible',
+      theme: 'auto',
+    });
+    return id;
+  }
+
+  // ─── Routing ────────────────────────────────────────────────────────────
+
+  function readRoute() {
+    const q = new URLSearchParams(window.location.search);
+    const id = parseInt(q.get('id'), 10);
+    return Number.isFinite(id) ? id : null;
+  }
+
+  function setRoute(id) {
+    const url = new URL(window.location.href);
+    if (id) url.searchParams.set('id', String(id));
+    else    url.searchParams.delete('id');
+    history.pushState({ id }, '', url.toString());
+    render();
+  }
+
+  window.addEventListener('popstate', render);
+
+  async function render() {
+    const id = readRoute();
+    if (id !== null) {
+      $('thread-list-view').hidden = true;
+      $('thread-detail-view').hidden = false;
+      currentThreadId = id;
+      await loadThread(id);
+    } else {
+      $('thread-detail-view').hidden = true;
+      $('thread-list-view').hidden = false;
+      currentThreadId = null;
+      await loadThreadList();
+    }
+  }
+
+  // ─── List view ──────────────────────────────────────────────────────────
+
+  async function loadThreadList() {
+    const listEl = $('thread-list');
+    listEl.innerHTML = '<div class="empty">loading…</div>';
+    try {
+      const r = await fetch(API + '/api/threads');
+      const data = await r.json();
+      if (!data.threads || !data.threads.length) {
+        listEl.innerHTML = '<div class="empty">no threads yet. be the first to start one.</div>';
+        return;
+      }
+      listEl.innerHTML = data.threads.map(function(t) {
+        const preview = t.body.length > 140 ? esc(t.body.slice(0, 140)) + '…' : esc(t.body);
+        const last = t.last_reply_at ? ('last reply ' + fmtTime(t.last_reply_at)) : ('started ' + fmtTime(t.created_at));
+        return '<a class="thread-row" href="?id=' + t.id + '" data-id="' + t.id + '">' +
+          '<div class="thread-row-head">' +
+            '<span class="thread-title">' + esc(t.title) + '</span>' +
+            '<span class="thread-replies-badge">' + (t.reply_count || 0) + ' ' + (t.reply_count === 1 ? 'reply' : 'replies') + '</span>' +
+          '</div>' +
+          '<div class="thread-preview">' + preview + '</div>' +
+          '<div class="thread-meta">' +
+            '<span class="thread-author">' + esc(t.name) + '</span>' +
+            '<span class="thread-when">' + last + '</span>' +
+          '</div>' +
+        '</a>';
+      }).join('');
+    } catch (e) {
+      listEl.innerHTML = '<div class="empty">couldn’t load threads. refresh to try again.</div>';
+    }
+  }
+
+  $('thread-list').addEventListener('click', function(ev) {
+    const row = ev.target.closest('.thread-row');
+    if (!row) return;
+    ev.preventDefault();
+    setRoute(parseInt(row.dataset.id, 10));
+  });
+
+  // Start-thread expander + form
+
+  $('start-thread-btn').addEventListener('click', async function() {
+    const form = $('new-thread-form');
+    const btn = $('start-thread-btn');
+    const isOpen = !form.hidden;
+    if (isOpen) {
+      form.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      return;
+    }
+    form.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    await loadTurnstile();
+    thWidgetId = mountTurnstile('th-turnstile-slot', thWidgetId);
+    $('th-title').focus();
+  });
+
+  $('th-cancel').addEventListener('click', function() {
+    $('new-thread-form').reset();
+    $('new-thread-form').hidden = true;
+    $('start-thread-btn').setAttribute('aria-expanded', 'false');
+    $('th-status').textContent = '';
+    $('th-status').className = 'form-status';
+  });
+
+  $('new-thread-form').addEventListener('submit', async function(ev) {
+    ev.preventDefault();
+    const statusEl = $('th-status');
+    statusEl.className = 'form-status';
+    statusEl.textContent = '';
+    const title = $('th-title').value.trim();
+    const name = $('th-name').value.trim();
+    const body = $('th-body').value.trim();
+    if (!title || !name || !body) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'title, name, and body are all needed.';
+      return;
+    }
+    let token = '';
+    try { token = window.turnstile ? window.turnstile.getResponse(thWidgetId) : ''; } catch (e) {}
+    if (!token) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'verifying you’re human… try again in a moment.';
+      if (window.turnstile && thWidgetId !== null) window.turnstile.reset(thWidgetId);
+      return;
+    }
+
+    $('th-submit').disabled = true;
+    statusEl.textContent = 'posting…';
+    try {
+      const r = await fetch(API + '/api/threads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, name, body, turnstile_token: token }),
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        statusEl.classList.add('error');
+        statusEl.textContent = ({
+          rate_limited: 'you’ve started a thread recently — wait a bit.',
+          too_many_links: 'too many links in the body.',
+          turnstile_failed: 'verification failed. refresh and try again.',
+        })[data.error] || ('couldn’t post: ' + (data.error || 'unknown'));
+      } else {
+        // Go straight to the new thread.
+        setRoute(data.id);
+      }
+    } catch (e) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'network error. try again.';
+    } finally {
+      $('th-submit').disabled = false;
+    }
+  });
+
+  // ─── Detail view ────────────────────────────────────────────────────────
+
+  function buildTree(flat) {
+    const byId = {};
+    flat.forEach(function(c) { c.children = []; byId[c.id] = c; });
+    const roots = [];
+    flat.forEach(function(c) {
+      if (c.parent_id && byId[c.parent_id]) byId[c.parent_id].children.push(c);
+      else roots.push(c);
+    });
+    return { roots, byId };
+  }
+
+  function renderReply(c, byId) {
+    const visualDepth = Math.min(c.depth || 0, MAX_DEPTH);
+    const parent = c.parent_id ? byId[c.parent_id] : null;
+    const showInReply = parent && c.depth > MAX_DEPTH;
+    const canReply = (c.depth || 0) < MAX_DEPTH;
+
+    let html = '<div class="comment" data-id="' + c.id + '" data-depth="' + visualDepth + '">';
+    if (showInReply) {
+      html += '<div class="in-reply-to">↳ in reply to <strong>' + esc(parent.name) + '</strong></div>';
+    }
+    html += '<div class="meta"><span class="name">' + esc(c.name) + '</span>' +
+            '<span class="time">' + fmtTime(c.created_at) + '</span></div>';
+    html += '<div class="body">' + esc(c.body) + '</div>';
+    if (canReply) {
+      html += '<button type="button" class="reply-btn" data-reply-id="' + c.id + '" data-reply-name="' + esc(c.name) + '">reply</button>';
+    }
+    if (c.children && c.children.length) {
+      html += '<div class="children">';
+      c.children.forEach(function(child) { html += renderReply(child, byId); });
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  async function loadThread(id) {
+    const contentEl = $('thread-content');
+    const repliesEl = $('thread-replies');
+    contentEl.innerHTML = '<div class="empty">loading…</div>';
+    repliesEl.innerHTML = '';
+    try {
+      const r = await fetch(API + '/api/threads/' + id);
+      if (r.status === 404) {
+        contentEl.innerHTML = '<div class="empty">thread not found.</div>';
+        return;
+      }
+      const data = await r.json();
+      const t = data.thread;
+      contentEl.innerHTML =
+        '<h2 class="thread-title">' + esc(t.title) + '</h2>' +
+        '<div class="meta">' +
+          '<span class="name">' + esc(t.name) + '</span>' +
+          '<span class="time">' + fmtTime(t.created_at) + '</span>' +
+        '</div>' +
+        '<div class="body">' + esc(t.body) + '</div>';
+
+      if (!data.replies.length) {
+        repliesEl.innerHTML = '<div class="empty">no replies yet.</div>';
+      } else {
+        const { roots, byId } = buildTree(data.replies);
+        repliesEl.innerHTML = roots.map(function(c) { return renderReply(c, byId); }).join('');
+      }
+
+      await loadTurnstile();
+      rpWidgetId = mountTurnstile('rp-turnstile-slot', rpWidgetId);
+    } catch (e) {
+      contentEl.innerHTML = '<div class="empty">couldn’t load thread.</div>';
+    }
+  }
+
+  $('back-to-list').addEventListener('click', function(ev) {
+    ev.preventDefault();
+    setRoute(null);
+  });
+
+  $('thread-replies').addEventListener('click', function(ev) {
+    const btn = ev.target.closest('.reply-btn');
+    if (!btn) return;
+    setReplyTo(parseInt(btn.dataset.replyId, 10), btn.dataset.replyName);
+  });
+
+  function setReplyTo(id, name) {
+    currentReplyParent = id;
+    const ctx = $('reply-context');
+    if (id) {
+      ctx.hidden = false;
+      ctx.innerHTML = 'replying to <strong>' + esc(name) + '</strong> · <button type="button" id="cancel-reply">cancel</button>';
+      $('cancel-reply').addEventListener('click', function() { setReplyTo(null, null); });
+      $('rp-body').focus();
+      $('reply-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      ctx.hidden = true;
+      ctx.innerHTML = '';
+    }
+  }
+
+  $('reply-form').addEventListener('submit', async function(ev) {
+    ev.preventDefault();
+    const statusEl = $('rp-status');
+    statusEl.className = 'form-status';
+    statusEl.textContent = '';
+    const name = $('rp-name').value.trim();
+    const body = $('rp-body').value.trim();
+    if (!name || !body) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'name and reply are both needed.';
+      return;
+    }
+    let token = '';
+    try { token = window.turnstile ? window.turnstile.getResponse(rpWidgetId) : ''; } catch (e) {}
+    if (!token) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'verifying you’re human… try again in a moment.';
+      if (window.turnstile && rpWidgetId !== null) window.turnstile.reset(rpWidgetId);
+      return;
+    }
+
+    $('rp-submit').disabled = true;
+    statusEl.textContent = 'posting…';
+    try {
+      const r = await fetch(API + '/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          post_slug: 'thread-' + currentThreadId,
+          name, body,
+          parent_id: currentReplyParent,
+          turnstile_token: token,
+        }),
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        statusEl.classList.add('error');
+        statusEl.textContent = ({
+          rate_limited: 'you’re replying fast — give it a few minutes.',
+          too_many_links: 'too many links in the reply.',
+          nesting_too_deep: 'reply to a higher comment — thread is too deep here.',
+          turnstile_failed: 'verification failed. refresh and try again.',
+        })[data.error] || ('couldn’t post: ' + (data.error || 'unknown'));
+      } else {
+        statusEl.classList.add('ok');
+        statusEl.textContent = 'posted.';
+        $('reply-form').reset();
+        setReplyTo(null, null);
+        if (window.turnstile && rpWidgetId !== null) window.turnstile.reset(rpWidgetId);
+        loadThread(currentThreadId);
+      }
+    } catch (e) {
+      statusEl.classList.add('error');
+      statusEl.textContent = 'network error. try again.';
+    } finally {
+      $('rp-submit').disabled = false;
+    }
+  });
+
+  // Boot
+  render();
+})();
+</script>
+{{ end }}

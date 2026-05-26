@@ -1,0 +1,34 @@
+name = "vov-comments"
+main = "src/index.js"
+compatibility_date = "2026-05-26"
+
+# D1 database binding (table: comments) — created in Cloudflare dashboard.
+[[d1_databases]]
+binding = "DB"
+database_name = "vov-comments-db"
+database_id = "d6a814a4-970b-49aa-a51f-a12a22333ed1"
+
+# KV namespace for per-IP rate-limit counters.
+[[kv_namespaces]]
+binding = "VOV_RATELIMIT"
+id = "a0613ae5938d48e595414032a6e54057"
+
+# Non-secret runtime config. Tweakable without redeploy via `wrangler deploy`.
+[vars]
+TURNSTILE_SITE_KEY    = "0x4AAAAAADWv8Lo3F04tEjj2"
+ALLOWED_ORIGINS       = "https://virtueofvague.com,http://localhost:1313"
+MAX_BODY_LENGTH       = "2000"
+MAX_NAME_LENGTH       = "40"
+MAX_URLS              = "2"
+MAX_DEPTH             = "3"
+RATE_LIMIT_5M_PER_POST = "1"
+RATE_LIMIT_1H          = "3"
+RATE_LIMIT_24H         = "10"
+# Thread (forum) creation - tighter limits.
+RATE_LIMIT_THREAD_1H   = "1"
+RATE_LIMIT_THREAD_24H  = "5"
+
+# Secrets (set via wrangler — never put values here, never commit):
+#   wrangler secret put TURNSTILE_SECRET
+#   wrangler secret put ADMIN_TOKEN
+#   wrangler secret put IP_SALT
