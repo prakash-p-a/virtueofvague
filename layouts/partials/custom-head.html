@@ -764,6 +764,235 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+/* Copy-to-AI button — top-right of post header, posts only. */
+body[data-section="posts"] #single_header {
+    position: relative;
+}
+body[data-section="posts"] #single_header h1 {
+    padding-right: 3rem;
+}
+.post-ai-copy {
+    position: absolute;
+    top: 0.25rem;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    color: rgba(255, 255, 255, 0.88);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+html:not(.dark) .post-ai-copy {
+    color: rgba(0, 0, 0, 0.82);
+}
+.post-ai-copy:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+html:not(.dark) .post-ai-copy:hover {
+    color: rgba(0, 0, 0, 0.98);
+    background-color: rgba(0, 0, 0, 0.08);
+}
+/* Tiny gold 4-point sparkle at the top-right corner — signals "for AI", not plain copy. */
+.post-ai-copy::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 7px;
+    height: 7px;
+    background: #e8c777;
+    clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+html:not(.dark) .post-ai-copy::before {
+    background: #b88a3a;
+}
+.post-ai-copy:hover::before {
+    transform: scale(1.25) rotate(45deg);
+}
+.post-ai-copy[data-state="copied"]::before {
+    opacity: 0;
+}
+.post-ai-copy:active { transform: scale(0.94); }
+.post-ai-copy svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    stroke-width: 1.6;
+}
+.post-ai-copy[data-state="copied"] { color: #34d399 !important; }
+.post-ai-copy[data-state="copied"]:hover { background-color: rgba(52, 211, 153, 0.08); }
+.post-ai-copy.is-stuck {
+    position: fixed;
+    top: 0.8rem;
+    right: 1rem;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    animation: copyStickIn 0.3s ease;
+}
+html:not(.dark) .post-ai-copy.is-stuck {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+.post-ai-copy.is-stuck:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+html:not(.dark) .post-ai-copy.is-stuck:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+@keyframes copyStickIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.post-ai-copy::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 110%;
+    right: 0;
+    white-space: nowrap;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.78);
+    padding: 0.3rem 0.55rem;
+    border-radius: 0.35rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+html:not(.dark) .post-ai-copy::after {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.72);
+}
+.post-ai-copy:hover::after,
+.post-ai-copy:focus-visible::after,
+.post-ai-copy[data-state="copied"]::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (max-width: 480px) {
+    .post-ai-copy::after { font-size: 0.65rem; max-width: 60vw; white-space: normal; }
+}
+</style>
+
+<script>
+// Copy-to-AI button — adds a small clipboard icon at the top-right of post header.
+// Click copies a context-rich prompt + post body so the reader can paste into their AI tool.
+(function() {
+    function buildPayload() {
+        const titleEl = document.querySelector('#single_header h1');
+        const bodyEl = document.querySelector('.article-content');
+        const title = (titleEl ? titleEl.textContent.trim() : document.title);
+        const url = window.location.href;
+        const body = bodyEl ? bodyEl.innerText.replace(/\n{3,}/g, '\n\n').trim() : '';
+        return (
+            "i'd like to think through this essay with you.\n\n" +
+            "it's from virtueofvague — a small site of personal reflection (lowercase, contemplative voice) " +
+            "and cybersecurity writing, with a stillness / breath practice woven in. " +
+            "before we discuss, spend a moment with the piece below; hold its unhurried tone in your reply, " +
+            "and feel free to wander the wider site at https://virtueofvague.com for context.\n\n" +
+            "source: " + url + "\n\n" +
+            "# " + title + "\n\n" +
+            body + "\n"
+        );
+    }
+
+    async function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
+        }
+        // Fallback for non-secure contexts / older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        return ok;
+    }
+
+    function makeButton() {
+        const btn = document.createElement('button');
+        btn.className = 'post-ai-copy';
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'copy this essay to discuss with your AI');
+        btn.setAttribute('data-tooltip', 'copy to discuss with your AI');
+        btn.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                '<rect x="9" y="9" width="11" height="12" rx="2"></rect>' +
+                '<path d="M5 15V5a2 2 0 0 1 2-2h10"></path>' +
+            '</svg>';
+        btn.addEventListener('click', async function() {
+            const payload = buildPayload();
+            const ok = await copyToClipboard(payload);
+            const prevTip = btn.getAttribute('data-tooltip');
+            if (ok) {
+                btn.setAttribute('data-state', 'copied');
+                btn.setAttribute('data-tooltip', 'copied ✓ — paste in your AI tool');
+                btn.innerHTML =
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                        '<path d="M5 12l4 4L19 6"></path>' +
+                    '</svg>';
+            } else {
+                btn.setAttribute('data-tooltip', 'copy failed — try again');
+            }
+            setTimeout(function() {
+                btn.removeAttribute('data-state');
+                btn.setAttribute('data-tooltip', prevTip);
+                btn.innerHTML =
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                        '<rect x="9" y="9" width="11" height="12" rx="2"></rect>' +
+                        '<path d="M5 15V5a2 2 0 0 1 2-2h10"></path>' +
+                    '</svg>';
+            }, 1800);
+        });
+        return btn;
+    }
+
+    function init() {
+        if (document.body.dataset.section !== 'posts') return;
+        if (document.querySelector('.post-ai-copy')) return;
+        const header = document.querySelector('#single_header');
+        if (!header) return;
+        const btn = makeButton();
+        header.appendChild(btn);
+
+        // Sticky transition: once the header scrolls past the viewport top,
+        // detach the button to fixed top-right so it remains visible.
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) btn.classList.remove('is-stuck');
+                    else btn.classList.add('is-stuck');
+                });
+            });
+            observer.observe(header);
+        }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
+
+<style>
 /* Homepage tagline styling */
 h2.mt-0.mb-0.text-xl {
     font-family: 'Libre Baskerville', Georgia, serif !important;
