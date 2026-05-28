@@ -20,7 +20,7 @@ There is no test suite, lint config, or package.json. Hugo + Blowfish provide al
 
 ## Deployment
 
-`.github/workflows/hugo.yaml` builds with `hugo --minify` and deploys `./public` to GitHub Pages on every push to `main`. **CI rebuilds from source — committing `public/` is not required for deploy.** Existing commit history includes `public/` out of habit; either keep it consistent with source or stop tracking it. Don't trust a stale committed `public/` to reflect current source.
+`.github/workflows/hugo.yaml` builds with `hugo --minify` and deploys `./public` to GitHub Pages on every push to `main`. **`public/` is gitignored** — CI rebuilds it from source on every push. Don't try to commit it. To inspect the built site locally, run `hugo --gc --minify` and browse `./public/`, but never `git add` it.
 
 ## Architecture
 
@@ -74,5 +74,5 @@ This project uses Claude Code's memory system at `C:\Users\Praka\.claude\project
 
 - No npm/pip dependencies — pure Hugo
 - No test suite or linter
-- `ghostToHugo.exe` in the repo root is a one-shot migration binary (Ghost CMS export → Hugo), not used in normal workflows
-- `.agents/`, `.claude/`, `resources/_gen/`, `.hugo_build.lock` are gitignored — don't stage them
+- `ghostToHugo.exe` was a one-shot migration binary (Ghost CMS export → Hugo) — untracked and gitignored now; may still exist on disk locally
+- Gitignored — don't stage: `.agents/`, `.claude/`, `resources/_gen/`, `.hugo_build.lock`, `public/`, `.vs/`, `.idea/`, `.vscode/`, `ghostToHugo.exe`
