@@ -4,7 +4,7 @@ draft = false
 slug = "the-week-i-tried-neutral"
 tags = ["KnowTheBetter"]
 title = "so i tried being neutral for a week (here's what happened)"
-showHero = false
+showHero = true
 mood = "curious"
 pullquote = "the gap between feeling and reacting grows."
 +++

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="a small sprout pushing up through cracked concrete">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#15110f"/>
+      <stop offset="60%" stop-color="#1c1815"/>
+      <stop offset="100%" stop-color="#221d19"/>
+    </linearGradient>
+    <radialGradient id="sproutGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8c777" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#e8c777" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <!-- concrete slab -->
+  <rect x="0" y="600" width="1600" height="300" fill="#2a2522"/>
+  <!-- concrete top edge highlight -->
+  <line x1="0" y1="600" x2="1600" y2="600" stroke="#5a4f43" stroke-opacity="0.5" stroke-width="2"/>
+  <!-- concrete specks -->
+  <g fill="#5a4f43" opacity="0.35">
+    <circle cx="200" cy="700" r="2"/><circle cx="430" cy="780" r="1.6"/>
+    <circle cx="660" cy="720" r="2.4"/><circle cx="920" cy="780" r="1.9"/>
+    <circle cx="1150" cy="720" r="2.2"/><circle cx="1380" cy="800" r="1.5"/>
+    <circle cx="320" cy="830" r="1.6"/><circle cx="1280" cy="660" r="1.5"/>
+    <circle cx="540" cy="850" r="1.4"/><circle cx="1020" cy="670" r="1.7"/>
+  </g>
+  <!-- cracks radiating from sprout base -->
+  <g stroke="#0a0807" stroke-width="3.5" fill="none" stroke-linecap="round">
+    <path d="M 730,610 L 680,650 L 620,680 L 540,720"/>
+    <path d="M 770,610 L 800,640 L 850,675 L 920,705"/>
+    <path d="M 728,620 L 660,635 L 580,650"/>
+    <path d="M 772,620 L 840,635 L 920,650"/>
+    <path d="M 750,620 L 750,665 L 730,720"/>
+    <path d="M 750,620 L 760,680 L 780,750"/>
+  </g>
+  <!-- sprout glow -->
+  <circle cx="750" cy="500" r="220" fill="url(#sproutGlow)"/>
+  <!-- the sprout -->
+  <g fill="#e8c777" opacity="0.95">
+    <!-- stem -->
+    <rect x="745" y="410" width="10" height="200" rx="5"/>
+    <!-- left leaf -->
+    <path d="M 750,500 Q 680,495 650,525 Q 680,555 750,525 Z"/>
+    <!-- right leaf -->
+    <path d="M 750,460 Q 820,455 850,485 Q 820,515 750,485 Z"/>
+    <!-- top bud -->
+    <ellipse cx="750" cy="405" rx="9" ry="15"/>
+    <!-- third tiny leaf -->
+    <path d="M 750,540 Q 720,540 710,560 Q 730,575 750,560 Z" opacity="0.85"/>
+  </g>
+  <!-- soft outline on stem for clarity -->
+  <rect x="745" y="410" width="10" height="200" rx="5" fill="none" stroke="#b88a3a" stroke-width="0.8" stroke-opacity="0.7"/>
+</svg>

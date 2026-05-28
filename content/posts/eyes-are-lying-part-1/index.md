@@ -4,7 +4,7 @@ draft = false
 slug = "eyes-are-lying-part-1"
 tags = ["KnowTheBetter"]
 title = "your eyes are lying to you (and that's okay)"
-showHero = false
+showHero = true
 mood = "curious"
 pullquote = "your eyes don't show you reality. they show you one version."
 +++

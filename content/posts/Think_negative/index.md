@@ -4,7 +4,7 @@ draft = false
 slug = "Think-negative"
 tags = ["KnowTheBetter"]
 title = "the negative mindset that actually works"
-showHero = false
+showHero = true
 mood = "fierce"
 pullquote = "be scared. be ready. don't break."
 +++

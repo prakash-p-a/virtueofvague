@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="a stylized human eye with a triangular prism in front of it splitting incoming light">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1614"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <!-- eye almond -->
+  <path d="M 450,450 Q 800,300 1150,450 Q 800,600 450,450 Z"
+        fill="none" stroke="#a89880" stroke-width="3"/>
+  <!-- iris -->
+  <circle cx="800" cy="450" r="100" fill="#3a3530"/>
+  <!-- iris detail rings -->
+  <circle cx="800" cy="450" r="100" fill="none" stroke="#a89880" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="800" cy="450" r="72" fill="none" stroke="#a89880" stroke-width="1" stroke-opacity="0.4"/>
+  <!-- iris radial striations -->
+  <g stroke="#5a4f43" stroke-width="0.8" stroke-opacity="0.55">
+    <line x1="800" y1="360" x2="800" y2="540"/>
+    <line x1="720" y1="380" x2="880" y2="520"/>
+    <line x1="720" y1="520" x2="880" y2="380"/>
+    <line x1="710" y1="450" x2="890" y2="450"/>
+  </g>
+  <!-- pupil -->
+  <circle cx="800" cy="450" r="36" fill="#0a0807"/>
+  <!-- pupil highlight -->
+  <circle cx="784" cy="436" r="7" fill="#e8c777" opacity="0.92"/>
+  <!-- eyelashes top -->
+  <g stroke="#a89880" stroke-width="2" stroke-linecap="round">
+    <line x1="620" y1="365" x2="608" y2="332"/>
+    <line x1="700" y1="340" x2="696" y2="305"/>
+    <line x1="800" y1="325" x2="800" y2="288"/>
+    <line x1="900" y1="340" x2="906" y2="305"/>
+    <line x1="980" y1="365" x2="994" y2="332"/>
+  </g>
+  <!-- prism (right of eye) -->
+  <polygon points="1240,330 1340,540 1140,540" fill="none" stroke="#e8c777" stroke-width="2.5"/>
+  <!-- light beams -->
+  <g stroke-linecap="round" fill="none">
+    <!-- incoming straight beam -->
+    <line x1="1560" y1="430" x2="1290" y2="440" stroke="#a89880" stroke-opacity="0.7" stroke-width="1.8"/>
+    <!-- refracted beams toward eye -->
+    <line x1="1240" y1="445" x2="900" y2="410" stroke="#e8c777" stroke-opacity="0.75" stroke-width="1.6"/>
+    <line x1="1240" y1="455" x2="900" y2="450" stroke="#e8c777" stroke-opacity="0.6"  stroke-width="1.3"/>
+    <line x1="1240" y1="465" x2="900" y2="490" stroke="#e8c777" stroke-opacity="0.45" stroke-width="1.1"/>
+  </g>
+</svg>

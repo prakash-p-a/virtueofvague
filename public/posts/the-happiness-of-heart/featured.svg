@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="two cupped hands holding a small glowing orb of warm light">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1c1815"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </radialGradient>
+    <radialGradient id="orb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff8e1" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#e8c777" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#e8c777" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8c777" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#e8c777" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <!-- soft warm glow behind everything -->
+  <circle cx="800" cy="440" r="380" fill="url(#orbGlow)"/>
+  <!-- left hand cupping (palm-up, viewed from front) -->
+  <g fill="#a89880" opacity="0.85">
+    <!-- wrist coming in from left -->
+    <path d="M 480,560 L 540,490 L 800,485 L 800,540 Q 700,560 600,580 Q 540,580 480,560 Z"/>
+    <!-- curled fingers -->
+    <ellipse cx="620" cy="475" rx="18" ry="42" transform="rotate(20 620 475)"/>
+    <ellipse cx="665" cy="460" rx="18" ry="48" transform="rotate(12 665 460)"/>
+    <ellipse cx="715" cy="452" rx="18" ry="52" transform="rotate(5 715 452)"/>
+    <ellipse cx="765" cy="452" rx="18" ry="50" transform="rotate(-2 765 452)"/>
+    <!-- thumb -->
+    <ellipse cx="540" cy="510" rx="28" ry="16" transform="rotate(-30 540 510)"/>
+  </g>
+  <!-- right hand cupping (mirrored) -->
+  <g fill="#a89880" opacity="0.85">
+    <path d="M 1120,560 L 1060,490 L 800,485 L 800,540 Q 900,560 1000,580 Q 1060,580 1120,560 Z"/>
+    <ellipse cx="980" cy="475" rx="18" ry="42" transform="rotate(-20 980 475)"/>
+    <ellipse cx="935" cy="460" rx="18" ry="48" transform="rotate(-12 935 460)"/>
+    <ellipse cx="885" cy="452" rx="18" ry="52" transform="rotate(-5 885 452)"/>
+    <ellipse cx="835" cy="452" rx="18" ry="50" transform="rotate(2 835 452)"/>
+    <ellipse cx="1060" cy="510" rx="28" ry="16" transform="rotate(30 1060 510)"/>
+  </g>
+  <!-- the orb of light -->
+  <circle cx="800" cy="430" r="55" fill="url(#orb)"/>
+  <!-- bright core -->
+  <circle cx="800" cy="430" r="18" fill="#fff8e1"/>
+  <!-- tiny sparks drifting up -->
+  <g fill="#e8c777" opacity="0.7">
+    <circle cx="770" cy="350" r="2"/>
+    <circle cx="820" cy="340" r="2.2"/>
+    <circle cx="795" cy="310" r="1.8"/>
+    <circle cx="830" cy="280" r="1.5"/>
+    <circle cx="775" cy="265" r="1.3"/>
+  </g>
+</svg>

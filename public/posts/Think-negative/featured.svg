@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="a single candle flame standing firm against wind">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="60%" r="80%">
+      <stop offset="0%" stop-color="#1c1815"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </radialGradient>
+    <radialGradient id="flameGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fff8e1" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#e8c777" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#e8c777" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <!-- wind streaks from left -->
+  <g stroke="#a89880" stroke-opacity="0.35" stroke-linecap="round" fill="none" stroke-width="1.6">
+    <path d="M 60,280 Q 380,290 700,320"/>
+    <path d="M 80,380 Q 400,395 700,420"/>
+    <path d="M 60,480 Q 380,490 700,510"/>
+    <path d="M 80,580 Q 400,590 700,610"/>
+  </g>
+  <!-- candle base shadow -->
+  <ellipse cx="800" cy="770" rx="60" ry="7" fill="#3a3530" opacity="0.6"/>
+  <!-- candle body -->
+  <rect x="778" y="540" width="44" height="230" fill="#a89880" opacity="0.85" rx="4"/>
+  <!-- candle drip down side -->
+  <path d="M 778,560 Q 770,590 776,620" fill="none" stroke="#a89880" stroke-opacity="0.6" stroke-width="2"/>
+  <!-- wick -->
+  <line x1="800" y1="540" x2="800" y2="505" stroke="#3a3530" stroke-width="2.5"/>
+  <!-- flame glow halo -->
+  <circle cx="803" cy="455" r="140" fill="url(#flameGlow)"/>
+  <!-- flame outer (slightly bent right) -->
+  <path d="M 800,510 Q 824,470 818,430 Q 814,400 800,375 Q 786,400 783,430 Q 779,470 800,510 Z"
+        fill="#e8c777" opacity="0.95"/>
+  <!-- flame inner -->
+  <path d="M 800,498 Q 815,470 812,445 Q 805,420 800,410 Q 794,420 790,445 Q 788,470 800,498 Z"
+        fill="#fff8e1" opacity="0.9"/>
+</svg>

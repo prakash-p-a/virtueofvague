@@ -4,7 +4,7 @@ draft = false
 slug = "Snow-flake"
 tags = ["KnowTheBetter"]
 title = "snowflake on the surface. compost underneath."
-showHero = false
+showHero = true
 mood = "tender"
 pullquote = "snowflakes on the surface. compost underneath."
 +++
