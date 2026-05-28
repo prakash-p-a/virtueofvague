@@ -8,3 +8,15 @@ skills-lock.json
 # Hugo build cache & lock
 resources/_gen/
 .hugo_build.lock
+
+# Hugo build output — CI rebuilds this fresh on every push
+# (see .github/workflows/hugo.yaml); committing it is unnecessary noise.
+public/
+
+# IDE personal state
+.vs/
+.idea/
+.vscode/
+
+# One-shot migration binary, not used in normal workflows
+ghostToHugo.exe
