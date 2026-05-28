@@ -1,7 +1,12 @@
 {{ define "main" }}
   {{- $allPosts := where .Site.RegularPages "Section" "in" .Site.Params.mainSections -}}
-  {{- $featured := index $allPosts 0 -}}
-  {{- $rest := after 1 $allPosts -}}
+  {{- /* Featured slot is always a KnowTheBetter (feelings) post, never craft. */ -}}
+  {{- $ktbPosts := where $allPosts "Params.tags" "intersect" (slice "KnowTheBetter") -}}
+  {{- $featured := index $ktbPosts 0 -}}
+  {{- $rest := $allPosts -}}
+  {{- if $featured -}}
+    {{- $rest = where $allPosts "Permalink" "ne" $featured.Permalink -}}
+  {{- end -}}
 
   <section class="home-fragment">
     <p class="home-fragment-line">
