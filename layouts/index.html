@@ -15,7 +15,9 @@
     </p>
   </section>
 
-  {{- partial "home/featured-post.html" $featured -}}
+  {{- with $featured -}}
+    {{- partial "home/featured-post.html" . -}}
+  {{- end -}}
 
   {{- partial "home/entry-doors.html" . -}}
 
