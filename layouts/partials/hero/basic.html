@@ -1,0 +1,85 @@
+{{/* Override of themes/blowfish/layouts/partials/hero/basic.html.
+     Key change: when the featured image is an SVG (our hand-drawn covers),
+     inline its content into the page instead of loading via <img>. Inlining
+     lets the SVG inherit the page's CSS variables (--hero-*) so the cover
+     re-paints instantly when the theme toggle flips dark/light. */}}
+
+{{ $disableImageOptimization := site.Store.Get "disableImageOptimization" }}
+
+{{ $useDefault := false }}
+{{ $featured := "" }}
+{{ $featuredURL := "" }}
+{{ with .Params.featureimage }}
+  {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+    {{ if site.Params.hotlinkFeatureImage }}
+      {{ $featuredURL = . }}
+    {{ else }}
+      {{ $featured = resources.GetRemote . }}
+    {{ end }}
+  {{ else }}
+    {{ $featured = resources.Get . }}
+  {{ end }}
+{{ end }}
+
+{{ if not (or $featured $featuredURL) }}
+  {{ $images := .Resources.ByType "image" }}
+  {{ range slice "*background*" "*feature*" "*cover*" "*thumbnail*" }}
+    {{ if not $featured }}{{ $featured = $images.GetMatch . }}{{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if not (or $featured $featuredURL) }}
+  {{ $default := site.Store.Get "defaultBackgroundImage" }}
+  {{ if $default.url }}
+    {{ $featuredURL = $default.url }}
+    {{ $useDefault = true }}
+  {{ else if $default.obj }}
+    {{ $featured = $default.obj }}
+    {{ $useDefault = true }}
+  {{ end }}
+{{ end }}
+
+{{/* SVG inline path — fires only for local SVG covers (page bundle resources).
+     Falls through to the standard img path for raster images, remote URLs,
+     and the default background. */}}
+{{ $isInlineSvg := false }}
+{{ with $featured }}
+  {{ if and (not (reflect.IsSlice .)) (eq .MediaType.SubType "svg") }}
+    {{ $isInlineSvg = true }}
+  {{ end }}
+{{ end }}
+
+{{ if $isInlineSvg }}
+  <div class="overflow-hidden h-36 md:h-56 lg:h-72 hero-inline-svg">
+    {{ $featured.Content | safeHTML }}
+  </div>
+{{ else }}
+  {{/* generate image URL if not hotlink */}}
+  {{ if not $featuredURL }}
+    {{ with $featured }}
+      {{ $featuredURL = .RelPermalink }}
+      {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
+        {{ $size := site.Store.Get "backgroundImageWidth" }}
+        {{ $featuredURL = (.Resize $size).RelPermalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ with $featuredURL }}
+    {{ $style := "" }}
+    {{ $defaultPosition := cond $useDefault site.Params.imagePosition false }}
+    {{ with $.Params.imagePosition | default $defaultPosition }}
+      {{ $style = printf "object-position: %s;" . }}
+    {{ end }}
+    <div class="overflow-hidden h-36 md:h-56 lg:h-72">
+      <img
+        src="{{ . }}"
+        role="presentation"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        class="w-full h-full nozoom object-cover"
+        {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+    </div>
+  {{ end }}
+{{ end }}

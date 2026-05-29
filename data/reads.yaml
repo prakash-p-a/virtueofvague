@@ -1,0 +1,20 @@
+# Recent reads — articles, essays, and pieces I've been sitting with.
+# Each entry shows up as a colored cell in the /reads/ heatmap.
+# Multiple entries on the same date stack inside the same cell tooltip.
+#
+# Required fields per entry:
+#   date    YYYY-MM-DD
+#   title   the piece's title
+#   url     the link
+# Optional:
+#   source  display name for the publication (e.g. "Wired", "Substack: Some Newsletter")
+#   note    one short line on why this stayed with you (shown in tooltip)
+#
+# Add new reads at the top. Hugo CI rebuilds the heatmap on push.
+
+entries:
+  - date: 2026-05-29
+    title: "Sample read — replace this with your own"
+    url: "https://example.com/"
+    source: "example.com"
+    note: "delete this seed entry once you add a few real ones."

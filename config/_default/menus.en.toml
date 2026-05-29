@@ -40,6 +40,13 @@
   [main.params]
     icon = "message-circle"
 
+[[main]]
+  name = "Reads"
+  pageRef = "reads"
+  weight = 60
+  [main.params]
+    icon = "book-open"
+
 # -- Footer Menu --
 [[footer]]
   name = "Tags"

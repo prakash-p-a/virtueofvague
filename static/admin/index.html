@@ -133,6 +133,7 @@
             <div class="tabs">
                 <button class="tab active" data-tab="comments" type="button">comments</button>
                 <button class="tab" data-tab="threads" type="button">threads</button>
+                <button class="tab" data-tab="subscribers" type="button">subscribers</button>
             </div>
 
             <div class="toolbar">
@@ -218,10 +219,15 @@
                     const data = await api('/api/admin/comments?' + q.toString());
                     renderList(data.comments || []);
                     $('status').textContent = data.comments.length + ' comments';
-                } else {
+                } else if (currentTab === 'threads') {
                     const data = await api('/api/admin/threads?' + q.toString());
                     renderThreadList(data.threads || []);
                     $('status').textContent = data.threads.length + ' threads';
+                } else if (currentTab === 'subscribers') {
+                    // For subscribers, status filter uses different vocab; pass through if user picked one.
+                    const data = await api('/api/admin/subscribers?' + q.toString());
+                    renderSubscriberList(data.subscribers || []);
+                    $('status').textContent = data.subscribers.length + ' subscribers';
                 }
             } catch (e) {
                 $('status').textContent = 'error: ' + e.message;
@@ -253,6 +259,35 @@
                         (t.status !== 'hidden'  ? '<button data-act="hidden">hide</button>' : '') +
                         (t.status !== 'spam'    ? '<button data-act="spam">mark spam</button>' : '') +
                         '<button data-act="delete" class="danger">delete (+replies)</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function renderSubscriberList(rows) {
+            const list = $('list');
+            if (!rows.length) {
+                list.innerHTML = '<div class="empty">no subscribers match.</div>';
+                return;
+            }
+            list.innerHTML = rows.map(function(s) {
+                const statusPill = s.status !== 'active'
+                    ? '<span class="pill ' + esc(s.status) + '">' + esc(s.status) + '</span>'
+                    : '';
+                const source = s.source ? '<span class="slug">' + esc(s.source) + '</span>' : '';
+                return '<div class="row status-' + esc(s.status) + '" data-id="' + s.id + '" data-kind="subscriber">' +
+                    '<div class="meta">' +
+                        '<span class="name">' + esc(s.email) + '</span>' +
+                        source +
+                        '<span class="time">' + fmtTime(s.created_at) + '</span>' +
+                        '<span class="id">#' + s.id + '</span>' +
+                        statusPill +
+                    '</div>' +
+                    '<div class="actions">' +
+                        (s.status !== 'active'       ? '<button data-act="active">restore</button>' : '') +
+                        (s.status !== 'unsubscribed' ? '<button data-act="unsubscribed">unsubscribe</button>' : '') +
+                        (s.status !== 'bounced'      ? '<button data-act="bounced">mark bounced</button>' : '') +
+                        '<button data-act="delete" class="danger">delete</button>' +
                     '</div>' +
                 '</div>';
             }).join('');
@@ -298,10 +333,14 @@
             const id = row.dataset.id;
             const kind = row.dataset.kind || 'comment';
             const act = btn.dataset.act;
-            const base = kind === 'thread' ? '/api/admin/threads/' : '/api/admin/comments/';
+            const base = kind === 'thread'     ? '/api/admin/threads/'
+                       : kind === 'subscriber' ? '/api/admin/subscribers/'
+                       : '/api/admin/comments/';
             try {
                 if (act === 'delete') {
-                    const what = kind === 'thread' ? 'thread #' + id + ' (AND all its replies)' : 'comment #' + id;
+                    const what = kind === 'thread'     ? 'thread #' + id + ' (AND all its replies)'
+                               : kind === 'subscriber' ? 'subscriber #' + id
+                               : 'comment #' + id;
                     if (!confirm('Hard-delete ' + what + '?')) return;
                     await api(base + id, { method: 'DELETE' });
                 } else {
@@ -316,12 +355,26 @@
             }
         });
 
+        function rebuildStatusFilter() {
+            const sel = $('filter-status');
+            const sub = (currentTab === 'subscribers');
+            sel.innerHTML = '<option value="">all statuses</option>' + (sub
+                ? '<option value="active">active</option>' +
+                  '<option value="unsubscribed">unsubscribed</option>' +
+                  '<option value="bounced">bounced</option>'
+                : '<option value="visible">visible</option>' +
+                  '<option value="hidden">hidden</option>' +
+                  '<option value="spam">spam</option>');
+        }
+
         document.querySelectorAll('.tab').forEach(function(tab) {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
                 tab.classList.add('active');
                 currentTab = tab.dataset.tab;
-                $('filter-post').disabled = (currentTab === 'threads');
+                $('filter-post').disabled = (currentTab !== 'comments');
+                $('filter-post').style.opacity = (currentTab === 'comments') ? '1' : '0.4';
+                rebuildStatusFilter();
                 refresh();
             });
         });

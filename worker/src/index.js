@@ -1,4 +1,4 @@
-// vov-comments worker - anonymous comments + discussions backend for virtueofvague.com.
+// vov-comments worker - anonymous comments + discussions + newsletter backend for virtueofvague.com.
 //
 // Routes:
 //   Comments (per post)
@@ -8,6 +8,9 @@
 //     POST   /api/threads                           create a thread
 //     GET    /api/threads                           list threads (sorted by reply count desc)
 //     GET    /api/threads/:id                       fetch one thread + its replies (tree)
+//   Newsletter (single opt-in)
+//     POST   /api/subscribe                         subscribe an email
+//     GET    /api/unsubscribe?token=<id>            soft-unsubscribe an email
 //   Admin (bearer auth)
 //     GET    /api/admin/comments                    list ALL comments (any status)
 //     POST   /api/admin/comments/:id/status         update comment status
@@ -15,6 +18,9 @@
 //     GET    /api/admin/threads                     list ALL threads (any status)
 //     POST   /api/admin/threads/:id/status          update thread status
 //     DELETE /api/admin/threads/:id                 hard-delete a thread (and its replies)
+//     GET    /api/admin/subscribers                 list all subscribers
+//     POST   /api/admin/subscribers/:id/status      change subscriber status
+//     DELETE /api/admin/subscribers/:id             hard-delete a subscriber
 //
 // Thread replies are stored in the `comments` table with post_slug = 'thread-<id>',
 // so the same anti-abuse pipeline + nesting cap applies to them.
@@ -44,6 +50,14 @@ export default {
       }
       if (url.pathname === '/api/comments' && request.method === 'GET') {
         return await handleList(request, env, cors);
+      }
+
+      // Newsletter endpoints (public)
+      if (url.pathname === '/api/subscribe' && request.method === 'POST') {
+        return await handleSubscribe(request, env, cors);
+      }
+      if (url.pathname === '/api/unsubscribe' && request.method === 'GET') {
+        return await handleUnsubscribe(request, env, cors);
       }
 
       // Thread endpoints (public)
@@ -80,6 +94,17 @@ export default {
       const threadDeleteMatch = url.pathname.match(/^\/api\/admin\/threads\/(\d+)$/);
       if (threadDeleteMatch && request.method === 'DELETE') {
         return await handleAdminThreadDelete(request, env, cors, parseInt(threadDeleteMatch[1], 10));
+      }
+      if (url.pathname === '/api/admin/subscribers' && request.method === 'GET') {
+        return await handleAdminSubscribersList(request, env, cors);
+      }
+      const subStatusMatch = url.pathname.match(/^\/api\/admin\/subscribers\/(\d+)\/status$/);
+      if (subStatusMatch && request.method === 'POST') {
+        return await handleAdminSubscribersStatus(request, env, cors, parseInt(subStatusMatch[1], 10));
+      }
+      const subDeleteMatch = url.pathname.match(/^\/api\/admin\/subscribers\/(\d+)$/);
+      if (subDeleteMatch && request.method === 'DELETE') {
+        return await handleAdminSubscribersDelete(request, env, cors, parseInt(subDeleteMatch[1], 10));
       }
 
       // Health
@@ -172,6 +197,91 @@ async function handleList(request, env, cors) {
   ).bind(postSlug, 'visible').all();
 
   return json({ post_slug: postSlug, comments: rows.results || [] }, 200, cors);
+}
+
+// --- Newsletter (public) --------------------------------------------------
+
+async function handleSubscribe(request, env, cors) {
+  const ct = request.headers.get('content-type') || '';
+  if (!ct.includes('application/json')) {
+    return json({ error: 'bad_content_type' }, 415, cors);
+  }
+  let payload;
+  try { payload = await request.json(); } catch { return json({ error: 'bad_json' }, 400, cors); }
+
+  const email = typeof payload.email === 'string' ? payload.email.trim().toLowerCase().slice(0, 254) : '';
+  const source = typeof payload.source === 'string' ? payload.source.replace(/[^a-zA-Z0-9_:\-]/g, '').slice(0, 80) : '';
+  const turnstileToken = typeof payload.turnstile_token === 'string' ? payload.turnstile_token : '';
+
+  if (!isValidEmail(email)) return json({ error: 'invalid_email' }, 400, cors);
+
+  const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+
+  if (!turnstileToken) return json({ error: 'turnstile_required' }, 400, cors);
+  const ok = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET, ip);
+  if (!ok) return json({ error: 'turnstile_failed' }, 403, cors);
+
+  const ipHash = await sha256(`${ip}:${env.IP_SALT}`);
+
+  // Per-IP rate limit: 3 signups per hour, 5 per day (low ceiling — most people sub once).
+  const rl = await checkAndIncrementSubscribeRateLimit(env, ipHash);
+  if (!rl.allowed) return json({ error: 'rate_limited', window: rl.window }, 429, cors);
+
+  const now = Math.floor(Date.now() / 1000);
+
+  // Try insert; if duplicate email, surface a friendly result instead of error.
+  try {
+    const result = await env.DB.prepare(
+      "INSERT INTO subscribers (email, status, ip_hash, source, created_at) VALUES (?, 'active', ?, ?, ?)"
+    ).bind(email, ipHash, source || null, now).run();
+    return json({ id: result.meta.last_row_id, status: 'subscribed' }, 201, cors);
+  } catch (e) {
+    // Unique-index violation = email already subscribed. Idempotent success.
+    if (String(e.message || '').toLowerCase().includes('unique')) {
+      // If they were unsubscribed, reactivate.
+      await env.DB.prepare(
+        "UPDATE subscribers SET status = 'active', unsubscribed_at = NULL WHERE LOWER(email) = ?"
+      ).bind(email).run();
+      return json({ status: 'already_subscribed' }, 200, cors);
+    }
+    throw e;
+  }
+}
+
+async function handleUnsubscribe(request, env, cors) {
+  const url = new URL(request.url);
+  const token = url.searchParams.get('token') || '';
+  // Token is just the subscriber id for now (single-opt-in, low security). Could swap for HMAC later.
+  const id = parseInt(token, 10);
+  if (!Number.isFinite(id) || id <= 0) return json({ error: 'invalid_token' }, 400, cors);
+  const now = Math.floor(Date.now() / 1000);
+  await env.DB.prepare(
+    "UPDATE subscribers SET status = 'unsubscribed', unsubscribed_at = ? WHERE id = ?"
+  ).bind(now, id).run();
+  return json({ status: 'unsubscribed' }, 200, cors);
+}
+
+async function checkAndIncrementSubscribeRateLimit(env, ipHash) {
+  const buckets = [
+    { key: `rl:sub:1h:${ipHash}`,  ttl: 3600,  max: 3, window: '1hour'  },
+    { key: `rl:sub:24h:${ipHash}`, ttl: 86400, max: 5, window: '24hour' },
+  ];
+  for (const b of buckets) {
+    const cur = parseInt(await env.VOV_RATELIMIT.get(b.key), 10) || 0;
+    if (cur >= b.max) return { allowed: false, window: b.window };
+  }
+  for (const b of buckets) {
+    const cur = parseInt(await env.VOV_RATELIMIT.get(b.key), 10) || 0;
+    await env.VOV_RATELIMIT.put(b.key, String(cur + 1), { expirationTtl: b.ttl });
+  }
+  return { allowed: true };
+}
+
+function isValidEmail(s) {
+  // Permissive RFC-ish check; the real validation is delivery succeeding.
+  return typeof s === 'string'
+    && s.length >= 5 && s.length <= 254
+    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 }
 
 // --- Threads (public) -----------------------------------------------------
@@ -363,6 +473,44 @@ async function handleAdminThreadDelete(request, env, cors, id) {
   // Delete replies first, then thread.
   await env.DB.prepare('DELETE FROM comments WHERE post_slug = ?').bind(`thread-${id}`).run();
   await env.DB.prepare('DELETE FROM threads WHERE id = ?').bind(id).run();
+  return json({ id, deleted: true }, 200, cors);
+}
+
+async function handleAdminSubscribersList(request, env, cors) {
+  if (!adminAuthOk(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  const url = new URL(request.url);
+  const status = url.searchParams.get('status');
+
+  let sql = 'SELECT id, email, status, source, created_at, unsubscribed_at FROM subscribers';
+  const args = [];
+  if (status) { sql += ' WHERE status = ?'; args.push(status); }
+  sql += ' ORDER BY created_at DESC LIMIT 1000';
+
+  const stmt = env.DB.prepare(sql);
+  const rows = args.length ? await stmt.bind(...args).all() : await stmt.all();
+  return json({ subscribers: rows.results || [] }, 200, cors);
+}
+
+async function handleAdminSubscribersStatus(request, env, cors, id) {
+  if (!adminAuthOk(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  let payload;
+  try { payload = await request.json(); } catch { return json({ error: 'bad_json' }, 400, cors); }
+  const status = payload.status;
+  if (!['active', 'unsubscribed', 'bounced'].includes(status)) {
+    return json({ error: 'bad_status' }, 400, cors);
+  }
+  const now = Math.floor(Date.now() / 1000);
+  if (status === 'unsubscribed' || status === 'bounced') {
+    await env.DB.prepare('UPDATE subscribers SET status = ?, unsubscribed_at = ? WHERE id = ?').bind(status, now, id).run();
+  } else {
+    await env.DB.prepare('UPDATE subscribers SET status = ?, unsubscribed_at = NULL WHERE id = ?').bind(status, id).run();
+  }
+  return json({ id, status }, 200, cors);
+}
+
+async function handleAdminSubscribersDelete(request, env, cors, id) {
+  if (!adminAuthOk(request, env)) return json({ error: 'unauthorized' }, 401, cors);
+  await env.DB.prepare('DELETE FROM subscribers WHERE id = ?').bind(id).run();
   return json({ id, deleted: true }, 200, cors);
 }
 

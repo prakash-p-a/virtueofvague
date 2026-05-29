@@ -1,0 +1,373 @@
+{{ define "main" }}
+{{- $entries := .Site.Data.reads.entries | default slice -}}
+
+{{- /* Group entries by ISO date string so we can render counts per cell. */ -}}
+{{- $byDate := dict -}}
+{{- range $entries -}}
+  {{- $d := .date | dateFormat "2006-01-02" -}}
+  {{- $cur := index $byDate $d | default slice -}}
+  {{- $cur = $cur | append . -}}
+  {{- $byDate = merge $byDate (dict $d $cur) -}}
+{{- end -}}
+
+{{- /* Calendar window: rolling 365 days ending today. */ -}}
+{{- $today := now -}}
+{{- $start := $today.AddDate 0 0 -364 -}}
+
+{{- /* Pad so the first cell sits on a Sunday column (Go's time.Weekday: Sun=0..Sat=6). */ -}}
+{{- $padDays := int $start.Weekday -}}
+{{- $gridDays := add 365 $padDays -}}
+{{- /* Round up to a full week multiple of 7. */ -}}
+{{- if mod $gridDays 7 -}}
+  {{- $gridDays = add $gridDays (sub 7 (mod $gridDays 7)) -}}
+{{- end -}}
+{{- $cellOrigin := $start.AddDate 0 0 (mul -1 $padDays) -}}
+
+<style>
+.reads-page {
+  max-width: 76ch;
+  margin: 2rem auto 6rem;
+  padding: 0 1rem;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  color: rgba(255,255,255,0.85);
+}
+html:not(.dark) .reads-page { color: rgba(0,0,0,0.85); }
+
+.reads-header h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.3rem;
+}
+.reads-sub {
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin: 0 0 2rem;
+}
+html:not(.dark) .reads-sub { color: rgba(0,0,0,0.55); }
+
+.heatmap-wrap {
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.heatmap {
+  display: grid;
+  grid-template-rows: repeat(7, 12px);
+  grid-auto-flow: column;
+  grid-auto-columns: 12px;
+  gap: 3px;
+  position: relative;
+}
+.cell {
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  position: relative;
+  cursor: default;
+  transition: outline-color 0.15s ease;
+  outline: 1px solid transparent;
+}
+html:not(.dark) .cell { background: rgba(0,0,0,0.06); }
+.cell.empty { background: transparent; }
+.cell[data-count="1"] { background: rgba(232,199,119,0.30); }
+.cell[data-count="2"] { background: rgba(232,199,119,0.50); }
+.cell[data-count="3"] { background: rgba(232,199,119,0.70); }
+.cell[data-count="4plus"] { background: rgba(232,199,119,0.95); }
+.cell.has-reads { cursor: pointer; }
+.cell.has-reads:hover,
+.cell.has-reads:focus-visible { outline-color: #e8c777; }
+
+.heatmap-month-labels {
+  display: grid;
+  grid-template-rows: 14px;
+  grid-auto-flow: column;
+  grid-auto-columns: 12px;
+  gap: 3px;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 4px;
+  letter-spacing: 0.06em;
+}
+html:not(.dark) .heatmap-month-labels { color: rgba(0,0,0,0.45); }
+.heatmap-month-labels span {
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+html:not(.dark) .heatmap-legend { color: rgba(0,0,0,0.55); }
+.heatmap-legend .swatch {
+  width: 12px; height: 12px; border-radius: 2px;
+  display: inline-block;
+}
+
+.reads-tooltip {
+  position: fixed;
+  display: none;
+  z-index: 9999;
+  max-width: 360px;
+  min-width: 240px;
+  background: rgba(15,12,10,0.96);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.88);
+}
+html:not(.dark) .reads-tooltip {
+  background: rgba(245,241,234,0.98);
+  border-color: rgba(0,0,0,0.12);
+  color: rgba(0,0,0,0.88);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+.reads-tooltip .tip-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.reads-tooltip .tip-entry { margin-bottom: 0.7rem; }
+.reads-tooltip .tip-entry:last-child { margin-bottom: 0; }
+.reads-tooltip .tip-title {
+  display: block;
+  color: #e8c777;
+  text-decoration: none;
+  font-weight: 600;
+}
+.reads-tooltip .tip-title:hover { text-decoration: underline; }
+.reads-tooltip .tip-source {
+  font-size: 0.78rem;
+  opacity: 0.6;
+  font-style: italic;
+}
+.reads-tooltip .tip-note {
+  font-size: 0.82rem;
+  margin-top: 0.2rem;
+  opacity: 0.85;
+}
+
+.reads-recent {
+  margin-top: 2.5rem;
+}
+.reads-recent h2 {
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.7;
+  margin: 0 0 1rem;
+}
+.recent-list { list-style: none; padding: 0; margin: 0; }
+.recent-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px dotted rgba(255,255,255,0.1);
+}
+html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
+.recent-list li:last-child { border-bottom: none; }
+.recent-list .r-title {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+}
+.recent-list .r-title:hover { color: #e8c777; }
+.recent-list .r-meta {
+  display: block;
+  font-size: 0.78rem;
+  opacity: 0.6;
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+.recent-list .r-note {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  opacity: 0.85;
+}
+.reads-empty {
+  padding: 2.5rem 0;
+  text-align: center;
+  opacity: 0.55;
+  font-style: italic;
+}
+</style>
+
+<section class="reads-page">
+  <header class="reads-header">
+    <h1>reads</h1>
+    <p class="reads-sub">{{ .Params.description }}</p>
+  </header>
+
+  {{- if not $entries -}}
+    <div class="reads-empty">nothing logged yet. check back soon.</div>
+  {{- else -}}
+
+  <div class="heatmap-wrap">
+    {{- /* Month labels row — render once per first-Sunday-of-month column for legibility. */ -}}
+    <div class="heatmap-month-labels">
+      {{- $totalWeeks := div $gridDays 7 -}}
+      {{- $prevMonth := -1 -}}
+      {{- range $w := seq 0 (sub $totalWeeks 1) -}}
+        {{- $cellDate := $cellOrigin.AddDate 0 0 (mul $w 7) -}}
+        {{- $m := int $cellDate.Month -}}
+        {{- if ne $m $prevMonth -}}
+          <span style="grid-column: {{ add $w 1 }} / span 4;">{{ $cellDate.Format "Jan" | lower }}</span>
+          {{- $prevMonth = $m -}}
+        {{- else -}}
+          <span></span>
+        {{- end -}}
+      {{- end -}}
+    </div>
+
+    <div class="heatmap" id="heatmap">
+      {{- range $i := seq 0 (sub $gridDays 1) -}}
+        {{- $d := $cellOrigin.AddDate 0 0 $i -}}
+        {{- $key := $d.Format "2006-01-02" -}}
+        {{- $inRange := and (ge ($d.Unix) ($start.Unix)) (le ($d.Unix) ($today.Unix)) -}}
+        {{- if not $inRange -}}
+          <div class="cell empty" aria-hidden="true"></div>
+        {{- else -}}
+          {{- $dayEntries := index $byDate $key | default slice -}}
+          {{- $count := len $dayEntries -}}
+          {{- if eq $count 0 -}}
+            <div class="cell" data-date="{{ $key }}"></div>
+          {{- else -}}
+            {{- $bucket := cond (ge $count 4) "4plus" (string $count) -}}
+            <div class="cell has-reads" data-date="{{ $key }}" data-count="{{ $bucket }}" tabindex="0" role="button" aria-label="{{ $count }} read{{ if gt $count 1 }}s{{ end }} on {{ $d.Format "2 January 2006" }}"></div>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
+
+    <div class="heatmap-legend">
+      <span>quieter</span>
+      <span class="swatch" style="background:rgba(255,255,255,0.06)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.30)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.50)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.70)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.95)"></span>
+      <span>louder</span>
+    </div>
+  </div>
+
+  {{- /* Recent reads list — most recent 8, for visitors who prefer scanning. */ -}}
+  {{- $sorted := sort $entries "date" "desc" -}}
+  <section class="reads-recent">
+    <h2>most recent</h2>
+    <ul class="recent-list">
+      {{- range first 8 $sorted -}}
+        <li>
+          <a class="r-title" href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+          <span class="r-meta">
+            {{ (time .date).Format "2 January 2006" | lower }}
+            {{- with .source }} &middot; {{ . }}{{ end -}}
+          </span>
+          {{- with .note }}<span class="r-note">{{ . }}</span>{{ end -}}
+        </li>
+      {{- end -}}
+    </ul>
+  </section>
+  {{- end -}}
+</section>
+
+{{- /* Inject entries-by-date as a JSON island for the tooltip JS. */ -}}
+<script type="application/json" id="reads-data">
+{{- dict "byDate" $byDate | jsonify -}}
+</script>
+
+<script>
+(function() {
+  const root = document.getElementById('heatmap');
+  if (!root) return;
+  const dataNode = document.getElementById('reads-data');
+  if (!dataNode) return;
+  let lookup = {};
+  try { lookup = (JSON.parse(dataNode.textContent) || {}).byDate || {}; } catch (e) {}
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // One reusable tooltip element appended to body so it's not clipped by overflow-x.
+  const tip = document.createElement('div');
+  tip.className = 'reads-tooltip';
+  tip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tip);
+  let activeCell = null;
+
+  function fmtDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }).toLowerCase();
+  }
+
+  function render(cell) {
+    const date = cell.dataset.date;
+    const entries = lookup[date] || [];
+    if (!entries.length) return;
+    let html = '<div class="tip-date">' + esc(fmtDate(date)) + '</div>';
+    entries.forEach(function(e) {
+      html += '<div class="tip-entry">';
+      html += '<a class="tip-title" href="' + esc(e.url) + '" target="_blank" rel="noopener noreferrer">' + esc(e.title) + '</a>';
+      if (e.source) html += '<div class="tip-source">' + esc(e.source) + '</div>';
+      if (e.note) html += '<div class="tip-note">' + esc(e.note) + '</div>';
+      html += '</div>';
+    });
+    tip.innerHTML = html;
+    tip.style.display = 'block';
+
+    // Position tooltip above the cell, clamped to viewport.
+    const r = cell.getBoundingClientRect();
+    const tipRect = tip.getBoundingClientRect();
+    let top = r.top - tipRect.height - 8;
+    let left = r.left + (r.width / 2) - (tipRect.width / 2);
+    if (top < 8) top = r.bottom + 8;
+    if (left < 8) left = 8;
+    if (left + tipRect.width > window.innerWidth - 8) {
+      left = window.innerWidth - tipRect.width - 8;
+    }
+    tip.style.top = top + 'px';
+    tip.style.left = left + 'px';
+    activeCell = cell;
+  }
+
+  function hide() {
+    tip.style.display = 'none';
+    activeCell = null;
+  }
+
+  root.addEventListener('mouseover', function(ev) {
+    const cell = ev.target.closest('.cell.has-reads');
+    if (cell && cell !== activeCell) render(cell);
+  });
+  root.addEventListener('mouseleave', function(ev) {
+    // Only hide if the mouse left the heatmap entirely; allow moving over the tooltip if hovering its area.
+    setTimeout(function() {
+      if (!tip.matches(':hover')) hide();
+    }, 80);
+  });
+  root.addEventListener('focusin', function(ev) {
+    const cell = ev.target.closest('.cell.has-reads');
+    if (cell) render(cell);
+  });
+  root.addEventListener('focusout', hide);
+  tip.addEventListener('mouseleave', hide);
+  document.addEventListener('keydown', function(ev) { if (ev.key === 'Escape') hide(); });
+})();
+</script>
+{{ end }}

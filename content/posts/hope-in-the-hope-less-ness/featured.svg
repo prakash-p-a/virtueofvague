@@ -1,39 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="a single small match flame held in darkness">
   <defs>
     <radialGradient id="bg" cx="50%" cy="40%" r="95%">
-      <stop offset="0%" stop-color="#1c1815"/>
-      <stop offset="100%" stop-color="#050403"/>
+      <stop offset="0%" stop-color="var(--hero-bg-1)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
     <radialGradient id="halo" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fff8e1" stop-opacity="0.95"/>
-      <stop offset="40%" stop-color="#e8c777" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#e8c777" stop-opacity="0"/>
+      <stop offset="0%" stop-color="var(--hero-bright)" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="var(--hero-gold)" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="1600" height="900" fill="url(#bg)"/>
-  <!-- smoke wisps drifting up -->
-  <g stroke="#a89880" stroke-opacity="0.18" stroke-width="1.2" fill="none">
+  <g stroke="var(--hero-mute)" stroke-opacity="0.18" stroke-width="1.2" fill="none">
     <path d="M 805,210 Q 820,140 808,75"/>
     <path d="M 790,205 Q 775,150 786,90"/>
   </g>
-  <!-- big glow halo -->
   <circle cx="800" cy="380" r="280" fill="url(#halo)"/>
-  <!-- match stick (held diagonally, going down to off-canvas hand below) -->
   <g transform="rotate(7 800 480)">
-    <rect x="796" y="375" width="8" height="240" fill="#5a4f43"/>
-    <rect x="794" y="365" width="12" height="16" fill="#1a1614"/>
+    <rect x="796" y="375" width="8" height="240" fill="var(--hero-stone)"/>
+    <rect x="794" y="365" width="12" height="16" fill="var(--hero-bg-1)"/>
   </g>
-  <!-- flame outer -->
   <path d="M 808,365 Q 832,320 822,280 Q 816,250 802,225 Q 788,250 783,280 Q 773,320 798,365 Z"
-        fill="#e8c777" opacity="0.95"/>
-  <!-- flame inner -->
+        fill="var(--hero-gold)" opacity="0.95"/>
   <path d="M 806,350 Q 822,320 817,295 Q 810,272 803,255 Q 796,272 791,295 Q 786,320 800,350 Z"
-        fill="#fff8e1" opacity="0.92"/>
-  <!-- hand holding (silhouette at bottom) -->
-  <g fill="#1a1614">
-    <!-- forearm coming up from off-canvas -->
+        fill="var(--hero-bright)" opacity="0.92"/>
+  <g fill="var(--hero-bg-1)">
     <path d="M 700,900 L 720,720 Q 800,700 880,720 L 900,900 Z"/>
-    <!-- fingers wrapping match -->
     <ellipse cx="800" cy="700" rx="55" ry="22"/>
     <ellipse cx="780" cy="680" rx="14" ry="22" transform="rotate(-10 780 680)"/>
     <ellipse cx="820" cy="680" rx="14" ry="22" transform="rotate(10 820 680)"/>
