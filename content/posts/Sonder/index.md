@@ -7,6 +7,7 @@ title = "snowflake on the surface. compost underneath."
 showHero = true
 mood = "tender"
 pullquote = "snowflakes on the surface. compost underneath."
+description = "on small lives carrying big weight. what people show on the surface, and what they're quietly composting underneath."
 +++
 
 

@@ -7,6 +7,7 @@ title = "Powerful Positivity"
 showHero = true
 mood = "fierce"
 pullquote = "the problem isn't the problem. it's how we see it."
+description = "the problem with positive thinking is that it skips the work. notes on what real, useful positivity actually looks like."
 +++
 
 

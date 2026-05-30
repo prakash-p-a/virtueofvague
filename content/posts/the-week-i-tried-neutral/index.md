@@ -7,6 +7,7 @@ title = "so i tried being neutral for a week (here's what happened)"
 showHero = true
 mood = "curious"
 pullquote = "the gap between feeling and reacting grows."
+description = "what happens when you stop reacting for seven days. a small experiment in the gap between feeling and response. part 2 of the eyes series."
 +++
 
 # so i tried being neutral for a week (here's what happened)

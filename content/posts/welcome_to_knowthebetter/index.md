@@ -8,6 +8,7 @@ title = "Hello, :)"
 showHero = true
 mood = "quiet"
 pullquote = "we share more than we ever say out loud."
+description = "the first note from KnowTheBetter. on quiet recognition — that what we struggle with privately is mostly shared."
 +++
 
 

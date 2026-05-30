@@ -7,6 +7,7 @@ title = "your eyes are lying to you (and that's okay)"
 showHero = true
 mood = "curious"
 pullquote = "your eyes don't show you reality. they show you one version."
+description = "on perception, frequency, and why neutral is underrated. part 1 of a quiet look at how seeing is always partial — and why that matters."
 +++
 
 # your eyes are lying to you (and that's okay)

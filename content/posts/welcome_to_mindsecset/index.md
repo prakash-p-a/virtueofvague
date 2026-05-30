@@ -8,6 +8,7 @@ title = "Hello, :)"
 showHero = true
 mood = "curious"
 pullquote = "wins, hard lessons, and aha moments of unlearning."
+description = "Opening note from MindSecSet — wins, hard lessons, and aha moments of unlearning from years inside cybersecurity."
 +++
 
 

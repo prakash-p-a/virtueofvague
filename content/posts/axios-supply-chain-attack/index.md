@@ -7,6 +7,7 @@ title = "How a Fake Teams Meeting Took Down One of npm's Most Trusted Packages"
 showHero = true
 mood = "curious"
 pullquote = "not a zero-day. a fake calendar invite. that's all it took."
+description = "How a fake Teams meeting compromised one of npm's most trusted packages. Not a zero-day, a calendar invite. Walkthrough plus defender takeaways."
 +++
 
 On March 30, 2026, one of the most downloaded JavaScript packages on the internet was weaponized against the developers who trusted it most. The Axios npm supply chain attack wasn't a sophisticated zero-day or a brute-force credential attack. It started with a fake Slack workspace and a Microsoft Teams call.

@@ -7,6 +7,7 @@ title = "The happiness of Heart"
 showHero = true
 mood = "tender"
 pullquote = "happiness isn't found. it's built."
+description = "happiness isn't found, it's built. notes on the small, slow kind that holds up under weather."
 +++
 
 

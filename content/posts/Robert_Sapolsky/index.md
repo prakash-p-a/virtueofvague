@@ -7,6 +7,7 @@ title = "Robert Sapolsky, my brain and why free will is a JOKE"
 showHero = true
 mood = "lost"
 pullquote = "i thought i was choosing. turns out i was being chosen."
+description = "down the rabbit hole of robert sapolsky on free will. notes on blame, identity, and what changes when you stop believing you chose."
 +++
 
 

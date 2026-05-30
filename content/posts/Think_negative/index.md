@@ -7,6 +7,7 @@ title = "the negative mindset that actually works"
 showHero = true
 mood = "fierce"
 pullquote = "be scared. be ready. don't break."
+description = "defensive pessimism, in plain language. how expecting the worst makes you steadier — not bitter, just prepared."
 +++
 
 # be scared. be ready. don't break.

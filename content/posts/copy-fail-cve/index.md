@@ -7,6 +7,7 @@ title = "Copy Fail (CVE-2026-31431): A Four‑Byte Linux Kernel LPE Hidden for N
 showHero = true
 mood = "curious"
 pullquote = "the bug nobody filed, and the clipboard nobody trusted."
+description = "CVE-2026-31431, the four-byte Linux kernel local privilege escalation hidden for nine years. What the bug is, how it works, and what it teaches about review blind spots."
 +++
 
 

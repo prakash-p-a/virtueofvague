@@ -16,6 +16,8 @@ mood = "quiet"
 
 pullquote = "hope doesn't promise. it persists."
 
+description = "what hope looks like when nothing promises to get better. quiet notes on persistence over optimism."
+
 +++
 
 

@@ -1,10 +1,16 @@
 # CLAUDE.md
 
-Guidance for Claude Code working in this repo. Keep this file short — link out to `docs/claude/*.md` for detail.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+Keep this file short — link out to `docs/claude/*.md` for detail.
 
 ## What this repo is
 
 **Virtue of Vague (V·O·V)** — a Hugo static site (theme: Blowfish) at https://virtueofvague.com. Two voices: personal reflection (`KnowTheBetter`) and cybersecurity writing (`MindSecSet`), plus a breath practice at `/stillness/`. The site is in deliberately lowercase, contemplative voice — preserve that register in any copy you write.
+
+Two backends:
+- **Site** — Hugo + Blowfish, deployed to GitHub Pages.
+- **`worker/`** — Cloudflare Worker (D1 + KV + Turnstile) powering comments/forum + `/admin/` panel. See `memory/project_comments_forum.md`.
 
 ## Common commands
 
