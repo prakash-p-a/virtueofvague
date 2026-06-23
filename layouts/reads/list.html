@@ -23,6 +23,15 @@
 {{- end -}}
 {{- $cellOrigin := $start.AddDate 0 0 (mul -1 $padDays) -}}
 
+{{- /* Mobile: rolling 91-day window (≈ 13 weeks). */ -}}
+{{- $smStart := $today.AddDate 0 0 -90 -}}
+{{- $smPad := int $smStart.Weekday -}}
+{{- $smGridDays := add 91 $smPad -}}
+{{- if mod $smGridDays 7 -}}
+  {{- $smGridDays = add $smGridDays (sub 7 (mod $smGridDays 7)) -}}
+{{- end -}}
+{{- $smCellOrigin := $smStart.AddDate 0 0 (mul -1 $smPad) -}}
+
 <style>
 .reads-page {
   max-width: 76ch;
@@ -109,6 +118,21 @@ html:not(.dark) .heatmap-legend { color: rgba(0,0,0,0.55); }
 .heatmap-legend .swatch {
   width: 12px; height: 12px; border-radius: 2px;
   display: inline-block;
+}
+
+/* responsive: show 91-day view on mobile, full year on desktop */
+@media (min-width: 641px) { .heatmap-wrap-sm { display: none; } }
+@media (max-width: 640px) { .heatmap-wrap-lg { display: none; } }
+@media (max-width: 640px) {
+  .heatmap-wrap-sm .heatmap {
+    grid-template-rows: repeat(7, 14px);
+    grid-auto-columns: 14px;
+  }
+  .heatmap-wrap-sm .heatmap-month-labels {
+    grid-auto-columns: 14px;
+  }
+  .heatmap-wrap-sm .heatmap-legend .swatch { width: 14px; height: 14px; }
+  .reads-tooltip { max-width: calc(100vw - 2rem); min-width: 0; font-size: 0.82rem; }
 }
 
 .reads-tooltip {
@@ -216,7 +240,7 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
     <div class="reads-empty">nothing logged yet. check back soon.</div>
   {{- else -}}
 
-  <div class="heatmap-wrap">
+  <div class="heatmap-wrap heatmap-wrap-lg">
     {{- /* Month labels row — render once per first-Sunday-of-month column for legibility. */ -}}
     <div class="heatmap-month-labels">
       {{- $totalWeeks := div $gridDays 7 -}}
@@ -225,10 +249,8 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
         {{- $cellDate := $cellOrigin.AddDate 0 0 (mul $w 7) -}}
         {{- $m := int $cellDate.Month -}}
         {{- if ne $m $prevMonth -}}
-          <span style="grid-column: {{ add $w 1 }} / span 4;">{{ $cellDate.Format "Jan" | lower }}</span>
+          <span style="grid-column: {{ add $w 1 }}">{{ $cellDate.Format "Jan" | lower }}</span>
           {{- $prevMonth = $m -}}
-        {{- else -}}
-          <span></span>
         {{- end -}}
       {{- end -}}
     </div>
@@ -253,6 +275,50 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
       {{- end -}}
     </div>
 
+    <div class="heatmap-legend">
+      <span>quieter</span>
+      <span class="swatch" style="background:rgba(255,255,255,0.06)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.30)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.50)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.70)"></span>
+      <span class="swatch" style="background:rgba(232,199,119,0.95)"></span>
+      <span>louder</span>
+    </div>
+  </div>
+
+  {{- /* Mobile: 91-day heatmap. */ -}}
+  <div class="heatmap-wrap heatmap-wrap-sm">
+    {{- $smTotalWeeks := div $smGridDays 7 -}}
+    <div class="heatmap-month-labels">
+      {{- $smPrevMonth := -1 -}}
+      {{- range $w := seq 0 (sub $smTotalWeeks 1) -}}
+        {{- $cd := $smCellOrigin.AddDate 0 0 (mul $w 7) -}}
+        {{- $m := int $cd.Month -}}
+        {{- if ne $m $smPrevMonth -}}
+          <span style="grid-column: {{ add $w 1 }}">{{ $cd.Format "Jan" | lower }}</span>
+          {{- $smPrevMonth = $m -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
+    <div class="heatmap" id="heatmap-sm">
+      {{- range $i := seq 0 (sub $smGridDays 1) -}}
+        {{- $d := $smCellOrigin.AddDate 0 0 $i -}}
+        {{- $key := $d.Format "2006-01-02" -}}
+        {{- $inRange := and (ge ($d.Unix) ($smStart.Unix)) (le ($d.Unix) ($today.Unix)) -}}
+        {{- if not $inRange -}}
+          <div class="cell empty" aria-hidden="true"></div>
+        {{- else -}}
+          {{- $dayEntries := index $byDate $key | default slice -}}
+          {{- $count := len $dayEntries -}}
+          {{- if eq $count 0 -}}
+            <div class="cell" data-date="{{ $key }}"></div>
+          {{- else -}}
+            {{- $bucket := cond (ge $count 4) "4plus" (string $count) -}}
+            <div class="cell has-reads" data-date="{{ $key }}" data-count="{{ $bucket }}" tabindex="0" role="button" aria-label="{{ $count }} read{{ if gt $count 1 }}s{{ end }} on {{ $d.Format "2 January 2006" }}"></div>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
     <div class="heatmap-legend">
       <span>quieter</span>
       <span class="swatch" style="background:rgba(255,255,255,0.06)"></span>
@@ -296,7 +362,7 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
   const dataNode = document.getElementById('reads-data');
   if (!dataNode) return;
   let lookup = {};
-  try { lookup = (JSON.parse(dataNode.textContent) || {}).byDate || {}; } catch (e) {}
+  try { let _d = JSON.parse(dataNode.textContent); if (typeof _d === 'string') _d = JSON.parse(_d); lookup = (_d || {}).byDate || {}; } catch (e) {}
 
   function esc(s) {
     return String(s)
@@ -351,22 +417,35 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
     activeCell = null;
   }
 
-  root.addEventListener('mouseover', function(ev) {
-    const cell = ev.target.closest('.cell.has-reads');
-    if (cell && cell !== activeCell) render(cell);
-  });
-  root.addEventListener('mouseleave', function(ev) {
-    // Only hide if the mouse left the heatmap entirely; allow moving over the tooltip if hovering its area.
-    setTimeout(function() {
-      if (!tip.matches(':hover')) hide();
-    }, 80);
-  });
-  root.addEventListener('focusin', function(ev) {
-    const cell = ev.target.closest('.cell.has-reads');
-    if (cell) render(cell);
-  });
-  root.addEventListener('focusout', hide);
+  const rootSm = document.getElementById('heatmap-sm');
+
+  function wireHeatmap(r) {
+    if (!r) return;
+    r.addEventListener('mouseover', function(ev) {
+      const cell = ev.target.closest('.cell.has-reads');
+      if (cell && cell !== activeCell) render(cell);
+    });
+    r.addEventListener('mouseleave', function() {
+      setTimeout(function() { if (!tip.matches(':hover')) hide(); }, 80);
+    });
+    r.addEventListener('focusin', function(ev) {
+      const cell = ev.target.closest('.cell.has-reads');
+      if (cell) render(cell);
+    });
+    r.addEventListener('focusout', hide);
+    r.addEventListener('click', function(ev) {
+      const cell = ev.target.closest('.cell.has-reads');
+      if (!cell) return;
+      if (cell === activeCell) { hide(); } else { render(cell); }
+    });
+  }
+
+  wireHeatmap(root);
+  wireHeatmap(rootSm);
   tip.addEventListener('mouseleave', hide);
+  document.addEventListener('click', function(ev) {
+    if (activeCell && !tip.contains(ev.target) && !ev.target.closest('#heatmap') && !ev.target.closest('#heatmap-sm')) hide();
+  });
   document.addEventListener('keydown', function(ev) { if (ev.key === 'Escape') hide(); });
 })();
 </script>

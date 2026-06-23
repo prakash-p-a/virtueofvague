@@ -22,9 +22,24 @@ Two backends:
 
 No package.json, no test suite, no linter. Hugo + Blowfish provide all build tooling.
 
+### Worker (`worker/`)
+
+| Task | Command |
+|------|---------|
+| Local dev | `wrangler dev` |
+| Deploy | `wrangler deploy` |
+| Run D1 SQL | `wrangler d1 execute DB --command="SELECT ..."` |
+| Re-auth if expired | `wrangler logout && wrangler login` |
+
 ## Deployment
 
 `.github/workflows/hugo.yaml` builds with `hugo --minify` and deploys `./public` to GitHub Pages on every push to `main`. **`public/` is gitignored** — CI rebuilds it from source. Don't try to commit it.
+
+## Key architectural rules
+
+- **Add section-scoped behavior via `data-section`** (set on `<body>`) — not by copying theme templates. JS/CSS key off `body.dataset.section`.
+- **Global head-level features** (styles, scripts) go in `layouts/partials/custom-head.html` — append there, don't create new partials.
+- **Never edit `themes/blowfish/` directly** — override via project `assets/` (same path wins) or `layouts/` mirror.
 
 ## Sub-docs (read when relevant)
 
