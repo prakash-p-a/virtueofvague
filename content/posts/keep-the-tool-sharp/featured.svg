@@ -1,57 +1,70 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
-     role="img" aria-label="a whetstone on a dark surface with a blade resting across it, gold light catching the edge">
+     role="img" aria-label="a compass with a gold needle pointing north, instrument of readiness without a destination">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="85%">
+    <radialGradient id="bg" cx="50%" cy="50%" r="80%">
       <stop offset="0%" stop-color="var(--hero-bg-1)"/>
       <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
-    <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="var(--hero-stone-warm)"/>
-      <stop offset="100%" stop-color="var(--hero-stone)"/>
-    </linearGradient>
-    <radialGradient id="glint" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.85"/>
+    <radialGradient id="compassGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.14"/>
       <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="faceGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="var(--hero-bg-2)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
   </defs>
 
   <rect width="1600" height="900" fill="url(#bg)"/>
 
-  <line x1="0" y1="640" x2="1600" y2="640" stroke="var(--hero-edge)" stroke-opacity="0.38" stroke-width="1"/>
+  <circle cx="800" cy="450" r="350" fill="url(#compassGlow)"/>
 
-  <ellipse cx="800" cy="648" rx="330" ry="14" fill="var(--hero-bg-3)" opacity="0.6"/>
+  <!-- outer bezel -->
+  <circle cx="800" cy="450" r="290" fill="none" stroke="var(--hero-stone)" stroke-width="3" stroke-opacity="0.5"/>
+  <circle cx="800" cy="450" r="282" fill="none" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.35"/>
 
-  <rect x="480" y="520" width="640" height="95" rx="7" fill="url(#stoneGrad)" opacity="0.88"/>
-  <rect x="480" y="520" width="640" height="95" rx="7" fill="none"
-        stroke="var(--hero-edge)" stroke-opacity="0.5" stroke-width="1.5"/>
+  <!-- compass face -->
+  <circle cx="800" cy="450" r="270" fill="url(#faceGrad)" fill-opacity="0.6"/>
+  <circle cx="800" cy="450" r="270" fill="none" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
 
-  <line x1="498" y1="544" x2="1102" y2="544" stroke="var(--hero-mute)" stroke-opacity="0.14" stroke-width="0.8"/>
-  <line x1="498" y1="562" x2="1102" y2="562" stroke="var(--hero-mute)" stroke-opacity="0.11" stroke-width="0.8"/>
-  <line x1="498" y1="580" x2="1102" y2="580" stroke="var(--hero-mute)" stroke-opacity="0.09" stroke-width="0.8"/>
-  <line x1="498" y1="598" x2="1102" y2="598" stroke="var(--hero-mute)" stroke-opacity="0.07" stroke-width="0.8"/>
+  <!-- inner ring -->
+  <circle cx="800" cy="450" r="250" fill="none" stroke="var(--hero-edge)" stroke-width="0.8" stroke-opacity="0.3"/>
 
-  <rect x="488" y="521" width="624" height="9" rx="4" fill="var(--hero-paper)" opacity="0.09"/>
+  <!-- cardinal crosshairs -->
+  <line x1="800" y1="195" x2="800" y2="705" stroke="var(--hero-edge)" stroke-opacity="0.16" stroke-width="0.9"/>
+  <line x1="536" y1="450" x2="1064" y2="450" stroke="var(--hero-edge)" stroke-opacity="0.16" stroke-width="0.9"/>
 
-  <rect x="290" y="560" width="195" height="40" rx="8" fill="var(--hero-stone-warm)" opacity="0.82"/>
-  <rect x="290" y="560" width="195" height="40" rx="8" fill="none"
-        stroke="var(--hero-edge)" stroke-opacity="0.42" stroke-width="1.2"/>
-  <circle cx="330" cy="580" r="4" fill="var(--hero-mute)" opacity="0.45"/>
-  <circle cx="370" cy="580" r="4" fill="var(--hero-mute)" opacity="0.45"/>
-  <circle cx="410" cy="580" r="4" fill="var(--hero-mute)" opacity="0.45"/>
+  <!-- intercardinal crosshairs -->
+  <line x1="609" y1="259" x2="991" y2="641" stroke="var(--hero-edge)" stroke-opacity="0.09" stroke-width="0.7"/>
+  <line x1="991" y1="259" x2="609" y2="641" stroke="var(--hero-edge)" stroke-opacity="0.09" stroke-width="0.7"/>
 
-  <rect x="482" y="556" width="18" height="48" rx="3" fill="var(--hero-mute)" opacity="0.62"/>
+  <!-- N tick (gold, prominent) -->
+  <line x1="800" y1="180" x2="800" y2="212" stroke="var(--hero-gold)" stroke-width="3" stroke-opacity="0.88"/>
+  <!-- S tick -->
+  <line x1="800" y1="720" x2="800" y2="690" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- E tick -->
+  <line x1="1070" y1="450" x2="1048" y2="450" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- W tick -->
+  <line x1="530" y1="450" x2="552" y2="450" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- NE tick -->
+  <line x1="991" y1="259" x2="978" y2="272" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- SE tick -->
+  <line x1="991" y1="641" x2="978" y2="628" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- SW tick -->
+  <line x1="609" y1="641" x2="622" y2="628" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- NW tick -->
+  <line x1="609" y1="259" x2="622" y2="272" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
 
-  <polygon points="500,555 1160,512 1160,533 500,578" fill="var(--hero-paper)" opacity="0.48"/>
-  <line x1="500" y1="555" x2="1160" y2="512"
-        stroke="var(--hero-mute)" stroke-width="2.5" stroke-opacity="0.62"/>
-  <line x1="500" y1="578" x2="1160" y2="533"
-        stroke="var(--hero-gold)" stroke-width="1.8" stroke-opacity="0.82"/>
+  <!-- north indicator pip -->
+  <polygon points="800,162 809,180 791,180" fill="var(--hero-gold)" opacity="0.85"/>
 
-  <polygon points="1140,513 1160,512 1160,533 1148,531" fill="var(--hero-gold)" opacity="0.4"/>
+  <!-- needle: gold north half -->
+  <polygon points="800,225 816,450 784,450" fill="var(--hero-gold)" opacity="0.90"/>
+  <!-- needle: muted south half -->
+  <polygon points="800,675 816,450 784,450" fill="var(--hero-stone)" opacity="0.55"/>
 
-  <circle cx="780" cy="560" r="26" fill="url(#glint)"/>
-  <circle cx="780" cy="560" r="3" fill="var(--hero-gold)" opacity="0.88"/>
-  <circle cx="758" cy="566" r="1.2" fill="var(--hero-gold)" opacity="0.45"/>
-  <circle cx="798" cy="553" r="1" fill="var(--hero-gold)" opacity="0.38"/>
-  <circle cx="744" cy="570" r="0.9" fill="var(--hero-gold)" opacity="0.3"/>
+  <!-- center jewel -->
+  <circle cx="800" cy="450" r="16" fill="var(--hero-bg-3)"/>
+  <circle cx="800" cy="450" r="16" fill="none" stroke="var(--hero-gold)" stroke-width="2.2"/>
+  <circle cx="800" cy="450" r="6" fill="var(--hero-gold)" opacity="0.72"/>
 </svg>
