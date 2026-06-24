@@ -152,10 +152,10 @@ entries:
     note: "the systems that matter most are the ones no one talks about anymore."
 
   - date: 2026-06-09
-    title: "[fill in — tweet from @aashatwt]"
+    title: "How to Actually Get Started Building AI Agents (With Zero Knowledge)"
     url: "https://x.com/aashatwt/status/2035958180224917805"
-    source: "X"
-    note: "[fill in]"
+    source: "X: @aashatwt"
+    note: "model + tools + instructions — she collapsed the mystique into three words and made it feel like permission."
 
   - date: 2026-06-07
     title: "Groundbreaking Sustainable Solution to Vitamin B12 Deficiency"
@@ -164,10 +164,10 @@ entries:
     note: "science moving quietly in the background while everyone watches the ai race."
 
   - date: 2026-06-07
-    title: "[fill in — YouTube ZDuRmhLSLOY]"
+    title: "OAuth 2.0 Explained"
     url: "https://m.youtube.com/watch?v=ZDuRmhLSLOY"
     source: "YouTube"
-    note: "[fill in]"
+    note: "four flows, one protocol — client credentials finally separated auth for apps from auth for users in my head."
 
   - date: 2026-06-05
     title: "APT Index — Threat Actor Relationship Map"
@@ -187,12 +187,6 @@ entries:
     source: "Practical DevSecOps"
     note: "a map of where devsecops is trying to go as a discipline."
 
-  - date: 2026-06-03
-    title: "[fill in — Clark Center course by rcalix1]"
-    url: "https://clark.center/details/rcalix1/e8938245-f6c3-4b41-b9ae-d2fa9b5a5065"
-    source: "Clark Center"
-    note: "[fill in]"
-
   - date: 2026-06-01
     title: "CEH Practical Exam: All You Need to Know"
     url: "https://www.linkedin.com/pulse/ceh-practical-exam-all-you-need-know-xiotz-exzpf"
@@ -200,10 +194,10 @@ entries:
     note: "everything before walking into the practical, laid out without noise."
 
   - date: 2026-06-01
-    title: "[fill in — YouTube C_OZ-jpW8hA]"
+    title: "How Switzerland Became the Richest Country in the World"
     url: "https://m.youtube.com/watch?v=C_OZ-jpW8hA"
-    source: "YouTube"
-    note: "[fill in]"
+    source: "YouTube: Think School"
+    note: "no resources, no flat terrain, no head start — just railways, stolen formulas, and a very long patience."
 
   - date: 2026-05-29
     title: "I Passed the CEH Practical Exam — 18/20"
@@ -218,22 +212,22 @@ entries:
     note: "the most direct exam prep I've found for the practical format."
 
   - date: 2026-05-27
-    title: "[fill in — YouTube tNI1aEXUs8o]"
+    title: "Anthropic's Mythos AI Is About to Break Legacy Banking"
     url: "https://m.youtube.com/watch?v=tNI1aEXUs8o"
     source: "YouTube"
-    note: "[fill in]"
+    note: "72% exploit success on 27-year-old bugs — mythos didn't create the vulnerability, it just made it undeniable."
 
   - date: 2026-05-27
-    title: "[fill in — YouTube MtxP2pyCvYA]"
+    title: "How an Operating System Works (From Boot to Shutdown)"
     url: "https://m.youtube.com/watch?v=MtxP2pyCvYA"
     source: "YouTube"
-    note: "[fill in]"
+    note: "ring 0 trusts nobody except itself, everything else has to knock — that model makes the whole OS make sense."
 
   - date: 2026-05-25
-    title: "[fill in — YouTube jqoFP9QapXI]"
+    title: "32 Claude Code Hacks (Beginner to Pro)"
     url: "https://m.youtube.com/watch?v=jqoFP9QapXI"
-    source: "YouTube"
-    note: "[fill in]"
+    source: "YouTube: Nate Herkelman"
+    note: "start in plan mode, keep context windows small, treat it like a junior dev who needs context not commands — three shifts."
 
   - date: 2026-05-25
     title: "Educative.io"
