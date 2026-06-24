@@ -19,229 +19,229 @@ entries:
     source: "How-To Geek"
     note: "the search engine that taught me to think is now teaching me to stop thinking."
 
-  - date: 2026-06-24
+  - date: 2026-06-21
     title: "Sam Altman's AI Psychosis"
     url: "https://futurism.com/future-society/sam-altman-ai-psychosis"
     source: "Futurism"
     note: "worth asking whether the person building the tool should be trusted with it."
 
-  - date: 2026-06-23
+  - date: 2026-06-19
     title: "Cursor Acquires Continue Coding"
     url: "https://thenewstack.io/cursor-acquires-continue-coding/"
     source: "The New Stack"
     note: "the IDE wars are really the attention wars — everyone wants to be your first instinct."
 
-  - date: 2026-06-23
+  - date: 2026-06-19
     title: "Anthropic Keeps Taking Features Away from Claude Pro"
     url: "https://www.xda-developers.com/anthropic-keeps-taking-features-away-from-claude-pro-running-out-of-reasons-to-defend/"
     source: "XDA Developers"
     note: "features going, prices staying — the gap between what's promised and what ships."
 
-  - date: 2026-06-22
+  - date: 2026-06-17
     title: "Cache Smuggling: When a Picture Isn't a Thousand Words"
     url: "https://expel.com/blog/cache-smuggling-when-a-picture-isnt-a-thousand-words/"
     source: "Expel Blog"
     note: "hid an attack inside an image request — what else are we not looking at closely enough."
 
-  - date: 2026-06-22
+  - date: 2026-06-15
     title: "NanoClaw / OpenClaw: Agent Security"
     url: "https://thenewstack.io/nanoclaw-openclaw-agent-security/"
     source: "The New Stack"
     note: "autonomous agents operating on assets they shouldn't — a preview of the next attack surface."
 
-  - date: 2026-06-21
+  - date: 2026-06-15
     title: "Claude vs. ChatGPT: Can Either Make Me Forget Perplexity?"
     url: "https://www.xda-developers.com/claude-chatgpt-cover-make-me-forget-perplexity/"
     source: "XDA Developers"
     note: "the race to become the default — worth watching which habits form first."
 
-  - date: 2026-06-21
+  - date: 2026-06-13
     title: "I Asked Claude, ChatGPT, and Gemini to Fix the Same Bug"
     url: "https://www.xda-developers.com/i-asked-claude-chatgpt-and-gemini-to-fix-the-same-bug-and-only-one-understood-it/"
     source: "XDA Developers"
     note: "claude understood the context, not just the error — that's the actual difference."
 
-  - date: 2026-06-20
+  - date: 2026-06-11
     title: "Claude, ChatGPT, Gemini: Cutting Through the Hype"
     url: "https://www.xda-developers.com/claude-chatgpt-gemini-hype-most-interesting-ai-models/"
     source: "XDA Developers"
     note: "cutting through benchmarks to ask which model actually changes how you work."
 
-  - date: 2026-06-20
+  - date: 2026-06-11
     title: "Google Study: DeepSeek and Alibaba AI Mimic Human Collective Intelligence"
     url: "https://www.scmp.com/tech/tech-trends/article/3340690/google-study-finds-deepseek-alibaba-ai-models-mimic-human-collective-intelligence"
     source: "South China Morning Post"
     note: "ai models converging to human consensus patterns — collective intelligence isn't unique to us anymore."
 
-  - date: 2026-06-19
+  - date: 2026-06-09
     title: "Analyst Burnout Is an Advanced Persistent Threat"
     url: "https://www.darkreading.com/cybersecurity-operations/analyst-burnout-is-advanced-persistent-threat"
     source: "Dark Reading"
     note: "burnout isn't a bug in the system — it is the system, running as designed."
 
-  - date: 2026-06-19
+  - date: 2026-06-07
     title: "UK Gov's Mythos AI Tests: Separating Cybersecurity Threat from Hype"
     url: "https://arstechnica.com/ai/2026/04/uk-govs-mythos-ai-tests-help-separate-cybersecurity-threat-from-hype/"
     source: "Ars Technica"
     note: "methodically separating signal from sales pitch — this is what oversight should look like."
 
-  - date: 2026-06-18
+  - date: 2026-06-07
     title: "Why I Use Gemini for Python Over Claude"
     url: "https://www.xda-developers.com/i-use-gemini-for-python-programming-over-claude-due-to-this-one-serious-problem/"
     source: "XDA Developers"
     note: "context window and output quality are different problems — the one you actually hit matters more."
 
-  - date: 2026-06-18
+  - date: 2026-06-05
     title: "Aluminum Foil WiFi Router Signal Boost Hack"
     url: "https://indiandefencereview.com/aluminum-foil-wifi-router-signal-boost-hack/"
     source: "Indian Defence Review"
     note: "directional antenna from kitchen material — signals don't care about the source."
 
-  - date: 2026-06-17
+  - date: 2026-06-03
     title: "High Schooler Uses AI to Map 1.5 Million Unknown Space Objects"
     url: "https://www.ecoticias.com/en/an-american-high-school-student-used-artificial-intelligence-to-map-1-5-million-previously-unknown-objects-in-space-and-the-result-has-stunned-scientists-who-thought-the-sky-had-already-been-searched/31635/"
     source: "Ecoticias"
     note: "a kid and a model, mapping what professionals overlooked — scale was the unlock."
 
-  - date: 2026-06-17
+  - date: 2026-06-03
     title: "Kanpur Petrol Pump Scam: 52 Litres Billed for a 45-Litre Tank"
     url: "https://www.indiatoday.in/india/story/kanpur-petrol-pump-scam-52-litres-billed-for-45-litre-tank-2920240-2026-06-01"
     source: "India Today"
     note: "7 extra litres per fill, multiplied across a thousand pumps — no one noticed because no one checked."
 
-  - date: 2026-06-15
+  - date: 2026-06-01
     title: "Drivers Are Wrapping Car Keys in Aluminum Foil — Here's Why"
     url: "https://m.economictimes.com/news/international/us/more-and-more-drivers-are-wrapping-their-car-keys-in-aluminum-foil-and-the-reason-has-a-lot-to-do-with-silent-thefts-that-can-occur-in-a-matter-of-seconds-without-breaking-in/articleshow/130626426.cms"
     source: "Economic Times"
     note: "relay attacks in parking lots — the faraday cage was already in your kitchen drawer."
 
-  - date: 2026-06-15
+  - date: 2026-05-30
     title: "I Tested Google 8.8.8.8 Against Cloudflare 1.1.1.1"
     url: "https://www.makeuseof.com/i-tested-google-8888-against-cloudflare-1111/"
     source: "MakeUseOf"
     note: "the numbers people type without thinking about what they hand over to whom."
 
-  - date: 2026-06-13
+  - date: 2026-05-28
     title: "Founder Says Hiring a 64-Year-Old Intern Was the Best Decision"
     url: "https://www.storyboard18.com/trending/founder-says-hiring-a-64-year-old-intern-who-didnt-want-to-just-sit-at-home-was-the-best-decision-101004.htm"
     source: "Storyboard18"
     note: "she didn't want to sit at home — that's the whole resume."
 
-  - date: 2026-06-13
+  - date: 2026-05-28
     title: "I Was Promoted by Playing Video Games Instead of Working"
     url: "https://m.economictimes.com/us/news/i-was-promoted-by-playing-video-games-instead-of-working-remote-employee-quiet-quits-after-return-to-office-mandate-gets-promoted-anyway/articleshow/131459278.cms"
     source: "Economic Times"
     note: "presence theater vs. actual output — the quiet quit that accidentally became a promotion."
 
-  - date: 2026-06-11
+  - date: 2026-05-26
     title: "BioCompute Relocates to US as Founder Cites India's Deep Tech Gap"
     url: "https://www.msn.com/en-in/news/insight/biocompute-relocates-to-us-as-founder-cites-india-s-deep-tech-gap/gm-GM562A5A74"
     source: "MSN"
     note: "a founder leaving not in anger but in practicality — the ecosystem isn't ready yet."
 
-  - date: 2026-06-11
+  - date: 2026-05-26
     title: "The Browser Company"
     url: "https://www.thebrowser.company/"
     source: "The Browser Company"
     note: "arc was interesting enough to make me wonder what the successor will actually do."
 
-  - date: 2026-06-09
+  - date: 2026-05-24
     title: "The World Depends on 60-Year-Old Code No One Knows How to Fix"
     url: "https://www.reddit.com/r/thisweekinretro/comments/18b21c9/the_world_depends_on_60yearold_code_no_one_knows/"
     source: "Reddit: r/thisweekinretro"
     note: "the systems that matter most are the ones no one talks about anymore."
 
-  - date: 2026-06-09
+  - date: 2026-05-22
     title: "How to Actually Get Started Building AI Agents (With Zero Knowledge)"
     url: "https://x.com/aashatwt/status/2035958180224917805"
     source: "X: @aashatwt"
     note: "model + tools + instructions — she collapsed the mystique into three words and made it feel like permission."
 
-  - date: 2026-06-07
+  - date: 2026-05-22
     title: "Groundbreaking Sustainable Solution to Vitamin B12 Deficiency"
     url: "https://scitechdaily.com/researchers-unveil-groundbreaking-sustainable-solution-to-vitamin-b12-deficiency/"
     source: "SciTechDaily"
     note: "science moving quietly in the background while everyone watches the ai race."
 
-  - date: 2026-06-07
-    title: "OAuth 2.0 Explained"
-    url: "https://m.youtube.com/watch?v=ZDuRmhLSLOY"
-    source: "YouTube"
-    note: "four flows, one protocol — client credentials finally separated auth for apps from auth for users in my head."
-
-  - date: 2026-06-05
-    title: "APT Index — Threat Actor Relationship Map"
-    url: "https://embed.kumu.io/0b023bf1a971ba32510e86e8f1a38c38#apt-index"
-    source: "Kumu"
-    note: "seeing threat actors as a network, not a list, changes how you think about attribution."
-
-  - date: 2026-06-05
-    title: "Pivoting Away from SOC Work to DevSecOps"
-    url: "https://www.reddit.com/r/cybersecurity/comments/153h6x1/pivoting_away_from_soc_work_to_devsecops/"
-    source: "Reddit: r/cybersecurity"
-    note: "a thread that named what I'd been circling around for months."
-
-  - date: 2026-06-03
+  - date: 2026-05-20
     title: "Certified DevSecOps Professional (CDP)"
     url: "https://www.practical-devsecops.com/certified-devsecops-professional/"
     source: "Practical DevSecOps"
     note: "a map of where devsecops is trying to go as a discipline."
 
-  - date: 2026-06-01
+  - date: 2026-05-18
+    title: "Pivoting Away from SOC Work to DevSecOps"
+    url: "https://www.reddit.com/r/cybersecurity/comments/153h6x1/pivoting_away_from_soc_work_to_devsecops/"
+    source: "Reddit: r/cybersecurity"
+    note: "a thread that named what I'd been circling around for months."
+
+  - date: 2026-05-15
+    title: "APT Index — Threat Actor Relationship Map"
+    url: "https://embed.kumu.io/0b023bf1a971ba32510e86e8f1a38c38#apt-index"
+    source: "Kumu"
+    note: "seeing threat actors as a network, not a list, changes how you think about attribution."
+
+  - date: 2026-05-15
+    title: "OAuth 2.0 Explained"
+    url: "https://m.youtube.com/watch?v=ZDuRmhLSLOY"
+    source: "YouTube"
+    note: "four flows, one protocol — client credentials finally separated auth for apps from auth for users in my head."
+
+  - date: 2026-05-13
     title: "CEH Practical Exam: All You Need to Know"
     url: "https://www.linkedin.com/pulse/ceh-practical-exam-all-you-need-know-xiotz-exzpf"
     source: "LinkedIn"
     note: "everything before walking into the practical, laid out without noise."
 
-  - date: 2026-06-01
+  - date: 2026-05-11
     title: "How Switzerland Became the Richest Country in the World"
     url: "https://m.youtube.com/watch?v=C_OZ-jpW8hA"
     source: "YouTube: Think School"
     note: "no resources, no flat terrain, no head start — just railways, stolen formulas, and a very long patience."
 
-  - date: 2026-05-29
+  - date: 2026-05-08
     title: "I Passed the CEH Practical Exam — 18/20"
     url: "https://www.reddit.com/r/CEH/comments/1dd82jj/i_pass_ceh_practical_exam_1820/"
     source: "Reddit: r/CEH"
     note: "18/20 — reassuring proof that it's doable, not just theoretical."
 
-  - date: 2026-05-29
+  - date: 2026-05-08
     title: "CEHtest.org — Practical Exam Prep"
     url: "https://cehtest.org/in_exam.html"
     source: "cehtest.org"
     note: "the most direct exam prep I've found for the practical format."
 
-  - date: 2026-05-27
+  - date: 2026-05-06
     title: "Anthropic's Mythos AI Is About to Break Legacy Banking"
     url: "https://m.youtube.com/watch?v=tNI1aEXUs8o"
     source: "YouTube"
     note: "72% exploit success on 27-year-old bugs — mythos didn't create the vulnerability, it just made it undeniable."
 
-  - date: 2026-05-27
-    title: "How an Operating System Works (From Boot to Shutdown)"
-    url: "https://m.youtube.com/watch?v=MtxP2pyCvYA"
-    source: "YouTube"
-    note: "ring 0 trusts nobody except itself, everything else has to knock — that model makes the whole OS make sense."
-
-  - date: 2026-05-25
+  - date: 2026-05-03
     title: "32 Claude Code Hacks (Beginner to Pro)"
     url: "https://m.youtube.com/watch?v=jqoFP9QapXI"
     source: "YouTube: Nate Herkelman"
     note: "start in plan mode, keep context windows small, treat it like a junior dev who needs context not commands — three shifts."
 
-  - date: 2026-05-25
-    title: "Educative.io"
-    url: "https://educative.io/"
-    source: "Educative"
-    note: "hands-on coding paths — slower than doing real work, better than watching it."
+  - date: 2026-05-01
+    title: "How an Operating System Works (From Boot to Shutdown)"
+    url: "https://m.youtube.com/watch?v=MtxP2pyCvYA"
+    source: "YouTube"
+    note: "ring 0 trusts nobody except itself, everything else has to knock — that model makes the whole OS make sense."
 
-  - date: 2026-05-23
+  - date: 2026-04-28
     title: "Noba Project — Open Psychology Textbooks"
     url: "https://nobaproject.com/browse-content"
     source: "Noba Project"
     note: "free psychology textbooks from actual researchers — wish I'd found this earlier."
 
-  - date: 2026-05-23
+  - date: 2026-04-28
+    title: "Educative.io"
+    url: "https://educative.io/"
+    source: "Educative"
+    note: "hands-on coding paths — slower than doing real work, better than watching it."
+
+  - date: 2026-04-26
     title: "Sacred Texts Archive"
     url: "https://archive.sacred-texts.com/download.htm"
     source: "sacred-texts.com"
