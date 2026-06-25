@@ -1,0 +1,45 @@
+<div style="margin: 2rem auto; display: flex; justify-content: center; width: 100%;">
+  <svg viewBox="0 0 480 400" preserveAspectRatio="xMidYMid meet" style="max-width: 480px; width: 100%; height: auto;">
+    <rect width="480" height="400" fill="#0a0a0a"/>
+    <text x="240" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52" letter-spacing="0.16em">CVE-2026-31431 — LPE EXPLOIT CHAIN</text>
+    <line x1="80" y1="40" x2="400" y2="40" stroke="#2a2622" stroke-width="1"/>
+
+    <!-- Step 1: Open setuid binary -->
+    <rect x="70" y="52" width="340" height="58" rx="2" fill="#111009" stroke="#3a3630" stroke-width="1"/>
+    <text x="240" y="70" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.14em">STEP 1</text>
+    <text x="240" y="88" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">open a setuid binary</text>
+    <text x="240" y="103" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">/usr/bin/su as the target</text>
+
+    <line x1="240" y1="110" x2="240" y2="120" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="235,118 245,118 240,126" fill="#3a3630"/>
+
+    <!-- Step 2: AF_ALG socket + splice -->
+    <rect x="70" y="128" width="340" height="70" rx="2" fill="#111009" stroke="#4a4540" stroke-width="1"/>
+    <text x="240" y="146" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.14em">STEP 2</text>
+    <text x="240" y="164" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">AF_ALG socket + splice()</text>
+    <text x="240" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#c8a56a">4 bytes written into the binary's page cache</text>
+    <text x="240" y="192" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52">attacker-controlled data. in-place optimisation flaw.</text>
+
+    <line x1="240" y1="198" x2="240" y2="208" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="235,206 245,206 240,214" fill="#3a3630"/>
+
+    <!-- Step 3: Memory corruption (important note) -->
+    <rect x="70" y="216" width="340" height="70" rx="2" fill="#111009" stroke="#3a3630" stroke-width="1"/>
+    <text x="240" y="234" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.14em">STEP 3</text>
+    <text x="240" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">in-memory binary is now corrupted</text>
+    <text x="240" y="268" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">disk file unchanged — no forensic trace on disk</text>
+    <text x="240" y="281" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52" font-style="italic">pre-compromise telemetry is the only way to know</text>
+
+    <line x1="240" y1="286" x2="240" y2="296" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="235,294 245,294 240,302" fill="#3a3630"/>
+
+    <!-- Step 4: Root shell (gold) -->
+    <rect x="70" y="304" width="340" height="58" rx="2" fill="#111009" stroke="#c8a56a" stroke-width="1.5"/>
+    <text x="240" y="322" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.14em">STEP 4</text>
+    <text x="240" y="340" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#c8a56a">execute binary → root shell</text>
+    <text x="240" y="355" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">deterministic. no race conditions. no kernel offsets.</text>
+
+    <line x1="80" y1="376" x2="400" y2="376" stroke="#2a2622" stroke-width="1"/>
+    <text x="240" y="392" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52" font-style="italic">732-byte python PoC. works on ubuntu, rhel, amazon linux, suse.</text>
+  </svg>
+</div>

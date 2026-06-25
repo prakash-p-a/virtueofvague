@@ -58,6 +58,8 @@ i don't. not fully.
 
 so i just try to keep the tool in good shape. whatever comes, i'll be ready.
 
+{{< tool-pillars >}}
+
 ---
 
 ## the toilet story (yes, really)

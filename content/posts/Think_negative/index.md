@@ -73,6 +73,8 @@ the difference is simple:
 | takes action | gets stuck in loops |
 | feels alert, not anxious | feels exhausted, not alert |
 
+{{< negative-fork >}}
+
 ---
 
 ## the reality check you need

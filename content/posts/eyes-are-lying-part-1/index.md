@@ -60,6 +60,8 @@ take the arabian sea. same water. same fish. same coral.
 
 sea doesn't care. it just is.
 
+{{< eyes-filter >}}
+
 but each person's mind *filters* the sea down to the one thing that matters to *them*.
 
 that filter – not the sea – decides if they're happy or miserable.

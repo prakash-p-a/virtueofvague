@@ -24,6 +24,8 @@ If you've ever built a web application in JavaScript, there's a very good chance
 
 ## How the Attack Happened
 
+{{< axios-attack >}}
+
 ### Step 1: Social Engineering the Maintainer
 
 The attacker didn't brute-force anything. They built a fake Slack workspace, cloned the branding and profiles of real engineers, and arranged a live Microsoft Teams meeting with `jasonsaayman` — the lead maintainer of Axios.

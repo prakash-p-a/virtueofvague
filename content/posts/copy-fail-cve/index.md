@@ -37,6 +37,8 @@ Introduced in 2017 via commit `72548b093ee3`, an in‑place operation optimizati
 
 No race conditions, no kernel‑specific offsets – fully deterministic.
 
+{{< copy-fail >}}
+
 ---
 
 ## Affected Systems

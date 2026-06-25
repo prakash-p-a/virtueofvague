@@ -1,0 +1,53 @@
+<div style="margin: 2rem auto; display: flex; justify-content: center; width: 100%;">
+  <svg viewBox="0 0 560 490" preserveAspectRatio="xMidYMid meet" style="max-width: 560px; width: 100%; height: auto;">
+    <rect width="560" height="490" fill="#0a0a0a"/>
+    <text x="280" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52" letter-spacing="0.16em">AXIOS SUPPLY CHAIN — ATTACK FLOW</text>
+    <line x1="100" y1="40" x2="460" y2="40" stroke="#2a2622" stroke-width="1"/>
+
+    <!-- Step 1: Social engineering -->
+    <rect x="80" y="52" width="400" height="62" rx="2" fill="#111009" stroke="#3a3630" stroke-width="1"/>
+    <text x="100" y="67" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.14em">INITIAL ACCESS</text>
+    <text x="280" y="86" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">fake slack workspace + teams call</text>
+    <text x="280" y="103" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">maintainer convinced to install a "software update"</text>
+
+    <line x1="280" y1="114" x2="280" y2="124" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="275,122 285,122 280,130" fill="#3a3630"/>
+
+    <!-- Step 2: Credential theft -->
+    <rect x="80" y="130" width="400" height="62" rx="2" fill="#111009" stroke="#3a3630" stroke-width="1"/>
+    <text x="100" y="145" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.14em">CREDENTIAL ACCESS</text>
+    <text x="280" y="164" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">npm long-lived token extracted</text>
+    <text x="280" y="181" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">full publish rights to the axios package obtained</text>
+
+    <line x1="280" y1="192" x2="280" y2="202" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="275,200 285,200 280,208" fill="#3a3630"/>
+
+    <!-- Step 3: Pre-staged payload -->
+    <rect x="80" y="208" width="400" height="62" rx="2" fill="#111009" stroke="#3a3630" stroke-width="1"/>
+    <text x="100" y="223" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.14em">PRE-STAGING</text>
+    <text x="280" y="242" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">plain-crypto-js seeded on npm registry</text>
+    <text x="280" y="259" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">18 hours early — evading new-package suspicion</text>
+
+    <line x1="280" y1="270" x2="280" y2="280" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="275,278 285,278 280,286" fill="#3a3630"/>
+
+    <!-- Step 4: OIDC bypass -->
+    <rect x="80" y="286" width="400" height="62" rx="2" fill="#111009" stroke="#4a4540" stroke-width="1"/>
+    <text x="100" y="301" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.14em">DEFENCE BYPASS</text>
+    <text x="280" y="320" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#e8e4dc">OIDC trusted publishing bypassed</text>
+    <text x="280" y="337" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">npm sees token + OIDC — uses the token. OIDC irrelevant.</text>
+
+    <line x1="280" y1="348" x2="280" y2="358" stroke="#3a3630" stroke-width="1.5"/>
+    <polygon points="275,356 285,356 280,364" fill="#3a3630"/>
+
+    <!-- Step 5: Backdoored publish (gold) -->
+    <rect x="80" y="364" width="400" height="62" rx="2" fill="#111009" stroke="#c8a56a" stroke-width="1.5"/>
+    <text x="100" y="379" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.14em">IMPACT</text>
+    <text x="280" y="398" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#c8a56a">axios@1.14.1 published — within 39 minutes</text>
+    <text x="280" y="415" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52">postinstall hook deploys RAT across 300M weekly installs</text>
+
+    <line x1="100" y1="440" x2="460" y2="440" stroke="#2a2622" stroke-width="1"/>
+    <text x="280" y="458" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52" font-style="italic">no zero-day. a fake calendar invite. that's all it took.</text>
+    <text x="280" y="474" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#3a3630" letter-spacing="0.08em">C2: sfrclak[.]com · 142.11.206[.]73 · port 8000</text>
+  </svg>
+</div>
