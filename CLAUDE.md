@@ -39,7 +39,7 @@ No package.json, no test suite, no linter. Hugo + Blowfish provide all build too
 
 - **Add section-scoped behavior via `data-section`** (set on `<body>`) — not by copying theme templates. JS/CSS key off `body.dataset.section`.
 - **Global head-level features** (styles, scripts) go in `layouts/partials/custom-head.html` — append there, don't create new partials.
-- **Never edit `themes/blowfish/` directly** — override via project `assets/` (same path wins) or `layouts/` mirror.
+- **Prefer project overrides over editing `themes/blowfish/` directly** — `themes/blowfish/` is vendored (not a submodule), so edits are possible, but use project `assets/` (same path wins) or `layouts/` mirror to keep changes legible.
 
 ## Sub-docs (read when relevant)
 

@@ -46,3 +46,14 @@ For one-off commands, `--command="<inline SQL>"` avoids file-flag auth quirks.
 - `.github/workflows/hugo.yaml` ran successfully.
 - The slug/casing matches what you typed in the URL.
 - Hugo's `--baseURL` matches the deployed URL (already set in workflow).
+
+## GitHub Actions Node.js compatibility
+
+CI uses `ubuntu-latest`. Actions that depend on Node.js 16/18 (e.g. `peaceiris/actions-hugo@v2`, `actions/checkout@v2`) fail with "Node.js 16 is not supported" on newer runners. Fix: upgrade all action versions to their v3/v4/v5 equivalents:
+
+```yaml
+- uses: actions/checkout@v4        # was v2
+- uses: peaceiris/actions-hugo@v5  # was v2 or v3
+- uses: actions/upload-pages-artifact@v3
+- uses: actions/deploy-pages@v4
+```

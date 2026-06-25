@@ -23,3 +23,19 @@ Drop a `featured.svg` (KnowTheBetter — themeable) or `featured.png` (MindSecSe
 ## Homepage featured slot
 
 Pinned to KnowTheBetter only. The newest KnowTheBetter post with a `pullquote` field appears in the featured slot. MindSecSet posts never occupy the top slot — kept reserve for the personal voice. If no KnowTheBetter post qualifies, the slot is hidden.
+
+## Inline SVG concept diagrams (shortcodes)
+
+Concept diagrams live in `layouts/shortcodes/` and are invoked with `{{< shortcode-name >}}`. Existing ones:
+
+- `million-years.html` — reference style (robert-sapolsky post)
+- `axios-attack.html` — 5-step supply-chain attack chain
+- `copy-fail.html` — 4-step LPE exploit chain (CVE-2026-31431)
+- `eyes-filter.html` — radial "same sea, different filters" diagram
+- `negative-fork.html` — Y-fork: negative thinking vs. overthinking
+- `tool-pillars.html` — 3 pillars converging to PURPOSE
+
+Palette (all inline styles, no `<style>` block — avoids Blowfish CSS leakage):
+`#0a0a0a` bg · `#e8e4dc` bright text · `#a89880` labels · `#c8c0b4` body · `#6a5f52` muted · `#3a3630` connectors · `#c8a56a` gold accent · `#111009` slight lift · `#2a2622` hairline dividers
+
+Place diagrams right after the paragraph that introduces the concept being visualized. Don't spam — only add where a diagram genuinely reduces cognitive load.

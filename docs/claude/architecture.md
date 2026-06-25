@@ -2,7 +2,7 @@
 
 ## Theme override pattern
 
-`themes/blowfish/` is a **git submodule — never edit it directly**. Two override mechanisms:
+`themes/blowfish/` is **vendored as 458 regular tracked files** (converted from a git submodule on 2026-06-25). `.gitmodules` is gone. You can edit theme files directly, but prefer project-level overrides to keep diffs legible and changes visible. Two override mechanisms:
 
 1. **Assets** (icons, CSS) — drop a same-named file under project `assets/` and Hugo's `resources.Get` picks it up over the theme version. Example: `assets/icons/sun.svg` overrides Blowfish's default sun icon.
 2. **Templates** — mirror the theme's path under project `layouts/`. Heavy because Blowfish's `single.html` is ~150 lines; prefer the scoped-injection pattern below for small additions.
