@@ -57,6 +57,8 @@ more layers = ability to learn more complex patterns. also needs way more data a
 
 AI contains ML. ML contains deep learning. like concentric circles — each one more specific than the last.
 
+{{< ai-s1 >}}
+
 next time a vendor says "AI-powered" — ask which layer. that question alone puts you ahead of most people in the room.
 
 ---

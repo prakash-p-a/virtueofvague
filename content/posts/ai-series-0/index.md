@@ -38,6 +38,8 @@ that bothered me. so i started learning. **this series is me thinking out loud.*
 
 ## 12 posts. one concept at a time. no PhD required.
 
+{{< ai-s0 >}}
+
 some will feel familiar — your SOC experience gives you a head start. some will be genuinely new territory. we figure those out together.
 
 short posts. no scroll fatigue. you read, you learn something, you move on.

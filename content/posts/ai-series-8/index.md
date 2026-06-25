@@ -45,6 +45,8 @@ three layers:
 - **hidden layers** — where learning happens. each layer extracts increasingly complex patterns.
 - **output layer** — final decision. one neuron for binary classification. one per class for multi-class.
 
+{{< ai-s8 >}}
+
 more hidden layers = deeper network = deep learning.
 
 each neuron in a hidden layer:

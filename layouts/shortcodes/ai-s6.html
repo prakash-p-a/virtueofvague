@@ -1,0 +1,57 @@
+<div style="margin: 2rem auto; display: flex; justify-content: center; width: 100%;">
+  <svg viewBox="0 0 620 430" preserveAspectRatio="xMidYMid meet" style="max-width: 620px; width: 100%; height: auto;">
+    <rect width="620" height="430" fill="#0a0a0a"/>
+    <text x="310" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#e8e4dc" letter-spacing="0.06em">three types of anomalies</text>
+    <line x1="80" y1="50" x2="540" y2="50" stroke="#2a2622" stroke-width="1"/>
+
+    <!-- Row 1: Point anomaly -->
+    <text x="40" y="76" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.12em">POINT ANOMALY</text>
+    <line x1="40" y1="104" x2="380" y2="104" stroke="#2a2622" stroke-width="1"/>
+    <rect x="52" y="86" width="10" height="18" fill="#3a3630" opacity="0.8"/>
+    <rect x="80" y="82" width="10" height="22" fill="#3a3630" opacity="0.8"/>
+    <rect x="108" y="88" width="10" height="16" fill="#3a3630" opacity="0.8"/>
+    <rect x="136" y="84" width="10" height="20" fill="#3a3630" opacity="0.8"/>
+    <!-- Spike -->
+    <rect x="164" y="52" width="10" height="52" fill="#c8a56a" opacity="0.9"/>
+    <text x="169" y="46" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#c8a56a">spike</text>
+    <rect x="192" y="86" width="10" height="18" fill="#3a3630" opacity="0.8"/>
+    <rect x="220" y="82" width="10" height="22" fill="#3a3630" opacity="0.8"/>
+    <rect x="248" y="88" width="10" height="16" fill="#3a3630" opacity="0.8"/>
+    <text x="420" y="82" font-family="Georgia,serif" font-size="11" fill="#6a5f52">one event sticks out.</text>
+    <text x="420" y="99" font-family="Georgia,serif" font-size="11" fill="#6a5f52">login at 3am, new country.</text>
+
+    <line x1="40" y1="130" x2="580" y2="130" stroke="#1e1c1a" stroke-width="1"/>
+
+    <!-- Row 2: Contextual anomaly -->
+    <text x="40" y="154" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.12em">CONTEXTUAL ANOMALY</text>
+    <text x="62" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#6a5f52">09:00</text>
+    <rect x="40" y="184" width="44" height="48" fill="#3a3630" opacity="0.75"/>
+    <text x="62" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#6a5f52">500MB — ok</text>
+    <text x="162" y="180" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">00:00</text>
+    <rect x="140" y="184" width="44" height="48" fill="#c8a56a" opacity="0.65"/>
+    <text x="162" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">500MB — flag</text>
+    <text x="340" y="198" font-family="Georgia,serif" font-size="11" fill="#6a5f52">same action.</text>
+    <text x="340" y="216" font-family="Georgia,serif" font-size="11" fill="#6a5f52">different context — suspicious.</text>
+
+    <line x1="40" y1="262" x2="580" y2="262" stroke="#1e1c1a" stroke-width="1"/>
+
+    <!-- Row 3: Collective anomaly -->
+    <text x="40" y="286" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.12em">COLLECTIVE ANOMALY</text>
+    <line x1="40" y1="330" x2="360" y2="330" stroke="#2a2622" stroke-width="1"/>
+    <circle cx="60" cy="320" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="94" cy="324" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="128" cy="316" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="162" cy="322" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="196" cy="318" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="230" cy="323" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="264" cy="316" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="298" cy="320" r="4" fill="#6a5f52" opacity="0.7"/>
+    <path d="M56,338 Q56,348 66,350 L186,350 Q196,350 196,358 Q196,350 206,350 L326,350 Q336,350 336,338" fill="none" stroke="#3a3630" stroke-width="1"/>
+    <text x="196" y="374" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">6 hours of failed logins — pattern, not noise</text>
+    <text x="420" y="322" font-family="Georgia,serif" font-size="11" fill="#6a5f52">normal alone.</text>
+    <text x="420" y="340" font-family="Georgia,serif" font-size="11" fill="#6a5f52">coordinated together.</text>
+
+    <line x1="40" y1="396" x2="580" y2="396" stroke="#2a2622" stroke-width="1"/>
+    <text x="310" y="416" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52" font-style="italic">your SIEM watches for all three — not just individual events.</text>
+  </svg>
+</div>

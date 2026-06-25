@@ -49,6 +49,8 @@ three characteristics that define them:
 
 ## how they actually work
 
+{{< ai-s10 >}}
+
 **tokenisation** — text is broken into tokens. words, subwords, characters depending on the model. "intelligence" might become ["intel", "ligence"]. numbers, not words, flow through the network.
 
 **embeddings** — each token becomes a vector. a point in high dimensional space. similar meanings cluster together. "king" and "queen" sit closer than "king" and "table."

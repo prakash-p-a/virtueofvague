@@ -24,6 +24,8 @@ that's diffusion. and it's behind deepfakes, synthetic media, AI generated phish
 
 ## the core idea
 
+{{< ai-s11 >}}
+
 diffusion models learn by studying destruction.
 
 take a real image. gradually add noise until nothing recognisable remains. record every step of that destruction.

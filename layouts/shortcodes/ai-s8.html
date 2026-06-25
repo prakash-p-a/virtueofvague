@@ -1,0 +1,67 @@
+<div style="margin: 2rem auto; display: flex; justify-content: center; width: 100%;">
+  <svg viewBox="0 0 600 390" preserveAspectRatio="xMidYMid meet" style="max-width: 600px; width: 100%; height: auto;">
+    <rect width="600" height="390" fill="#0a0a0a"/>
+    <text x="300" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#e8e4dc" letter-spacing="0.06em">neural network — layers of decisions</text>
+    <line x1="80" y1="50" x2="520" y2="50" stroke="#2a2622" stroke-width="1"/>
+
+    <!-- Connections input → h1 -->
+    <g stroke="#1e1c1a" stroke-width="0.9">
+      <line x1="100" y1="128" x2="228" y2="108"/><line x1="100" y1="128" x2="228" y2="164"/>
+      <line x1="100" y1="128" x2="228" y2="220"/><line x1="100" y1="128" x2="228" y2="276"/>
+      <line x1="100" y1="188" x2="228" y2="108"/><line x1="100" y1="188" x2="228" y2="164"/>
+      <line x1="100" y1="188" x2="228" y2="220"/><line x1="100" y1="188" x2="228" y2="276"/>
+      <line x1="100" y1="248" x2="228" y2="108"/><line x1="100" y1="248" x2="228" y2="164"/>
+      <line x1="100" y1="248" x2="228" y2="220"/><line x1="100" y1="248" x2="228" y2="276"/>
+    </g>
+    <!-- Connections h1 → h2 -->
+    <g stroke="#1e1c1a" stroke-width="0.9">
+      <line x1="228" y1="108" x2="372" y2="108"/><line x1="228" y1="108" x2="372" y2="164"/>
+      <line x1="228" y1="108" x2="372" y2="220"/><line x1="228" y1="108" x2="372" y2="276"/>
+      <line x1="228" y1="164" x2="372" y2="108"/><line x1="228" y1="164" x2="372" y2="164"/>
+      <line x1="228" y1="164" x2="372" y2="220"/><line x1="228" y1="164" x2="372" y2="276"/>
+      <line x1="228" y1="220" x2="372" y2="108"/><line x1="228" y1="220" x2="372" y2="164"/>
+      <line x1="228" y1="220" x2="372" y2="220"/><line x1="228" y1="220" x2="372" y2="276"/>
+      <line x1="228" y1="276" x2="372" y2="108"/><line x1="228" y1="276" x2="372" y2="164"/>
+      <line x1="228" y1="276" x2="372" y2="220"/><line x1="228" y1="276" x2="372" y2="276"/>
+    </g>
+    <!-- Connections h2 → output -->
+    <g stroke="#1e1c1a" stroke-width="0.9">
+      <line x1="372" y1="108" x2="500" y2="188"/><line x1="372" y1="164" x2="500" y2="188"/>
+      <line x1="372" y1="220" x2="500" y2="188"/><line x1="372" y1="276" x2="500" y2="188"/>
+    </g>
+
+    <!-- Input nodes -->
+    <circle cx="100" cy="128" r="13" fill="#141210" stroke="#3a3630" stroke-width="1.5"/>
+    <circle cx="100" cy="188" r="13" fill="#141210" stroke="#3a3630" stroke-width="1.5"/>
+    <circle cx="100" cy="248" r="13" fill="#141210" stroke="#3a3630" stroke-width="1.5"/>
+
+    <!-- Hidden 1 nodes -->
+    <circle cx="228" cy="108" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="228" cy="164" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="228" cy="220" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="228" cy="276" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+
+    <!-- Hidden 2 nodes -->
+    <circle cx="372" cy="108" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="372" cy="164" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="372" cy="220" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+    <circle cx="372" cy="276" r="13" fill="#141210" stroke="#4a4540" stroke-width="1.5"/>
+
+    <!-- Output node -->
+    <circle cx="500" cy="188" r="15" fill="#141210" stroke="#c8a56a" stroke-width="2" stroke-opacity="0.8"/>
+    <circle cx="500" cy="188" r="5" fill="#c8a56a" opacity="0.6"/>
+
+    <!-- Labels -->
+    <text x="100" y="278" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.1em">INPUT</text>
+    <text x="228" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.08em">HIDDEN 1</text>
+    <text x="372" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.08em">HIDDEN 2</text>
+    <text x="500" y="218" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#a89880" letter-spacing="0.08em">OUTPUT</text>
+
+    <!-- Backprop arrow -->
+    <path d="M480,318 Q300,338 120,318" fill="none" stroke="#2e2c28" stroke-width="1" stroke-dasharray="4,5"/>
+    <text x="300" y="338" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52">backpropagation — error flows back, weights adjust</text>
+
+    <line x1="40" y1="362" x2="560" y2="362" stroke="#2a2622" stroke-width="1"/>
+    <text x="300" y="382" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52" font-style="italic">more hidden layers = deeper network = deep learning.</text>
+  </svg>
+</div>

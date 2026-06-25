@@ -30,6 +30,8 @@ an **agent** interacts with an **environment**. it takes **actions**. it receive
 
 no labelled data. no predefined rules. just feedback from experience.
 
+{{< ai-s7 >}}
+
 five things to know:
 
 - **agent** — the learner. the decision maker.

@@ -1,0 +1,51 @@
+<div style="margin: 2rem auto; display: flex; justify-content: center; width: 100%;">
+  <svg viewBox="0 0 620 340" preserveAspectRatio="xMidYMid meet" style="max-width: 620px; width: 100%; height: auto;">
+    <rect width="620" height="340" fill="#0a0a0a"/>
+    <text x="310" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#e8e4dc" letter-spacing="0.06em">k-means — group by similarity</text>
+    <line x1="100" y1="50" x2="520" y2="50" stroke="#2a2622" stroke-width="1"/>
+
+    <!-- Cluster 1: normal traffic -->
+    <circle cx="128" cy="168" r="48" fill="none" stroke="#2a2622" stroke-width="1" stroke-dasharray="3,5"/>
+    <circle cx="108" cy="148" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="138" cy="158" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="120" cy="178" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="150" cy="144" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="106" cy="184" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="146" cy="188" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="128" cy="162" r="10" fill="#c8a56a" opacity="0.75"/>
+    <text x="128" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">C1</text>
+    <text x="128" y="228" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.08em">normal traffic</text>
+
+    <!-- Cluster 2: admin behaviour -->
+    <circle cx="306" cy="190" r="56" fill="none" stroke="#2a2622" stroke-width="1" stroke-dasharray="3,5"/>
+    <circle cx="278" cy="176" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="316" cy="166" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="296" cy="206" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="332" cy="196" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="308" cy="220" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="282" cy="158" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="340" cy="172" r="4" fill="#6a5f52" opacity="0.7"/>
+    <circle cx="304" cy="186" r="10" fill="#c8a56a" opacity="0.75"/>
+    <text x="304" y="166" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">C2</text>
+    <text x="306" y="258" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#a89880" letter-spacing="0.08em">admin behaviour</text>
+
+    <!-- Cluster 3: suspicious — small, highlighted -->
+    <circle cx="504" cy="152" r="36" fill="none" stroke="#4a4540" stroke-width="1.5" stroke-dasharray="3,4"/>
+    <circle cx="490" cy="142" r="4" fill="#8a7060" opacity="0.9"/>
+    <circle cx="516" cy="148" r="4" fill="#8a7060" opacity="0.9"/>
+    <circle cx="500" cy="168" r="4" fill="#8a7060" opacity="0.9"/>
+    <circle cx="502" cy="150" r="10" fill="#c8a56a" opacity="0.9"/>
+    <text x="502" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#c8a56a">C3</text>
+    <text x="504" y="200" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#c8a56a" letter-spacing="0.06em">suspicious</text>
+    <text x="504" y="216" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52">small cluster</text>
+    <text x="504" y="232" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#6a5f52">investigate</text>
+
+    <!-- Lone outlier -->
+    <circle cx="418" cy="104" r="4" fill="#a89880" opacity="0.55"/>
+    <line x1="418" y1="96" x2="418" y2="84" stroke="#3a3630" stroke-width="1"/>
+    <text x="418" y="80" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#6a5f52">outlier</text>
+
+    <line x1="40" y1="300" x2="580" y2="300" stroke="#2a2622" stroke-width="1"/>
+    <text x="310" y="322" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6a5f52" font-style="italic">anomalies appear as small clusters — or no cluster at all.</text>
+  </svg>
+</div>

@@ -75,6 +75,8 @@ simpler version of LSTM. two gates instead of three. faster to train. comparable
 
 ---
 
+{{< ai-s9 >}}
+
 ## why this matters in security
 
 CNNs power malware image classification and screenshot analysis tools. RNNs and LSTMs power user behaviour analytics, log anomaly detection, and sequence based threat detection.

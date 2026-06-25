@@ -28,6 +28,8 @@ feed a machine enough labelled examples, it learns the pattern. show it 10,000 e
 
 simple idea. powerful at scale.
 
+{{< ai-s2 >}}
+
 two types of problems it solves:
 - **classification** — is this malicious or benign? spam or not spam? predicts a category.
 - **regression** — how severe is this? what's the risk score? predicts a number.

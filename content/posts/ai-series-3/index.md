@@ -26,6 +26,8 @@ you've been running a decision tree in your head every single shift. the algorit
 
 a decision tree splits data into branches based on questions. at each node, it asks the most useful question. keeps splitting until it reaches a conclusion — a leaf node.
 
+{{< ai-s3 >}}
+
 three parts:
 - **root node** — the starting question. the most important split.
 - **internal nodes** — follow-up questions based on the answer.

@@ -40,6 +40,8 @@ picks K number of groups and assigns every data point to the nearest group cente
 
 security example — group network connections by behaviour. normal traffic clusters together. something unusual sits alone or in a tiny cluster. worth investigating.
 
+{{< ai-s5 >}}
+
 one challenge — you have to decide K upfront. two ways to find the right number:
 - **elbow method** — plot variance vs K, look for where improvement flattens
 - **silhouette score** — measures how well each point fits its cluster. higher is better.

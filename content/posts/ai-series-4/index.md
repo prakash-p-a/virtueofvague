@@ -32,6 +32,8 @@ bigger margin = more confident separation = better generalisation to new data.
 
 in security terms — the wider the gap between known malicious and known benign behaviour, the more confidently the model classifies new events.
 
+{{< ai-s4 >}}
+
 ---
 
 ## when data is linearly separable

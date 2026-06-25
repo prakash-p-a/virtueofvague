@@ -32,6 +32,8 @@ not all anomalies are equal. understanding the type helps you triage faster.
 - **contextual anomaly** — normal in one context, suspicious in another. 500MB download is fine from an engineer. flagged from an intern account at midnight.
 - **collective anomaly** — individual events look fine. together they tell a different story. multiple failed logins from different IPs over 6 hours — none alarming alone, coordinated as a pattern.
 
+{{< ai-s6 >}}
+
 ---
 
 ## isolation forest
