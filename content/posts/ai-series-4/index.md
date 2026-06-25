@@ -4,7 +4,7 @@ draft = false
 slug = "ai-series-4"
 tags = ["MindSecSet"]
 title = "drawing the line — how machines separate threats from noise"
-showHero = false
+showHero = true
 mood = "curious"
 pullquote = "bigger margin = more confident separation. the kernel trick makes real-world classification work."
 description = "When malicious and benign overlap, SVMs find the widest possible margin to separate them. Inside the kernel trick that makes real-world classification work."
