@@ -2,7 +2,7 @@
 date = 2026-04-01T10:00:00+05:30
 draft = false
 slug = "ai-fundamentals"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "still figuring out AI, one post at a time"
 showHero = true
 mood = "curious"

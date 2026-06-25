@@ -2,7 +2,7 @@
 date = 2026-04-15T10:00:00+05:30
 draft = false
 slug = "ai-series-1"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "AI, ML, deep learning — same thing? not quite"
 showHero = true
 mood = "curious"

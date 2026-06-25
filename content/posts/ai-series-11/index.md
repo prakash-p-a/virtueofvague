@@ -2,7 +2,7 @@
 date = 2026-06-24T10:00:00+05:30
 draft = false
 slug = "ai-series-11"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "from noise to meaning — the quiet revolution in AI"
 showHero = true
 mood = "curious"

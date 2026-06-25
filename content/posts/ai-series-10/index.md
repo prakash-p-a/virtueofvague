@@ -2,7 +2,7 @@
 date = 2026-06-17T10:00:00+05:30
 draft = false
 slug = "ai-series-10"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "the AI everyone is talking about — how does it actually work"
 showHero = true
 mood = "curious"

@@ -2,7 +2,7 @@
 date = 2026-06-10T10:00:00+05:30
 draft = false
 slug = "ai-series-9"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "how AI sees images and reads sequences — two tools, one post"
 showHero = true
 mood = "curious"

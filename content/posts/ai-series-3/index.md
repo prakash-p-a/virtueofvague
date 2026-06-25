@@ -2,7 +2,7 @@
 date = 2026-04-29T10:00:00+05:30
 draft = false
 slug = "ai-series-3"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "your SOC playbook is literally a decision tree"
 showHero = true
 mood = "curious"

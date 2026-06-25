@@ -2,7 +2,7 @@
 date = 2026-05-13T10:00:00+05:30
 draft = false
 slug = "ai-series-5"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "no labels, no problem — finding patterns in the chaos"
 showHero = true
 mood = "curious"

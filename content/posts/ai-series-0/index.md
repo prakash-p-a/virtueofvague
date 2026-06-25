@@ -2,7 +2,7 @@
 date = 2026-04-08T10:00:00+05:30
 draft = false
 slug = "ai-series-0"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "why a soc analyst is learning AI (and why you should too)"
 showHero = true
 mood = "curious"

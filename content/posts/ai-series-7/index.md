@@ -2,7 +2,7 @@
 date = 2026-05-27T10:00:00+05:30
 draft = false
 slug = "ai-series-7"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "learn by doing — how AI figures things out the hard way"
 showHero = true
 mood = "curious"

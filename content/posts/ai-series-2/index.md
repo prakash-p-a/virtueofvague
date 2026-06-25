@@ -2,7 +2,7 @@
 date = 2026-04-22T10:00:00+05:30
 draft = false
 slug = "ai-series-2"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "teaching machines with examples — like training a junior analyst"
 showHero = true
 mood = "curious"

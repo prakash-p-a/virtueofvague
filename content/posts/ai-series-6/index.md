@@ -2,7 +2,7 @@
 date = 2026-05-20T10:00:00+05:30
 draft = false
 slug = "ai-series-6"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "this is literally what your SIEM does — now let's understand it"
 showHero = true
 mood = "curious"

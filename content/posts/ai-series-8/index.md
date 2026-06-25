@@ -2,7 +2,7 @@
 date = 2026-06-03T10:00:00+05:30
 draft = false
 slug = "ai-series-8"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "the brain analogy everyone uses — here's what it actually means"
 showHero = true
 mood = "curious"

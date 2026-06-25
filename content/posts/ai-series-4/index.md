@@ -2,7 +2,7 @@
 date = 2026-05-06T10:00:00+05:30
 draft = false
 slug = "ai-series-4"
-tags = ["MindSecSet"]
+tags = ["MindSecSet", "AIFundamentals"]
 title = "drawing the line — how machines separate threats from noise"
 showHero = true
 mood = "curious"
