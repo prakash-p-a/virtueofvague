@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="an hourglass with golden sand at the pinch — 400 years of wisdom still flowing">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="var(--hero-bg-1)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
+    </radialGradient>
+    <radialGradient id="waistGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sandTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="sandBottom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0.20"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- ambient glow at waist -->
+  <ellipse cx="800" cy="450" rx="240" ry="200" fill="url(#waistGlow)"/>
+
+  <!-- top cap -->
+  <line x1="548" y1="162" x2="1052" y2="162"
+        stroke="var(--hero-gold)" stroke-width="2.5" stroke-opacity="0.80"/>
+
+  <!-- top chamber sides -->
+  <line x1="548" y1="162" x2="800" y2="447"
+        stroke="var(--hero-stone)" stroke-width="2" stroke-opacity="0.55"/>
+  <line x1="1052" y1="162" x2="800" y2="447"
+        stroke="var(--hero-stone)" stroke-width="2" stroke-opacity="0.55"/>
+
+  <!-- top chamber fill (past, emptying) -->
+  <path d="M 578,187 L 1022,187 L 800,437 Z" fill="url(#sandTop)"/>
+
+  <!-- aphorism marks — faint ruled lines clipped to top triangle -->
+  <!-- at y=242: left≈621, right≈979 -->
+  <line x1="636" y1="242" x2="964" y2="242"
+        stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.20"/>
+  <!-- at y=295: left≈668, right≈932 -->
+  <line x1="683" y1="295" x2="917" y2="295"
+        stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.16"/>
+  <!-- at y=348: left≈715, right≈885 -->
+  <line x1="730" y1="348" x2="870" y2="348"
+        stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.12"/>
+  <!-- at y=398: left≈758, right≈842 -->
+  <line x1="772" y1="398" x2="828" y2="398"
+        stroke="var(--hero-edge)" stroke-width="0.8" stroke-opacity="0.09"/>
+
+  <!-- bottom chamber sides -->
+  <line x1="548" y1="738" x2="800" y2="453"
+        stroke="var(--hero-stone)" stroke-width="2" stroke-opacity="0.55"/>
+  <line x1="1052" y1="738" x2="800" y2="453"
+        stroke="var(--hero-stone)" stroke-width="2" stroke-opacity="0.55"/>
+
+  <!-- bottom cap -->
+  <line x1="548" y1="738" x2="1052" y2="738"
+        stroke="var(--hero-gold)" stroke-width="2.5" stroke-opacity="0.80"/>
+
+  <!-- bottom fill (present, accumulating) -->
+  <path d="M 622,718 L 978,718 L 800,463 Z" fill="url(#sandBottom)"/>
+
+  <!-- sand stream at waist — the trickle of time -->
+  <line x1="800" y1="450" x2="800" y2="468"
+        stroke="var(--hero-gold)" stroke-width="2.8" stroke-opacity="0.72"/>
+  <line x1="800" y1="471" x2="800" y2="484"
+        stroke="var(--hero-gold)" stroke-width="1.8" stroke-opacity="0.44"/>
+  <line x1="800" y1="487" x2="800" y2="495"
+        stroke="var(--hero-gold)" stroke-width="1.2" stroke-opacity="0.22"/>
+
+  <!-- waist pivot -->
+  <circle cx="800" cy="450" r="4.5" fill="var(--hero-gold)" opacity="0.92"/>
+</svg>
