@@ -1,96 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
-     role="img" aria-label="a single open eye looking directly at you — 400 years of wisdom seeing your blind spots">
+     role="img" aria-label="a cracked mirror — what you hate in others is what you won't look at in yourself">
   <defs>
     <radialGradient id="bg" cx="50%" cy="50%" r="80%">
       <stop offset="0%" stop-color="var(--hero-bg-1)"/>
       <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
-    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.32"/>
+    <radialGradient id="mirrorGlow" cx="50%" cy="48%" r="58%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.26"/>
       <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="scleraGrad" cx="50%" cy="42%" r="70%">
-      <stop offset="0%" stop-color="var(--hero-stone)" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="var(--hero-stone)" stop-opacity="0.07"/>
+    <radialGradient id="mirrorSurface" cx="42%" cy="38%" r="68%">
+      <stop offset="0%" stop-color="var(--hero-stone)" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="var(--hero-bg-2)" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)" stop-opacity="0.50"/>
     </radialGradient>
-    <radialGradient id="irisGrad" cx="44%" cy="38%" r="60%">
-      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.72"/>
-      <stop offset="55%" stop-color="var(--hero-gold)" stop-opacity="0.40"/>
-      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0.10"/>
-    </radialGradient>
-    <radialGradient id="pupilGrad" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--hero-bg-2)" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="var(--hero-bg-3)" stop-opacity="1"/>
-    </radialGradient>
+    <clipPath id="mirrorClip">
+      <ellipse cx="800" cy="438" rx="178" ry="248"/>
+    </clipPath>
   </defs>
 
   <!-- background -->
   <rect width="1600" height="900" fill="url(#bg)"/>
 
-  <!-- ambient radiance — present this time -->
-  <ellipse cx="800" cy="450" rx="500" ry="260" fill="url(#eyeGlow)"/>
+  <!-- ambient glow — mirror radiates something -->
+  <ellipse cx="800" cy="438" rx="390" ry="420" fill="url(#mirrorGlow)"/>
 
-  <!-- manuscript lines above -->
-  <line x1="558" y1="310" x2="1042" y2="310" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.20" stroke-dasharray="24,14"/>
-  <line x1="558" y1="330" x2="1042" y2="330" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.14" stroke-dasharray="18,18"/>
-  <line x1="558" y1="350" x2="1042" y2="350" stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.09" stroke-dasharray="28,12"/>
+  <!-- mirror shadow on the wall — grounds it -->
+  <ellipse cx="814" cy="698" rx="148" ry="16" fill="var(--hero-bg-3)" opacity="0.30"/>
 
-  <!-- manuscript lines below -->
-  <line x1="558" y1="550" x2="1042" y2="550" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.20" stroke-dasharray="24,14"/>
-  <line x1="558" y1="570" x2="1042" y2="570" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.14" stroke-dasharray="18,18"/>
-  <line x1="558" y1="590" x2="1042" y2="590" stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.09" stroke-dasharray="28,12"/>
+  <!-- clipped interior: surface + crack stay inside the oval -->
+  <g clip-path="url(#mirrorClip)">
+    <!-- mirror surface — warm, subtle, not blank black -->
+    <ellipse cx="800" cy="438" rx="178" ry="248" fill="url(#mirrorSurface)"/>
 
-  <!-- sclera — fills the almond, gives the eye a body -->
-  <path d="M 600,450 A 270,270 0 0,0 1000,450 A 270,270 0 0,1 600,450 Z"
-        fill="url(#scleraGrad)"/>
+    <!-- crack: dark void (the fissure itself) -->
+    <path d="M 710,185 L 810,445 L 890,695"
+          fill="none" stroke="var(--hero-bg-3)" stroke-width="4" stroke-opacity="0.90"
+          stroke-linecap="round" stroke-linejoin="round"/>
 
-  <!-- iris fill -->
-  <circle cx="800" cy="450" r="86" fill="url(#irisGrad)"/>
+    <!-- crack: bright glint along right edge — where light catches the break -->
+    <path d="M 713,184 L 813,444 L 893,694"
+          fill="none" stroke="var(--hero-bright)" stroke-width="1.2" stroke-opacity="0.55"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 
-  <!-- iris rings: outer bold, inner progressively quieter (tree rings of time) -->
-  <circle cx="800" cy="450" r="86" fill="none" stroke="var(--hero-gold)" stroke-width="2.4" stroke-opacity="0.80"/>
-  <circle cx="800" cy="450" r="70" fill="none" stroke="var(--hero-gold)" stroke-width="1.3" stroke-opacity="0.50"/>
-  <circle cx="800" cy="450" r="54" fill="none" stroke="var(--hero-gold)" stroke-width="0.9" stroke-opacity="0.35"/>
+  <!-- frame: inner subtle ring -->
+  <ellipse cx="800" cy="438" rx="178" ry="248"
+           fill="none" stroke="var(--hero-edge)" stroke-width="1.2" stroke-opacity="0.40"/>
 
-  <!-- radial spokes — 8, visible -->
-  <line x1="832" y1="450" x2="852" y2="450" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="823" y1="473" x2="836" y2="491" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="800" y1="482" x2="800" y2="502" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="777" y1="473" x2="764" y2="491" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="768" y1="450" x2="748" y2="450" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="777" y1="427" x2="764" y2="409" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="800" y1="418" x2="800" y2="398" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
-  <line x1="823" y1="427" x2="836" y2="409" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.30"/>
+  <!-- frame: outer bezel — the main structural ring -->
+  <ellipse cx="800" cy="438" rx="186" ry="256"
+           fill="none" stroke="var(--hero-stone)" stroke-width="3.8" stroke-opacity="0.82"/>
 
-  <!-- pupil — genuinely dark -->
-  <circle cx="800" cy="450" r="31" fill="url(#pupilGrad)"/>
-  <circle cx="800" cy="450" r="31" fill="none" stroke="var(--hero-bg-3)" stroke-width="2.2" stroke-opacity="0.88"/>
+  <!-- frame: outermost thin gold ring -->
+  <ellipse cx="800" cy="438" rx="192" ry="263"
+           fill="none" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.48"/>
 
-  <!-- catch light — it glints -->
-  <circle cx="812" cy="439" r="8" fill="var(--hero-bright)" opacity="0.82"/>
-  <circle cx="817" cy="444" r="3.5" fill="var(--hero-bright)" opacity="0.44"/>
-
-  <!-- upper lid — line with intent -->
-  <path d="M 600,450 A 270,270 0 0,0 1000,450"
-        fill="none" stroke="var(--hero-stone)" stroke-width="3.2" stroke-opacity="0.88"
-        stroke-linecap="round"/>
-
-  <!-- lower lid — slightly lighter, natural -->
-  <path d="M 600,450 A 270,270 0 0,1 1000,450"
-        fill="none" stroke="var(--hero-stone)" stroke-width="2.2" stroke-opacity="0.68"
-        stroke-linecap="round"/>
-
-  <!-- corner anchors -->
-  <circle cx="600" cy="450" r="3.5" fill="var(--hero-stone)" opacity="0.75"/>
-  <circle cx="1000" cy="450" r="3.5" fill="var(--hero-stone)" opacity="0.75"/>
-
-  <!-- crow's feet: left -->
-  <line x1="600" y1="450" x2="554" y2="435" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.50" stroke-linecap="round"/>
-  <line x1="600" y1="450" x2="549" y2="450" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.38" stroke-linecap="round"/>
-  <line x1="600" y1="450" x2="554" y2="465" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.50" stroke-linecap="round"/>
-
-  <!-- crow's feet: right -->
-  <line x1="1000" y1="450" x2="1046" y2="435" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.50" stroke-linecap="round"/>
-  <line x1="1000" y1="450" x2="1051" y2="450" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.38" stroke-linecap="round"/>
-  <line x1="1000" y1="450" x2="1046" y2="465" stroke="var(--hero-mute)" stroke-width="1.4" stroke-opacity="0.50" stroke-linecap="round"/>
+  <!-- frame pip diamonds at cardinal points — baroque register, 1647 -->
+  <!-- top: centered at (800, 175) -->
+  <polygon points="800,167 808,175 800,183 792,175" fill="var(--hero-gold)" opacity="0.68"/>
+  <!-- bottom: centered at (800, 701) -->
+  <polygon points="800,693 808,701 800,709 792,701" fill="var(--hero-gold)" opacity="0.68"/>
+  <!-- left: centered at (608, 438) -->
+  <polygon points="600,438 608,430 616,438 608,446" fill="var(--hero-gold)" opacity="0.68"/>
+  <!-- right: centered at (992, 438) -->
+  <polygon points="984,438 992,430 1000,438 992,446" fill="var(--hero-gold)" opacity="0.68"/>
 </svg>
