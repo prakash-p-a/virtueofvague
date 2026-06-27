@@ -1,81 +1,133 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
-     role="img" aria-label="a cracked mirror — what you hate in others is what you won't look at in yourself">
+     role="img" aria-label="an antique cracked mirror reflecting a modern glowing laptop — ancient wisdom seeing the present">
   <defs>
     <radialGradient id="bg" cx="50%" cy="50%" r="80%">
       <stop offset="0%" stop-color="var(--hero-bg-1)"/>
       <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
-    <!-- mirror glow behind the oval -->
-    <radialGradient id="mirrorGlow" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.22"/>
+    <!-- room glow: light from the mirror spilling outward into the dark apartment -->
+    <radialGradient id="roomGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.26"/>
       <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
     </radialGradient>
-    <!-- mirror surface: lighter and warmer than background so it reads as reflective -->
-    <radialGradient id="mirrorSurface" cx="38%" cy="32%" r="72%">
-      <stop offset="0%" stop-color="var(--hero-stone)" stop-opacity="0.30"/>
-      <stop offset="55%" stop-color="var(--hero-stone)" stop-opacity="0.16"/>
-      <stop offset="100%" stop-color="var(--hero-bg-2)" stop-opacity="0.08"/>
+    <!-- mirror interior: the reflected workspace — lighter and warmer than the dark room -->
+    <radialGradient id="mirrorFill" cx="50%" cy="72%" r="78%">
+      <stop offset="0%"   stop-color="var(--hero-bright)" stop-opacity="0.28"/>
+      <stop offset="28%"  stop-color="var(--hero-gold)"   stop-opacity="0.18"/>
+      <stop offset="62%"  stop-color="var(--hero-stone)"  stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="var(--hero-bg-1)"   stop-opacity="0.06"/>
     </radialGradient>
-    <!-- reflection hint: upper-left catch light in the glass -->
-    <radialGradient id="reflectHint" cx="34%" cy="28%" r="40%">
-      <stop offset="0%" stop-color="var(--hero-bright)" stop-opacity="0.13"/>
+    <!-- laptop screen glow: the brightest focal point inside the reflection -->
+    <radialGradient id="screenGlow" cx="50%" cy="50%" r="58%">
+      <stop offset="0%"   stop-color="var(--hero-bright)" stop-opacity="0.78"/>
+      <stop offset="48%"  stop-color="var(--hero-bright)" stop-opacity="0.30"/>
       <stop offset="100%" stop-color="var(--hero-bright)" stop-opacity="0"/>
     </radialGradient>
+    <!-- screen face: warm-to-bright gradient (like a real lit display) -->
+    <linearGradient id="screenFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="var(--hero-bright)" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="var(--hero-stone)"  stop-opacity="0.48"/>
+    </linearGradient>
     <clipPath id="mirrorClip">
-      <ellipse cx="800" cy="450" rx="155" ry="215"/>
+      <ellipse cx="800" cy="448" rx="185" ry="245"/>
     </clipPath>
   </defs>
 
-  <!-- background -->
+  <!-- dark room -->
   <rect width="1600" height="900" fill="url(#bg)"/>
 
-  <!-- ambient glow — mirror on a wall has presence -->
-  <ellipse cx="800" cy="450" rx="340" ry="370" fill="url(#mirrorGlow)"/>
+  <!-- light from the mirror bleeding into the apartment around it -->
+  <ellipse cx="800" cy="448" rx="430" ry="450" fill="url(#roomGlow)"/>
 
-  <!-- mirror shadow below — grounds it -->
-  <ellipse cx="810" cy="676" rx="130" ry="14" fill="var(--hero-bg-3)" opacity="0.28"/>
+  <!-- mirror drop shadow — grounds it against the wall -->
+  <ellipse cx="810" cy="700" rx="158" ry="14" fill="var(--hero-bg-3)" opacity="0.26"/>
 
-  <!-- clipped interior -->
+  <!-- MIRROR INTERIOR — everything clipped to the oval -->
   <g clip-path="url(#mirrorClip)">
-    <!-- mirror surface — lighter than the background, reads as glass -->
-    <ellipse cx="800" cy="450" rx="155" ry="215" fill="url(#mirrorSurface)"/>
-    <!-- reflection catch light — upper left, as if a window is behind the viewer -->
-    <ellipse cx="800" cy="450" rx="155" ry="215" fill="url(#reflectHint)"/>
 
-    <!-- main crack: thin dark fissure + bright glint — glass cracks catch light -->
-    <!-- shadow edge -->
-    <path d="M 720,240 L 808,452 L 880,660"
-          fill="none" stroke="var(--hero-bg-3)" stroke-width="2" stroke-opacity="0.72"
+    <!-- reflected workspace: lighter and warmer than the dark room outside -->
+    <ellipse cx="800" cy="448" rx="185" ry="245" fill="url(#mirrorFill)"/>
+
+    <!-- faint window light in the upper reflected room — a rectangle of cool daylight -->
+    <rect x="692" y="248" width="216" height="128" rx="6"
+          fill="var(--hero-stone)" opacity="0.09"/>
+
+    <!-- laptop screen glow halo — this is the light source in the reflection -->
+    <ellipse cx="800" cy="530" rx="148" ry="94" fill="url(#screenGlow)"/>
+
+    <!-- laptop screen face: the bright rectangle of contemporary life -->
+    <rect x="718" y="482" width="164" height="104" rx="5" fill="url(#screenFace)"/>
+    <!-- screen bezel (thin border around the display) -->
+    <rect x="718" y="482" width="164" height="104" rx="5"
+          fill="none" stroke="var(--hero-stone)" stroke-width="1.4" stroke-opacity="0.40"/>
+
+    <!-- laptop base / keyboard deck — thin, slightly wider than screen -->
+    <rect x="708" y="586" width="184" height="11" rx="3"
+          fill="var(--hero-mute)" opacity="0.35"/>
+    <!-- hinge line between screen and base -->
+    <line x1="718" y1="586" x2="882" y2="586"
+          stroke="var(--hero-edge)" stroke-width="0.9" stroke-opacity="0.32"/>
+
+    <!-- faint desk surface in the reflection — the workspace beneath -->
+    <line x1="580" y1="614" x2="1020" y2="614"
+          stroke="var(--hero-edge)" stroke-width="0.8" stroke-opacity="0.18" stroke-dasharray="6,10"/>
+
+    <!-- THE CRACK — runs through everything, including the glowing screen -->
+    <!-- shadow fissure: the void of the break -->
+    <path d="M 712,228 L 808,452 L 886,668"
+          fill="none" stroke="var(--hero-bg-3)" stroke-width="2.2" stroke-opacity="0.72"
           stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- glint: the bright edge where fractured glass faces the light -->
-    <path d="M 722,239 L 810,451 L 882,659"
-          fill="none" stroke="var(--hero-bright)" stroke-width="1" stroke-opacity="0.60"
+    <!-- glint: bright edge where fractured glass catches light -->
+    <path d="M 715,227 L 811,451 L 889,667"
+          fill="none" stroke="var(--hero-bright)" stroke-width="1.1" stroke-opacity="0.62"
           stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- micro-cracks from the stress point (~786,408) — this is what makes it read as a mirror -->
-    <line x1="786" y1="408" x2="810" y2="384" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.38" stroke-linecap="round"/>
-    <line x1="786" y1="408" x2="762" y2="386" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.32" stroke-linecap="round"/>
-    <line x1="786" y1="408" x2="758" y2="414" stroke="var(--hero-bright)" stroke-width="0.8" stroke-opacity="0.26" stroke-linecap="round"/>
-    <line x1="786" y1="408" x2="770" y2="432" stroke="var(--hero-bright)" stroke-width="0.7" stroke-opacity="0.22" stroke-linecap="round"/>
+    <!-- micro-cracks from the stress point — makes it read as shattered glass immediately -->
+    <line x1="790" y1="410" x2="814" y2="386" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.40" stroke-linecap="round"/>
+    <line x1="790" y1="410" x2="764" y2="390" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.34" stroke-linecap="round"/>
+    <line x1="790" y1="410" x2="759" y2="416" stroke="var(--hero-bright)" stroke-width="0.8" stroke-opacity="0.28" stroke-linecap="round"/>
+    <line x1="790" y1="410" x2="772" y2="434" stroke="var(--hero-bright)" stroke-width="0.7" stroke-opacity="0.22" stroke-linecap="round"/>
+
   </g>
 
-  <!-- frame: inner subtle ring -->
-  <ellipse cx="800" cy="450" rx="155" ry="215"
-           fill="none" stroke="var(--hero-edge)" stroke-width="1.2" stroke-opacity="0.42"/>
-  <!-- frame: outer bezel -->
-  <ellipse cx="800" cy="450" rx="163" ry="223"
-           fill="none" stroke="var(--hero-stone)" stroke-width="3.8" stroke-opacity="0.82"/>
-  <!-- frame: thin gold outer ring -->
-  <ellipse cx="800" cy="450" rx="169" ry="230"
-           fill="none" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.50"/>
+  <!-- FRAME — rendered after clip so it cleanly overlays the interior edge -->
 
-  <!-- pip diamonds at cardinal points of the frame -->
-  <!-- top: (800, 450-230=220) → centered at y=213 -->
-  <polygon points="800,205 808,213 800,221 792,213" fill="var(--hero-gold)" opacity="0.70"/>
-  <!-- bottom: y=450+230=680 → centered at y=687 -->
-  <polygon points="800,679 808,687 800,695 792,687" fill="var(--hero-gold)" opacity="0.70"/>
-  <!-- left: x=800-169=631 → centered at x=624 -->
-  <polygon points="616,450 624,442 632,450 624,458" fill="var(--hero-gold)" opacity="0.70"/>
-  <!-- right: x=800+169=969 → centered at x=976 -->
-  <polygon points="968,450 976,442 984,450 976,458" fill="var(--hero-gold)" opacity="0.70"/>
+  <!-- inner edge ring -->
+  <ellipse cx="800" cy="448" rx="185" ry="245"
+           fill="none" stroke="var(--hero-edge)" stroke-width="1.2" stroke-opacity="0.44"/>
+  <!-- outer bezel — the main structural ring of the antique frame -->
+  <ellipse cx="800" cy="448" rx="194" ry="255"
+           fill="none" stroke="var(--hero-stone)" stroke-width="4.2" stroke-opacity="0.84"/>
+  <!-- outermost thin gold ring -->
+  <ellipse cx="800" cy="448" rx="201" ry="263"
+           fill="none" stroke="var(--hero-gold)" stroke-width="1.2" stroke-opacity="0.54"/>
+
+  <!-- BAROQUE ORNAMENT — top (finial + acanthus scrolls) -->
+  <!-- finial: teardrop at apex -->
+  <ellipse cx="800" cy="172" rx="10" ry="15" fill="var(--hero-gold)" opacity="0.72"/>
+  <circle cx="800" cy="185" r="4" fill="var(--hero-gold)" opacity="0.55"/>
+  <!-- left scroll arm -->
+  <path d="M 797,180 Q 770,196 746,220"
+        fill="none" stroke="var(--hero-gold)" stroke-width="2" stroke-opacity="0.52" stroke-linecap="round"/>
+  <!-- right scroll arm -->
+  <path d="M 803,180 Q 830,196 854,220"
+        fill="none" stroke="var(--hero-gold)" stroke-width="2" stroke-opacity="0.52" stroke-linecap="round"/>
+  <!-- left curl -->
+  <path d="M 746,220 Q 737,230 746,238 Q 754,244 761,236"
+        fill="none" stroke="var(--hero-gold)" stroke-width="1.2" stroke-opacity="0.38" stroke-linecap="round"/>
+  <!-- right curl -->
+  <path d="M 854,220 Q 863,230 854,238 Q 846,244 839,236"
+        fill="none" stroke="var(--hero-gold)" stroke-width="1.2" stroke-opacity="0.38" stroke-linecap="round"/>
+
+  <!-- BAROQUE ORNAMENT — bottom (simple ribbon bow) -->
+  <path d="M 764,700 Q 800,715 836,700"
+        fill="none" stroke="var(--hero-gold)" stroke-width="1.8" stroke-opacity="0.46" stroke-linecap="round"/>
+  <circle cx="800" cy="714" r="5"
+          fill="none" stroke="var(--hero-gold)" stroke-width="1" stroke-opacity="0.44"/>
+
+  <!-- side pip diamonds -->
+  <!-- left: x = 800 - 201 = 599 -->
+  <polygon points="591,448 600,440 609,448 600,456" fill="var(--hero-gold)" opacity="0.64"/>
+  <!-- right: x = 800 + 201 = 1001 -->
+  <polygon points="992,448 1001,440 1010,448 1001,456" fill="var(--hero-gold)" opacity="0.64"/>
 </svg>
