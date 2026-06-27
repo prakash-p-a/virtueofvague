@@ -5,64 +5,77 @@
       <stop offset="0%" stop-color="var(--hero-bg-1)"/>
       <stop offset="100%" stop-color="var(--hero-bg-3)"/>
     </radialGradient>
-    <radialGradient id="mirrorGlow" cx="50%" cy="48%" r="58%">
-      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.26"/>
+    <!-- mirror glow behind the oval -->
+    <radialGradient id="mirrorGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.22"/>
       <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="mirrorSurface" cx="42%" cy="38%" r="68%">
-      <stop offset="0%" stop-color="var(--hero-stone)" stop-opacity="0.20"/>
-      <stop offset="60%" stop-color="var(--hero-bg-2)" stop-opacity="0.24"/>
-      <stop offset="100%" stop-color="var(--hero-bg-3)" stop-opacity="0.50"/>
+    <!-- mirror surface: lighter and warmer than background so it reads as reflective -->
+    <radialGradient id="mirrorSurface" cx="38%" cy="32%" r="72%">
+      <stop offset="0%" stop-color="var(--hero-stone)" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="var(--hero-stone)" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="var(--hero-bg-2)" stop-opacity="0.08"/>
+    </radialGradient>
+    <!-- reflection hint: upper-left catch light in the glass -->
+    <radialGradient id="reflectHint" cx="34%" cy="28%" r="40%">
+      <stop offset="0%" stop-color="var(--hero-bright)" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="var(--hero-bright)" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="mirrorClip">
-      <ellipse cx="800" cy="438" rx="178" ry="248"/>
+      <ellipse cx="800" cy="450" rx="155" ry="215"/>
     </clipPath>
   </defs>
 
   <!-- background -->
   <rect width="1600" height="900" fill="url(#bg)"/>
 
-  <!-- ambient glow — mirror radiates something -->
-  <ellipse cx="800" cy="438" rx="390" ry="420" fill="url(#mirrorGlow)"/>
+  <!-- ambient glow — mirror on a wall has presence -->
+  <ellipse cx="800" cy="450" rx="340" ry="370" fill="url(#mirrorGlow)"/>
 
-  <!-- mirror shadow on the wall — grounds it -->
-  <ellipse cx="814" cy="698" rx="148" ry="16" fill="var(--hero-bg-3)" opacity="0.30"/>
+  <!-- mirror shadow below — grounds it -->
+  <ellipse cx="810" cy="676" rx="130" ry="14" fill="var(--hero-bg-3)" opacity="0.28"/>
 
-  <!-- clipped interior: surface + crack stay inside the oval -->
+  <!-- clipped interior -->
   <g clip-path="url(#mirrorClip)">
-    <!-- mirror surface — warm, subtle, not blank black -->
-    <ellipse cx="800" cy="438" rx="178" ry="248" fill="url(#mirrorSurface)"/>
+    <!-- mirror surface — lighter than the background, reads as glass -->
+    <ellipse cx="800" cy="450" rx="155" ry="215" fill="url(#mirrorSurface)"/>
+    <!-- reflection catch light — upper left, as if a window is behind the viewer -->
+    <ellipse cx="800" cy="450" rx="155" ry="215" fill="url(#reflectHint)"/>
 
-    <!-- crack: dark void (the fissure itself) -->
-    <path d="M 710,185 L 810,445 L 890,695"
-          fill="none" stroke="var(--hero-bg-3)" stroke-width="4" stroke-opacity="0.90"
+    <!-- main crack: thin dark fissure + bright glint — glass cracks catch light -->
+    <!-- shadow edge -->
+    <path d="M 720,240 L 808,452 L 880,660"
+          fill="none" stroke="var(--hero-bg-3)" stroke-width="2" stroke-opacity="0.72"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- glint: the bright edge where fractured glass faces the light -->
+    <path d="M 722,239 L 810,451 L 882,659"
+          fill="none" stroke="var(--hero-bright)" stroke-width="1" stroke-opacity="0.60"
           stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- crack: bright glint along right edge — where light catches the break -->
-    <path d="M 713,184 L 813,444 L 893,694"
-          fill="none" stroke="var(--hero-bright)" stroke-width="1.2" stroke-opacity="0.55"
-          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- micro-cracks from the stress point (~786,408) — this is what makes it read as a mirror -->
+    <line x1="786" y1="408" x2="810" y2="384" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.38" stroke-linecap="round"/>
+    <line x1="786" y1="408" x2="762" y2="386" stroke="var(--hero-bright)" stroke-width="0.9" stroke-opacity="0.32" stroke-linecap="round"/>
+    <line x1="786" y1="408" x2="758" y2="414" stroke="var(--hero-bright)" stroke-width="0.8" stroke-opacity="0.26" stroke-linecap="round"/>
+    <line x1="786" y1="408" x2="770" y2="432" stroke="var(--hero-bright)" stroke-width="0.7" stroke-opacity="0.22" stroke-linecap="round"/>
   </g>
 
   <!-- frame: inner subtle ring -->
-  <ellipse cx="800" cy="438" rx="178" ry="248"
-           fill="none" stroke="var(--hero-edge)" stroke-width="1.2" stroke-opacity="0.40"/>
-
-  <!-- frame: outer bezel — the main structural ring -->
-  <ellipse cx="800" cy="438" rx="186" ry="256"
+  <ellipse cx="800" cy="450" rx="155" ry="215"
+           fill="none" stroke="var(--hero-edge)" stroke-width="1.2" stroke-opacity="0.42"/>
+  <!-- frame: outer bezel -->
+  <ellipse cx="800" cy="450" rx="163" ry="223"
            fill="none" stroke="var(--hero-stone)" stroke-width="3.8" stroke-opacity="0.82"/>
+  <!-- frame: thin gold outer ring -->
+  <ellipse cx="800" cy="450" rx="169" ry="230"
+           fill="none" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.50"/>
 
-  <!-- frame: outermost thin gold ring -->
-  <ellipse cx="800" cy="438" rx="192" ry="263"
-           fill="none" stroke="var(--hero-gold)" stroke-width="1.1" stroke-opacity="0.48"/>
-
-  <!-- frame pip diamonds at cardinal points — baroque register, 1647 -->
-  <!-- top: centered at (800, 175) -->
-  <polygon points="800,167 808,175 800,183 792,175" fill="var(--hero-gold)" opacity="0.68"/>
-  <!-- bottom: centered at (800, 701) -->
-  <polygon points="800,693 808,701 800,709 792,701" fill="var(--hero-gold)" opacity="0.68"/>
-  <!-- left: centered at (608, 438) -->
-  <polygon points="600,438 608,430 616,438 608,446" fill="var(--hero-gold)" opacity="0.68"/>
-  <!-- right: centered at (992, 438) -->
-  <polygon points="984,438 992,430 1000,438 992,446" fill="var(--hero-gold)" opacity="0.68"/>
+  <!-- pip diamonds at cardinal points of the frame -->
+  <!-- top: (800, 450-230=220) → centered at y=213 -->
+  <polygon points="800,205 808,213 800,221 792,213" fill="var(--hero-gold)" opacity="0.70"/>
+  <!-- bottom: y=450+230=680 → centered at y=687 -->
+  <polygon points="800,679 808,687 800,695 792,687" fill="var(--hero-gold)" opacity="0.70"/>
+  <!-- left: x=800-169=631 → centered at x=624 -->
+  <polygon points="616,450 624,442 632,450 624,458" fill="var(--hero-gold)" opacity="0.70"/>
+  <!-- right: x=800+169=969 → centered at x=976 -->
+  <polygon points="968,450 976,442 984,450 976,458" fill="var(--hero-gold)" opacity="0.70"/>
 </svg>
