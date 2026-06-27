@@ -10,7 +10,7 @@ pullquote = "bigger margin = more confident separation. the kernel trick makes r
 description = "When malicious and benign overlap, SVMs find the widest possible margin to separate them. Inside the kernel trick that makes real-world classification work."
 +++
 
-*AI Series #4 — still figuring out AI, one post at a time*
+{{< ai-series-header n="4" >}}
 
 # drawing the line — how machines separate threats from noise
 

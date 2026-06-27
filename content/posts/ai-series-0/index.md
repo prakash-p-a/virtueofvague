@@ -10,7 +10,7 @@ pullquote = "your tools are already AI. your alerts are already ML. time to unde
 description = "A SOC analyst's honest account of why understanding AI matters — your tools already use it, attackers already exploit it, and rare skills pay differently."
 +++
 
-*AI Series #0 — still figuring out AI, one post at a time*
+{{< ai-series-header n="0" >}}
 
 # why a soc analyst is learning AI (and why you should too)
 

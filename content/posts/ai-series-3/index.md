@@ -10,7 +10,7 @@ pullquote = "you've been running a decision tree in your head every shift. the a
 description = "Your escalation playbook is literally a decision tree. Here's how machines do the same thing — and why naive bayes still powers your phishing filter."
 +++
 
-*AI Series #3 — still figuring out AI, one post at a time*
+{{< ai-series-header n="3" >}}
 
 # your SOC playbook is literally a decision tree
 

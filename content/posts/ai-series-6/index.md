@@ -10,7 +10,7 @@ pullquote = "alert fatigue isn't just a volume problem. it's a model calibration
 description = "Your SIEM knows what normal looks like. Isolation forest, LOF, one-class SVM — the three algorithms behind modern behavioural threat detection."
 +++
 
-*AI Series #6 — still figuring out AI, one post at a time*
+{{< ai-series-header n="6" >}}
 
 # this is literally what your SIEM does — now let's understand it
 

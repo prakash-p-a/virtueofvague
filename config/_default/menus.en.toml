@@ -47,10 +47,11 @@
   [main.params]
     icon = "book-open"
 
-  [[main]]
+[[main]]
   name = "AI Series"
   url = "/tags/AIFundamentals/"
-  weight = 40
+  parent = "Posts"
+  weight = 33
 
 # -- Footer Menu --
 [[footer]]

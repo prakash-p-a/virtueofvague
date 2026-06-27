@@ -10,7 +10,7 @@ pullquote = "every AI generated image you've seen started as pure noise."
 description = "Diffusion models start from pure noise and reverse-engineer reality. The engine behind deepfakes, synthetic media, and AI-generated phishing assets."
 +++
 
-*AI Series #11 — still figuring out AI, one post at a time*
+{{< ai-series-header n="11" >}}
 
 # from noise to meaning — the quiet revolution in AI
 

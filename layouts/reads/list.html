@@ -84,6 +84,10 @@ html:not(.dark) .cell { background: rgba(0,0,0,0.06); }
 .cell[data-count="2"] { background: rgba(232,199,119,0.50); }
 .cell[data-count="3"] { background: rgba(232,199,119,0.70); }
 .cell[data-count="4plus"] { background: rgba(232,199,119,0.95); }
+html:not(.dark) .cell[data-count="1"]    { background: rgba(175,120,20,0.40); }
+html:not(.dark) .cell[data-count="2"]    { background: rgba(175,120,20,0.60); }
+html:not(.dark) .cell[data-count="3"]    { background: rgba(175,120,20,0.82); }
+html:not(.dark) .cell[data-count="4plus"]{ background: rgba(155,100,5,1.00);  }
 .cell.has-reads { cursor: pointer; }
 .cell.has-reads:hover,
 .cell.has-reads:focus-visible { outline-color: #e8c777; }
@@ -119,6 +123,16 @@ html:not(.dark) .heatmap-legend { color: rgba(0,0,0,0.55); }
   width: 12px; height: 12px; border-radius: 2px;
   display: inline-block;
 }
+.swatch-0  { background: rgba(255,255,255,0.06); }
+.swatch-1  { background: rgba(232,199,119,0.30); }
+.swatch-2  { background: rgba(232,199,119,0.50); }
+.swatch-3  { background: rgba(232,199,119,0.70); }
+.swatch-4  { background: rgba(232,199,119,0.95); }
+html:not(.dark) .swatch-0  { background: rgba(0,0,0,0.06); }
+html:not(.dark) .swatch-1  { background: rgba(175,120,20,0.40); }
+html:not(.dark) .swatch-2  { background: rgba(175,120,20,0.60); }
+html:not(.dark) .swatch-3  { background: rgba(175,120,20,0.82); }
+html:not(.dark) .swatch-4  { background: rgba(155,100,5,1.00);  }
 
 /* responsive: show 91-day view on mobile, full year on desktop */
 @media (min-width: 641px) { .heatmap-wrap-sm { display: none; } }
@@ -277,11 +291,11 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
 
     <div class="heatmap-legend">
       <span>quieter</span>
-      <span class="swatch" style="background:rgba(255,255,255,0.06)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.30)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.50)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.70)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.95)"></span>
+      <span class="swatch swatch-0"></span>
+      <span class="swatch swatch-1"></span>
+      <span class="swatch swatch-2"></span>
+      <span class="swatch swatch-3"></span>
+      <span class="swatch swatch-4"></span>
       <span>louder</span>
     </div>
   </div>
@@ -321,11 +335,11 @@ html:not(.dark) .recent-list li { border-bottom-color: rgba(0,0,0,0.1); }
     </div>
     <div class="heatmap-legend">
       <span>quieter</span>
-      <span class="swatch" style="background:rgba(255,255,255,0.06)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.30)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.50)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.70)"></span>
-      <span class="swatch" style="background:rgba(232,199,119,0.95)"></span>
+      <span class="swatch swatch-0"></span>
+      <span class="swatch swatch-1"></span>
+      <span class="swatch swatch-2"></span>
+      <span class="swatch swatch-3"></span>
+      <span class="swatch swatch-4"></span>
       <span>louder</span>
     </div>
   </div>

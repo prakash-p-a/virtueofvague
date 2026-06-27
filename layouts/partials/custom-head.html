@@ -444,6 +444,75 @@
         #appearance-switcher-mobile::after { transition: none; }
     }
 
+    /* ─────────────────────────────────────────────
+       AIFundamentals series tag — warm amber pill
+       visually separates the AI series from generic MindSecSet posts */
+    a[href$="/tags/AIFundamentals/"] span span {
+        border-color: #d97706 !important;
+        color: #78350f !important;
+        background: rgba(254, 243, 199, 0.55);
+        transition: background 0.2s, border-color 0.2s;
+    }
+    a[href$="/tags/AIFundamentals/"]:hover span span {
+        background: rgba(254, 243, 199, 0.85);
+    }
+    html.dark a[href$="/tags/AIFundamentals/"] span span {
+        border-color: rgba(245, 158, 11, 0.6) !important;
+        color: #fcd34d !important;
+        background: rgba(120, 53, 15, 0.25);
+    }
+    html.dark a[href$="/tags/AIFundamentals/"]:hover span span {
+        background: rgba(120, 53, 15, 0.42);
+    }
+
+    /* ─────────────────────────────────────────────
+       AI Series in-post header banner */
+    .ai-series-banner {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.3rem 0.8rem;
+        margin-bottom: 1.5rem;
+        border-radius: 6px;
+        border: 1px solid #d97706;
+        background: rgba(254, 243, 199, 0.45);
+        font-size: 0.8rem;
+        line-height: 1;
+    }
+    .ai-series-label {
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: #92400e;
+    }
+    .ai-series-sep {
+        color: #b45309;
+        opacity: 0.5;
+    }
+    .ai-series-num {
+        color: #78350f;
+    }
+    .ai-series-link {
+        margin-left: 0.3rem;
+        color: #b45309;
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(180, 83, 9, 0.35);
+        padding-bottom: 1px;
+        transition: border-color 0.15s;
+    }
+    .ai-series-link:hover { border-color: #b45309; }
+
+    html.dark .ai-series-banner {
+        border-color: rgba(245, 158, 11, 0.45);
+        background: rgba(120, 53, 15, 0.18);
+    }
+    html.dark .ai-series-label { color: #fcd34d; }
+    html.dark .ai-series-sep   { color: #fbbf24; }
+    html.dark .ai-series-num   { color: #fde68a; }
+    html.dark .ai-series-link  {
+        color: #fbbf24;
+        border-bottom-color: rgba(251, 191, 36, 0.3);
+    }
+    html.dark .ai-series-link:hover { border-color: #fbbf24; }
 
 </style>
 

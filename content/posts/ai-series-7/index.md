@@ -10,7 +10,7 @@ pullquote = "no labelled data. no predefined rules. just feedback from experienc
 description = "Reinforcement learning is the technology behind adaptive SOAR — an agent that learns which actions lead to faster resolution through trial and error."
 +++
 
-*AI Series #7 — still figuring out AI, one post at a time*
+{{< ai-series-header n="7" >}}
 
 # learn by doing — how AI figures things out the hard way
 

@@ -10,7 +10,7 @@ pullquote = "the same technology. opposite directions. attackers and defenders b
 description = "Tokenisation, transformers, self-attention — inside the architecture that powers LLMs. Attackers are using it for phishing at scale. Defenders are using it too."
 +++
 
-*AI Series #10 — still figuring out AI, one post at a time*
+{{< ai-series-header n="10" >}}
 
 # the AI everyone is talking about — how does it actually work
 

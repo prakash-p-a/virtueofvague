@@ -10,7 +10,7 @@ pullquote = "CNNs for grids. RNNs for sequences. wrong tool, wrong result."
 description = "CNNs see spatial patterns in malware binaries. RNNs and LSTMs track behavioural sequences across user sessions. Two deep learning tools, two different problems."
 +++
 
-*AI Series #9 — still figuring out AI, one post at a time*
+{{< ai-series-header n="9" >}}
 
 # how AI sees images and reads sequences — two tools, one post
 

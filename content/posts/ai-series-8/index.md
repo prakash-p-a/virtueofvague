@@ -10,7 +10,7 @@ pullquote = "it's not rules. it's weighted connections adjusted through millions
 description = "Perceptrons, layers, backpropagation — the architecture behind every 'AI-powered' detection engine. Understanding this changes the question you ask vendors."
 +++
 
-*AI Series #8 — still figuring out AI, one post at a time*
+{{< ai-series-header n="8" >}}
 
 # the brain analogy everyone uses — here's what it actually means
 

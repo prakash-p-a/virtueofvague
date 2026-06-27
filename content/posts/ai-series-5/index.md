@@ -10,7 +10,7 @@ pullquote = "you can't train a model on what you don't know exists. unsupervised
 description = "Zero days don't come with labels. Unsupervised learning — clustering, PCA, anomaly detection — finds patterns without being told what to look for."
 +++
 
-*AI Series #5 — still figuring out AI, one post at a time*
+{{< ai-series-header n="5" >}}
 
 # no labels, no problem — finding patterns in the chaos
 

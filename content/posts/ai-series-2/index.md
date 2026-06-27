@@ -10,7 +10,7 @@ pullquote = "you've been creating labelled training data every single day. you j
 description = "Every malware sample you label, every alert you triage — you've been creating training data. Here's the supervised learning behind the tools you already use."
 +++
 
-*AI Series #2 — still figuring out AI, one post at a time*
+{{< ai-series-header n="2" >}}
 
 # teaching machines with examples — like training a junior analyst
 

@@ -10,7 +10,7 @@ pullquote = "AI contains ML. ML contains deep learning. next time a vendor says 
 description = "Three terms, endless confusion, one fix: AI is the umbrella, ML is the method, deep learning is the depth. Know the difference before the next vendor pitch."
 +++
 
-*AI Series #1 — still figuring out AI, one post at a time*
+{{< ai-series-header n="1" >}}
 
 # AI, ML, deep learning — same thing? not quite
 
