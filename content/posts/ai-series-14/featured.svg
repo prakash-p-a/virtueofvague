@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="var(--hero-bg-1)"/>
+
+  <!-- Subtle grid -->
+  <line x1="0" y1="300" x2="1600" y2="300" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+  <line x1="0" y1="600" x2="1600" y2="600" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Three pillars — P, S, A -->
+  <!-- P: Projects -->
+  <rect x="300" y="350" width="240" height="350" fill="var(--hero-stone)" opacity="0.1"/>
+  <rect x="300" y="350" width="240" height="350" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="420" cy="310" r="28" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- S: Skills -->
+  <rect x="680" y="280" width="240" height="420" fill="var(--hero-stone)" opacity="0.12"/>
+  <rect x="680" y="280" width="240" height="420" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="800" cy="240" r="28" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.45"/>
+
+  <!-- A: Artifacts (gold) -->
+  <rect x="1060" y="200" width="240" height="500" fill="var(--hero-gold)" opacity="0.08"/>
+  <rect x="1060" y="200" width="240" height="500" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="1180" cy="160" r="28" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.55"/>
+
+  <!-- Series number -->
+  <text x="1530" y="75" text-anchor="end" font-family="Georgia,serif" font-size="52" fill="var(--hero-stone)" opacity="0.25">#14</text>
+</svg>

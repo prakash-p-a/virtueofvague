@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="var(--hero-bg-1)"/>
+
+  <!-- Subtle horizontal texture -->
+  <line x1="0" y1="225" x2="1600" y2="225" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+  <line x1="0" y1="450" x2="1600" y2="450" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+  <line x1="0" y1="675" x2="1600" y2="675" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Prompt lines: stacked bars of decreasing width, centred -->
+  <line x1="240" y1="340" x2="1360" y2="340" stroke="var(--hero-stone)" stroke-width="2.5" opacity="0.35"/>
+  <line x1="320" y1="400" x2="1280" y2="400" stroke="var(--hero-stone)" stroke-width="2.5" opacity="0.28"/>
+  <line x1="420" y1="460" x2="1180" y2="460" stroke="var(--hero-stone)" stroke-width="2.5" opacity="0.22"/>
+
+  <!-- Gold accent line — the "result" -->
+  <line x1="540" y1="540" x2="1060" y2="540" stroke="var(--hero-gold)" stroke-width="3" opacity="0.55"/>
+  <circle cx="540" cy="540" r="5" fill="var(--hero-gold)" opacity="0.6"/>
+  <circle cx="1060" cy="540" r="5" fill="var(--hero-gold)" opacity="0.6"/>
+
+  <!-- Series number -->
+  <text x="1530" y="75" text-anchor="end" font-family="Georgia,serif" font-size="52" fill="var(--hero-stone)" opacity="0.25">#13</text>
+</svg>

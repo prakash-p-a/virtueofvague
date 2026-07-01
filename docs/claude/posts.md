@@ -34,6 +34,8 @@ Concept diagrams live in `layouts/shortcodes/` and are invoked with `{{< shortco
 - `eyes-filter.html` — radial "same sea, different filters" diagram
 - `negative-fork.html` — Y-fork: negative thinking vs. overthinking
 - `tool-pillars.html` — 3 pillars converging to PURPOSE
+- `ai-series-header.html` — "AI Series · post N of 12 · series index →" banner; usage: `{{< ai-series-header n="1" >}}`
+- `ai-s0.html` through `ai-s11.html` — per-post concept diagrams for the MindSecSet AI Fundamentals 12-post series (one shortcode per post, matching the post slug number)
 
 Palette (all inline styles, no `<style>` block — avoids Blowfish CSS leakage):
 `#0a0a0a` bg · `#e8e4dc` bright text · `#a89880` labels · `#c8c0b4` body · `#6a5f52` muted · `#3a3630` connectors · `#c8a56a` gold accent · `#111009` slight lift · `#2a2622` hairline dividers
