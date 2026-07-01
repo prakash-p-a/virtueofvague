@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="a compass with a gold needle pointing north, instrument of readiness without a destination">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="var(--hero-bg-1)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
+    </radialGradient>
+    <radialGradient id="compassGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="faceGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="var(--hero-bg-2)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <circle cx="800" cy="450" r="350" fill="url(#compassGlow)"/>
+
+  <!-- outer bezel -->
+  <circle cx="800" cy="450" r="290" fill="none" stroke="var(--hero-stone)" stroke-width="3" stroke-opacity="0.5"/>
+  <circle cx="800" cy="450" r="282" fill="none" stroke="var(--hero-edge)" stroke-width="1" stroke-opacity="0.35"/>
+
+  <!-- compass face -->
+  <circle cx="800" cy="450" r="270" fill="url(#faceGrad)" fill-opacity="0.6"/>
+  <circle cx="800" cy="450" r="270" fill="none" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+
+  <!-- inner ring -->
+  <circle cx="800" cy="450" r="250" fill="none" stroke="var(--hero-edge)" stroke-width="0.8" stroke-opacity="0.3"/>
+
+  <!-- cardinal crosshairs -->
+  <line x1="800" y1="195" x2="800" y2="705" stroke="var(--hero-edge)" stroke-opacity="0.16" stroke-width="0.9"/>
+  <line x1="536" y1="450" x2="1064" y2="450" stroke="var(--hero-edge)" stroke-opacity="0.16" stroke-width="0.9"/>
+
+  <!-- intercardinal crosshairs -->
+  <line x1="609" y1="259" x2="991" y2="641" stroke="var(--hero-edge)" stroke-opacity="0.09" stroke-width="0.7"/>
+  <line x1="991" y1="259" x2="609" y2="641" stroke="var(--hero-edge)" stroke-opacity="0.09" stroke-width="0.7"/>
+
+  <!-- N tick (gold, prominent) -->
+  <line x1="800" y1="180" x2="800" y2="212" stroke="var(--hero-gold)" stroke-width="3" stroke-opacity="0.88"/>
+  <!-- S tick -->
+  <line x1="800" y1="720" x2="800" y2="690" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- E tick -->
+  <line x1="1070" y1="450" x2="1048" y2="450" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- W tick -->
+  <line x1="530" y1="450" x2="552" y2="450" stroke="var(--hero-mute)" stroke-width="2" stroke-opacity="0.48"/>
+  <!-- NE tick -->
+  <line x1="991" y1="259" x2="978" y2="272" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- SE tick -->
+  <line x1="991" y1="641" x2="978" y2="628" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- SW tick -->
+  <line x1="609" y1="641" x2="622" y2="628" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+  <!-- NW tick -->
+  <line x1="609" y1="259" x2="622" y2="272" stroke="var(--hero-mute)" stroke-width="1.5" stroke-opacity="0.38"/>
+
+  <!-- north indicator pip -->
+  <polygon points="800,162 809,180 791,180" fill="var(--hero-gold)" opacity="0.85"/>
+
+  <!-- needle: gold north half -->
+  <polygon points="800,225 816,450 784,450" fill="var(--hero-gold)" opacity="0.90"/>
+  <!-- needle: muted south half -->
+  <polygon points="800,675 816,450 784,450" fill="var(--hero-stone)" opacity="0.55"/>
+
+  <!-- center jewel -->
+  <circle cx="800" cy="450" r="16" fill="var(--hero-bg-3)"/>
+  <circle cx="800" cy="450" r="16" fill="none" stroke="var(--hero-gold)" stroke-width="2.2"/>
+  <circle cx="800" cy="450" r="6" fill="var(--hero-gold)" opacity="0.72"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="900" fill="var(--hero-bg-1)"/>
+
+  <!-- Background grid texture -->
+  <line x1="0" y1="300" x2="1600" y2="300" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+  <line x1="0" y1="600" x2="1600" y2="600" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.15"/>
+  <line x1="400" y1="0" x2="400" y2="900" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.1"/>
+  <line x1="800" y1="0" x2="800" y2="900" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.1"/>
+  <line x1="1200" y1="0" x2="1200" y2="900" stroke="var(--hero-edge)" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- Node grid — many access points -->
+  <!-- Row 1 -->
+  <circle cx="350" cy="280" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="620" cy="280" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="890" cy="280" r="22" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="1160" cy="280" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Row 2 -->
+  <circle cx="350" cy="450" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="620" cy="450" r="22" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="890" cy="450" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="1160" cy="450" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Row 3 -->
+  <circle cx="350" cy="620" r="22" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="620" cy="620" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="890" cy="620" r="22" fill="none" stroke="var(--hero-stone)" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="1160" cy="620" r="22" fill="none" stroke="var(--hero-gold)" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Connecting lines between gold nodes -->
+  <line x1="890" y1="280" x2="620" y2="450" stroke="var(--hero-gold)" stroke-width="1" opacity="0.25" stroke-dasharray="4,6"/>
+  <line x1="620" y1="450" x2="350" y2="620" stroke="var(--hero-gold)" stroke-width="1" opacity="0.25" stroke-dasharray="4,6"/>
+  <line x1="350" y1="620" x2="1160" y2="620" stroke="var(--hero-gold)" stroke-width="1" opacity="0.2" stroke-dasharray="4,6"/>
+
+  <!-- Series number -->
+  <text x="1530" y="75" text-anchor="end" font-family="Georgia,serif" font-size="52" fill="var(--hero-stone)" opacity="0.25">#17</text>
+</svg>

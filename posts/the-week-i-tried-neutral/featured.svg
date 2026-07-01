@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+     role="img" aria-label="a perfectly balanced scale on a dark surface, both empty pans at equal height">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="85%">
+      <stop offset="0%" stop-color="var(--hero-bg-1)"/>
+      <stop offset="100%" stop-color="var(--hero-bg-3)"/>
+    </radialGradient>
+    <radialGradient id="pivotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--hero-gold)" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="var(--hero-gold)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- table surface -->
+  <line x1="0" y1="740" x2="1600" y2="740" stroke="var(--hero-edge)" stroke-opacity="0.35" stroke-width="1"/>
+
+  <!-- base shadow -->
+  <ellipse cx="800" cy="748" rx="95" ry="10" fill="var(--hero-bg-3)" opacity="0.55"/>
+
+  <!-- base foot -->
+  <rect x="730" y="722" width="140" height="16" rx="4" fill="var(--hero-stone)" opacity="0.75"/>
+  <rect x="698" y="734" width="204" height="8" rx="3" fill="var(--hero-stone-warm)" opacity="0.48"/>
+
+  <!-- vertical pillar -->
+  <rect x="797" y="338" width="6" height="386" fill="var(--hero-stone)" opacity="0.78"/>
+
+  <!-- pivot glow -->
+  <circle cx="800" cy="320" r="44" fill="url(#pivotGlow)"/>
+
+  <!-- horizontal beam -->
+  <line x1="488" y1="320" x2="1112" y2="320" stroke="var(--hero-paper)" stroke-width="5" stroke-opacity="0.72"/>
+  <line x1="488" y1="317" x2="1112" y2="317" stroke="var(--hero-bright)" stroke-width="1" stroke-opacity="0.22"/>
+
+  <!-- beam arm end caps -->
+  <circle cx="488" cy="320" r="6" fill="var(--hero-mute)" opacity="0.65"/>
+  <circle cx="1112" cy="320" r="6" fill="var(--hero-mute)" opacity="0.65"/>
+
+  <!-- pivot fulcrum (gold) -->
+  <circle cx="800" cy="320" r="18" fill="var(--hero-bg-1)"/>
+  <circle cx="800" cy="320" r="18" fill="none" stroke="var(--hero-gold)" stroke-width="2.5"/>
+  <circle cx="800" cy="320" r="7" fill="var(--hero-gold)" opacity="0.78"/>
+
+  <!-- left chain -->
+  <line x1="488" y1="328" x2="488" y2="528" stroke="var(--hero-mute)" stroke-width="1.8" stroke-opacity="0.58" stroke-dasharray="5 8"/>
+  <!-- right chain -->
+  <line x1="1112" y1="328" x2="1112" y2="528" stroke="var(--hero-mute)" stroke-width="1.8" stroke-opacity="0.58" stroke-dasharray="5 8"/>
+
+  <!-- left pan -->
+  <ellipse cx="488" cy="548" rx="110" ry="21" fill="var(--hero-stone-warm)" opacity="0.62"/>
+  <ellipse cx="488" cy="548" rx="110" ry="21" fill="none" stroke="var(--hero-paper)" stroke-width="1.5" stroke-opacity="0.48"/>
+  <ellipse cx="488" cy="544" rx="96" ry="13" fill="var(--hero-bg-3)" opacity="0.48"/>
+
+  <!-- right pan -->
+  <ellipse cx="1112" cy="548" rx="110" ry="21" fill="var(--hero-stone-warm)" opacity="0.62"/>
+  <ellipse cx="1112" cy="548" rx="110" ry="21" fill="none" stroke="var(--hero-paper)" stroke-width="1.5" stroke-opacity="0.48"/>
+  <ellipse cx="1112" cy="544" rx="96" ry="13" fill="var(--hero-bg-3)" opacity="0.48"/>
+</svg>
