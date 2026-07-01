@@ -30,9 +30,4 @@ twelve posts. one concept per post. short reads. built for people who work on to
 | 9 | [how AI sees images and reads sequences — two tools, one post](/posts/ai-series-9/) |
 | 10 | [the AI everyone is talking about — how does it actually work](/posts/ai-series-10/) |
 | 11 | [from noise to meaning — the quiet revolution in AI](/posts/ai-series-11/) |
-| 12 | [from open to actually useful — a SOC analyst's guide to Claude](/posts/ai-series-12/) |
-| 13 | [how to actually talk to Claude — and get something useful back](/posts/ai-series-13/) |
-| 14 | [stop starting from scratch — organising your work in Claude](/posts/ai-series-14/) |
-| 15 | [Claude meets your tools — connectors and enterprise search](/posts/ai-series-15/) |
-| 16 | [Research mode — when Claude stops answering and starts investigating](/posts/ai-series-16/) |
-| 17 | [Claude everywhere — desktop, code, slack, excel, chrome](/posts/ai-series-17/) |
+| 12–17 | [Claude 101 — a SOC analyst's guide to using Claude →](/posts/ai-series-12/) |
