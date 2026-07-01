@@ -30,4 +30,11 @@ twelve posts. one concept per post. short reads. built for people who work on to
 | 9 | [how AI sees images and reads sequences — two tools, one post](/posts/ai-series-9/) |
 | 10 | [the AI everyone is talking about — how does it actually work](/posts/ai-series-10/) |
 | 11 | [from noise to meaning — the quiet revolution in AI](/posts/ai-series-11/) |
-| 12–17 | [Claude 101 — a SOC analyst's guide to using Claude →](/posts/ai-series-12/) |
+
+---
+
+## Claude 101
+
+six posts on actually using Claude — prompting, Projects, connectors, Research mode, and more. built on Anthropic's Claude 101 course, filtered through a SOC analyst's lens.
+
+[read the Claude 101 series →](/posts/ai-series-12/)
