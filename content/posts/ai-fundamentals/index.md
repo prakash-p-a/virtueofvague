@@ -37,4 +37,11 @@ twelve posts. one concept per post. short reads. built for people who work on to
 
 six posts on actually using Claude — prompting, Projects, connectors, Research mode, and more. built on Anthropic's Claude 101 course, filtered through a SOC analyst's lens.
 
-[read the Claude 101 series →](/posts/ai-series-12/)
+| # | post |
+|---|------|
+| 12 | [from open to actually useful — a SOC analyst's guide to Claude](/posts/ai-series-12/) |
+| 13 | [how to actually talk to Claude — and get something useful back](/posts/ai-series-13/) |
+| 14 | [stop starting from scratch — organising your work in Claude](/posts/ai-series-14/) |
+| 15 | [Claude meets your tools — connectors and enterprise search](/posts/ai-series-15/) |
+| 16 | [Research mode — when Claude stops answering and starts investigating](/posts/ai-series-16/) |
+| 17 | [Claude everywhere — desktop, code, slack, excel, chrome](/posts/ai-series-17/) |
